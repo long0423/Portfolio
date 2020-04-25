@@ -83,7 +83,7 @@ hr { margin: 40px 0px; border-color: #727878; opacity: 0.2; filter:alpha(opacity
 #experiences .experience { margin-bottom: 20px; }
 #experiences .experience p > strong { display: block; padding-top: 8px; margin-bottom: 10px; }
 #experiences .experience .experience-details { display: block; margin-top: 6px; margin-bottom: 6px; }
-#experiences .experience .experience-details * { color: #22A39F; }
+.experience-details * { color: #22A39F; }
 #experiences .experience .experience-details .seperator { color: #BCBCBC; }
 
 #abilities ul > li { min-height: 30px; padding: 3px 0px; }
@@ -322,4 +322,214 @@ figure.effect:hover p {
 }
 .modal-xl-customize {
     max-width: 1500px;
+}
+
+.fade {
+  opacity: 1;
+}
+
+p {
+    font-size: 18px !important
+}
+
+h5 {
+    font-size: 17px !important
+}
+
+/* toggle menu styles */
+#toggle {
+    display: block;
+    width: 28px;
+    height: 30px;
+    margin: 30px auto 10px;
+    position: fixed;
+    right: 60px;
+    top: 16px;
+    z-index: 2;
+}
+
+#toggle span:after,
+#toggle span:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -9px;
+}
+#toggle span:after{
+  top: 9px;
+}
+#toggle span {
+  position: relative;
+  display: block;
+}
+
+#toggle span,
+#toggle span:after,
+#toggle span:before {
+  width: 100%;
+  height: 4px;
+  background-color: #273436;
+  transition: all 0.3s;
+  backface-visibility: hidden;
+  border-radius: 2px;
+}
+
+/* on activation */
+#toggle.on span {
+  background-color: transparent;
+}
+#toggle.on span:before {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+#toggle.on span:after {
+  transform: rotate(-45deg) translate(7px, -8px);
+}
+#toggle.on + #menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* menu appearance*/
+#menu {
+    position: fixed;
+    color: #999;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    padding: 10px;
+    margin: auto;
+    font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+    text-align: center;
+    background: white;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+    /* just for this demo */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .4s;
+}
+#menu:after {
+  position: absolute;
+  top: -15px;
+  left: 95px;
+  content: "";
+  display: block;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 20px solid white;
+}
+ul, li, li a {
+  list-style: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+li a {
+    padding: 5px;
+    color: #888;
+    text-decoration: none;
+    transition: all .2s;
+    font-size: 2.2rem;
+    font-weight: lighter;
+    line-height: 1.25;
+}
+li a:hover,
+li a:focus {
+  color: #22A39F;
+  text-decoration: none;
+}
+
+/* back to top button*/
+#button {
+  display: inline-block;
+  background-color: transparent;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+#button::after {
+  content: "\f077";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 600;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #2a373a;
+}
+#button:hover {
+  cursor: pointer;
+}
+#button.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* background-video*/
+.background-video {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+figure {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+figure:hover {
+    box-shadow: 0rem 0.6rem 1.3rem 0rem rgba(0,0,0,0.2);
+}
+.hover01 figure img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.hover01 figure:hover img {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.post-title {
+    color: #343a40;
+    font-size: 1.3rem;
+    line-height: 1;
+    margin-top: 1rem;
+}
+.post-description {
+    color: #999999;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 2;
+}
+
+.figure-lg {
+    max-height: 508px;
+}
+.figure-sm {
+    height: 497px;
+}
+
+.logo {
+    position: fixed; 
+    width: 47px; 
+    height:52px; 
+    top: 22px; 
+    left: 60px;
 }
