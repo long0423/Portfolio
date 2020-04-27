@@ -586,7 +586,7 @@ figure:hover {
     height:510px;
     cursor: pointer;
     transition: background-image .5s ease-in-out;
-    background-image:url("../images/DS-Product-pages-2@2x.jpg");
+    background-image:url("../images/ds-front-page-hover.jpg");
     background-position: center;
     background-size: cover;
 }
