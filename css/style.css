@@ -541,7 +541,7 @@ figure:hover {
     height:510px;
     cursor: pointer;
     transition: background-image .5s ease-in-out;
-    background-image:url("../images/RTO_header_img4.jpg");
+    background-image:url("../images/AEA-front-page.jpg");
     background-position: center;
     background-size: cover;
 }
