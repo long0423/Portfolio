@@ -541,13 +541,13 @@ figure:hover {
     height:510px;
     cursor: pointer;
     transition: background-image .5s ease-in-out;
-    background-image:url("../images/main_img-1.jpg");
+    background-image:url("../images/AEA-front-page.jpg");
     background-position: center;
     background-size: cover;
 }
 
 #front-img-1:hover {
-    background-image:url("../images/AEA-front-page.jpg");
+    background-image:url("../images/main_img-1.jpg");
 }
 
 #front-img-2 {
@@ -556,13 +556,13 @@ figure:hover {
     height:510px;
     cursor: pointer;
     transition: background-image .5s ease-in-out;
-    background-image:url("../images/Scheduler-Home@2x.jpg");
+    background-image:url("../images/scheduler_header_img-1.jpg");
     background-position: center;
     background-size: cover;
 }
 
 #front-img-2:hover {
-    background-image:url("../images/scheduler_header_img-1.jpg");
+    background-image:url("../images/Scheduler-Home@2x.jpg");
 }
 
 #front-img-3 {
@@ -571,13 +571,13 @@ figure:hover {
     height:510px;
     cursor: pointer;
     transition: background-image .5s ease-in-out;
-    background-image:url("../images/PAR-Home-3@2x.jpg");
+    background-image:url("../images/Par-header.jpg");
     background-position: center;
     background-size: cover;
 }
 
 #front-img-3:hover {
-    background-image:url("../images/Par-header.jpg");
+    background-image:url("../images/PAR-Home-3@2x.jpg");
 }
 
 #front-img-4 {
@@ -586,13 +586,13 @@ figure:hover {
     height:510px;
     cursor: pointer;
     transition: background-image .5s ease-in-out;
-    background-image:url("../images/ds-front-page-hover.jpg");
+    background-image:url("../images/ds-front-page.jpg");
     background-position: center;
     background-size: cover;
 }
 
 #front-img-4:hover {
-    background-image:url("../images/ds-front-page.jpg");
+    background-image:url("../images/ds-front-page-hover.jpg");
 }
 
 #more-1 {
