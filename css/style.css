@@ -571,7 +571,7 @@ figure:hover {
     height:510px;
     cursor: pointer;
     transition: background-image .5s ease-in-out;
-    background-image:url("../images/Par-header.jpg");
+    background-image:url("../images/Par-header-front.jpg");
     background-position: center;
     background-size: cover;
 }
