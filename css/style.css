@@ -601,13 +601,13 @@ figure:hover {
     height:510px;
     cursor: pointer;
     transition: background-image .5s ease-in-out;
-    background-image:url("../images/more-1-1.jpg");
+    background-image:url("../images/more-1.jpg");
     background-position: center;
     background-size: cover;
 }
 
 #more-1:hover {
-    background-image:url("../images/more-1.jpg");
+    background-image:url("../images/more-1-1.jpg");
 }
 
 #more-2 {
