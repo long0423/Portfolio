@@ -595,7 +595,7 @@ figure:hover {
     background-image:url("../images/ds-front-page-hover.jpg");
 }
 
-#front-img-4 {
+#front-img-5 {
     margin:5rem auto;
     width:100%;
     height:510px;
@@ -606,7 +606,7 @@ figure:hover {
     background-size: cover;
 }
 
-#front-img-4:hover {
+#front-img-5:hover {
     background-image:url("../images/dashboard-front-page-hover.jpg");
 }
 
