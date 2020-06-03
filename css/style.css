@@ -669,3 +669,32 @@ figure:hover {
 #more-4:hover {
     background-image:url("../images/more-4-1.jpg");
 }
+
+.product-front {
+    transition: box-shadow .2s linear;
+}
+.product-front:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,.18);
+}
+
+.fontline {
+    position: relative;
+    overflow: hidden;
+}
+.fontline:before {
+    margin-left: -22%;
+    text-align: right;
+}
+.fontline:after {
+    margin-left: 2%;
+    text-align: left;
+}
+.fontline:before, .fontline:after {
+    position: absolute;
+    top: 51%;
+    overflow: hidden;
+    width: 20%;
+    height: 1px;
+    content: '\a0';
+    background-color: #e0e0e0;
+}
