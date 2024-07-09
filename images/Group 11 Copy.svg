@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="370px" height="461px" viewBox="0 0 370 461" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 11 Copy</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="370" height="461" rx="28"></rect>
+    </defs>
+    <g id="👋-Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DCB" transform="translate(-221, -7142)">
+            <g id="Group-29" transform="translate(221, 6765)">
+                <g id="Group-107" transform="translate(0, 48)">
+                    <g id="Group-11-Copy" transform="translate(0, 329)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Rectangle-Copy-3" fill="#F8F9FA" xlink:href="#path-1"></use>
+                        <text id="a" mask="url(#mask-2)" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="400" font-weight="400" line-spacing="400" letter-spacing="-6.66666667" fill="#E7E8E9">
+                            <tspan x="157" y="489">a</tspan>
+                        </text>
+                        <g id="Group-24" mask="url(#mask-2)" font-family="HelveticaNeue, Helvetica Neue" font-weight="normal">
+                            <g transform="translate(64, 55)">
+                                <text id="Aa" font-size="48" line-spacing="48" letter-spacing="-0.8">
+                                    <tspan x="0" y="46" fill="#252525">Aa</tspan>
+                                </text>
+                                <text id="Regular" font-size="20" line-spacing="24" letter-spacing="-0.4">
+                                    <tspan x="0" y="79" fill="#252525">Regular</tspan>
+                                </text>
+                            </g>
+                        </g>
+                        <g id="Group-24-Copy-2" mask="url(#mask-2)" font-family="HelveticaNeue-Medium, Helvetica Neue" font-weight="400">
+                            <g transform="translate(64, 187)">
+                                <text id="Aa" font-size="48" line-spacing="48" letter-spacing="-0.8">
+                                    <tspan x="0" y="47" fill="#252525">Aa</tspan>
+                                </text>
+                                <text id="Medium" font-size="20" line-spacing="24" letter-spacing="-0.4">
+                                    <tspan x="0" y="81" fill="#252525">Medium</tspan>
+                                </text>
+                            </g>
+                        </g>
+                        <g id="Group-24-Copy-3" mask="url(#mask-2)" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="bold">
+                            <g transform="translate(64, 320)">
+                                <text id="Aa" font-size="48" line-spacing="48" letter-spacing="-0.8">
+                                    <tspan x="0" y="47" fill="#252525">Aa</tspan>
+                                </text>
+                                <text id="Bold" font-size="20" line-spacing="24" letter-spacing="-0.4">
+                                    <tspan x="0" y="81" fill="#252525">Bold</tspan>
+                                </text>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
