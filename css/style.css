@@ -1,9 +1,8 @@
-html, body { color: #434242; font-family: 'Open Sans', sans-serif !important; height: 100%; }
-body { background: #F3EFE0; font-size: 15px; line-height: 1.64; }
+html, body { color: #434242; font-family: "Helvetica Neue", "Arial", "sans-serif" !important; height: 100%; }
+body { background: #F3F2F0; font-size: 16px;}
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, strong, b { font-family: 'Open Sans', sans-serif !important; margin-bottom: 20px; }
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, strong, b { font-family: "Helvetica Neue", "Arial", "sans-serif" !important; margin-bottom: 12px; }
 h1,h4 { font-weight: 700; margin-bottom: 10px; }
-h2,h3 { font-weight: 300; color: #22A39F; }
 h2 { font-size: 54px; text-align: center; }
 h3 { font-size: 28px; }
 
@@ -12,6 +11,29 @@ p.lead a { color: #FFFFFF; text-decoration: underline; }
 p.lead a:hover { text-decoration: none; }
 ul.no-bullets { list-style-type: none; margin: 0px; padding: 0px; }
 hr { margin: 40px 0px; border-color: #727878; opacity: 0.2; filter:alpha(opacity=20); }
+
+.card-text {
+    font-weight: lighter;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.2vw;
+    color: #252525;
+}
+.jumbotron-text {
+    font-weight: medium;
+    bottom: 20px;
+    left: 20px;
+    font-size: 48px;
+    color: #252525;
+    position: absolute;
+}
+
+.badge {
+    background-color: #d3e3fd !important;
+    padding: 10px !important;
+    text-transform: uppercase;
+}
 
 .project-referal { margin-top: 40px; }
 .project-referal p { font-style: italic; color: #999999; }
@@ -70,6 +92,11 @@ hr { margin: 40px 0px; border-color: #727878; opacity: 0.2; filter:alpha(opacity
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus { background: #22A39F; color: #FFFFFF; }
 .navbar-default .navbar-toggle:hover .icon-bar,
 .navbar-default .navbar-toggle:focus .icon-bar { background: #222222; }
+.nav .nav-item .nav-link {
+    font-family: "Helvetica";
+    font-size: 1rem !important;
+    font-weight: 300;
+}
 
 .fixed .navbar  { position: fixed; top: 60px; }
 
@@ -329,23 +356,27 @@ figure.effect:hover p {
 }
 
 p {
-    font-size: 18px !important
+    font-size: 16px !important
 }
 
 h5 {
-    font-size: 17px !important
+    font-size: 16px !important
 }
 
 /* toggle menu styles */
 #toggle {
-    display: block;
-    width: 28px;
-    height: 30px;
-    margin: 30px auto 10px;
+    display: flex;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    margin: 12px auto 12px;
     position: fixed;
-    right: 60px;
+    right: 48px;
     top: 16px;
     z-index: 2;
+    padding: 12px;
+    background-color: #ffffff;
+    border-radius: 50%;
 }
 
 #toggle span:after,
@@ -353,10 +384,10 @@ h5 {
   content: "";
   position: absolute;
   left: 0;
-  top: -9px;
+  top: -8px;
 }
 #toggle span:after{
-  top: 9px;
+  top: 8px;
 }
 #toggle span {
   position: relative;
@@ -367,11 +398,11 @@ h5 {
 #toggle span:after,
 #toggle span:before {
   width: 100%;
-  height: 4px;
+  height: 2px;
   background-color: #273436;
   transition: all 0.3s;
   backface-visibility: hidden;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 /* on activation */
@@ -379,7 +410,7 @@ h5 {
   background-color: transparent;
 }
 #toggle.on span:before {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(4px, 4px);
 }
 #toggle.on span:after {
   transform: rotate(-45deg) translate(7px, -8px);
@@ -398,7 +429,7 @@ h5 {
     z-index: 1;
     padding: 10px;
     margin: auto;
-    font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+    font-family: "Google Sans", "Roboto", "Arial", "sans-serif";
     text-align: center;
     background: white;
     box-shadow: 0 1px 8px rgba(0,0,0,0.05);
@@ -442,27 +473,28 @@ li a:focus {
 #button {
   display: inline-block;
   background-color: transparent;
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 50%;
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 32px;
+  right: 48px;
   transition: background-color .3s, 
     opacity .5s, visibility .5s;
   opacity: 0;
   visibility: hidden;
   z-index: 1000;
+  background-color: #ffffff;
 }
 #button::after {
-  content: "\f077";
+  content: "\f106";
   font-family: 'Font Awesome 5 Free';
   font-weight: 600;
   font-style: normal;
-  font-size: 2em;
-  line-height: 50px;
-  color: #2a373a;
+  font-size: 1.5em;
+  line-height: 48px;
+  color: #273436;
 }
 #button:hover {
   cursor: pointer;
@@ -527,11 +559,11 @@ figure:hover {
 }
 
 .logo {
-    position: fixed; 
-    width: 47px; 
-    height:52px; 
-    top: 22px; 
-    left: 60px;
+    position: relative;
+    width: 56px; 
+    height:56px; 
+    top: 24px; 
+    left: 48px;
 }
 
 
@@ -670,12 +702,12 @@ figure:hover {
     background-image:url("../images/more-4-1.jpg");
 }
 
-.product-front {
+/* .product-front {
     transition: box-shadow .2s linear;
 }
 .product-front:hover {
     box-shadow: 0 8px 16px rgba(0,0,0,.18);
-}
+} */
 
 .fontline {
     position: relative;
@@ -697,4 +729,92 @@ figure:hover {
     height: 1px;
     content: '\a0';
     background-color: #e0e0e0;
+}
+
+
+
+
+
+
+
+
+
+.big-header-section {
+    /* max-width: 1600px; */
+    padding: 4rem 2rem;
+    height: 100vh;    
+}
+
+.big-header {
+   display: flex;
+   justify-content: center;
+}
+
+.big-header-img {
+    max-width: 1440px;
+    width: 100%;
+    height: calc(100vh - 160px);
+}
+
+.front-body {
+    max-width: 1156px;
+    margin: 8rem auto;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #ffffff;
+    height: 54px;
+    width: 54px;
+    border-radius: 50%;
+}
+
+.carousel-control-next-icon {
+    background-image: url(/images/right_arrow.svg);
+}
+
+.carousel-control-prev-icon {
+    background-image: url(/images/left_arrow.svg);
+}
+
+.carousel-control-prev {
+    left: -136px !important
+}
+.carousel-control-next {
+    right: -136px !important
+}
+
+.contact-card {
+    background-color: #F8F9FA;
+    height: 266px;
+    border-radius: 28px;
+    justify-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-card h4 {
+    font-weight: 500;
+    margin-top: 12px;
+}
+
+.scroll::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.scroll::-webkit-scrollbar:horizontal {
+    height: 4px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #5f6061;
+}
+
+.scroll::-webkit-scrollbar-track {
+    background-color: #dadce0;
+    margin-right: 16rem;
+    margin-left: 16rem;
 }
