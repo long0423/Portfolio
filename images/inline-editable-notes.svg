@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="840px" height="242px" viewBox="0 0 840 242" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 89</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="260" height="230" rx="8"></rect>
+        <filter x="-4.2%" y="-3.0%" width="108.5%" height="109.6%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="4" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.819607843   0 0 0 0 0.819607843   0 0 0 0 0.819607843  0 0 0 1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.952941176   0 0 0 0 0.952941176   0 0 0 0 0.952941176  0 0 0 1 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-3" x="0" y="0" width="260" height="230" rx="8"></rect>
+        <filter x="-4.2%" y="-3.0%" width="108.5%" height="109.6%" filterUnits="objectBoundingBox" id="filter-4">
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="4" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.819607843   0 0 0 0 0.819607843   0 0 0 0 0.819607843  0 0 0 1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.952941176   0 0 0 0 0.952941176   0 0 0 0 0.952941176  0 0 0 1 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-5" x="0" y="0" width="114" height="100" rx="8"></rect>
+        <filter x="-9.6%" y="-7.0%" width="119.3%" height="122.0%" filterUnits="objectBoundingBox" id="filter-6">
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="4" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.819607843   0 0 0 0 0.819607843   0 0 0 0 0.819607843  0 0 0 1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.952941176   0 0 0 0 0.952941176   0 0 0 0 0.952941176  0 0 0 1 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-7" x="0" y="0" width="260" height="230" rx="8"></rect>
+        <filter x="-4.2%" y="-3.0%" width="108.5%" height="109.6%" filterUnits="objectBoundingBox" id="filter-8">
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="4" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.819607843   0 0 0 0 0.819607843   0 0 0 0 0.819607843  0 0 0 1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="0.5" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.952941176   0 0 0 0 0.952941176   0 0 0 0 0.952941176  0 0 0 1 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <rect id="path-9" x="16" y="60" width="228" height="154" rx="4"></rect>
+    </defs>
+    <g id="👋-Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="M&amp;A-Path" transform="translate(-577, -8763)">
+            <g id="Group-113" transform="translate(0, 8285)">
+                <g id="Group-53" transform="translate(80, 336)">
+                    <g id="Group-89" transform="translate(503, 144)">
+                        <g id="Group-45">
+                            <g id="Modal-Copy-8">
+                                <g id="Rectangle">
+                                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                                </g>
+                                <g id="Group-43" transform="translate(16, 16)">
+                                    <g id="Group-42">
+                                        <rect id="Rectangle" fill="#F3F3F3" x="0" y="0" width="40" height="40" rx="4"></rect>
+                                        <g id="Icon/Fill/lifeinsurance-fill" transform="translate(9, 8)" fill="#415385" fill-rule="nonzero">
+                                            <g id="Group">
+                                                <path d="M19.3727063,14.9235329 C18.8562191,14.9231635 18.3601468,15.1251784 17.9908542,15.486263 L14.4379959,13.4417879 C14.8294495,12.4514711 14.8018082,11.3446182 14.3614113,10.3750751 L17.9342482,8.33725948 C18.584922,9.0258055 19.6329159,9.15520387 20.4315276,8.64560471 C21.2301394,8.13600555 21.5542858,7.13103585 21.2039408,6.25084812 C20.8535959,5.3706604 19.9275017,4.86332947 18.9971379,5.04192204 C18.0667742,5.22051461 17.3943574,6.03469559 17.3948264,6.98204549 C17.3955352,7.13561464 17.4134048,7.28862354 17.4481026,7.43822317 L13.8319788,9.50600668 C13.1857731,8.70253661 12.2539865,8.17997253 11.231433,8.04757 L11.231433,3.89535416 C12.1923255,3.63877469 12.8140754,2.70956604 12.6846861,1.72345969 C12.5552967,0.737353347 11.7148731,0 10.7203142,0 C9.72575538,0 8.88533182,0.737353347 8.75594243,1.72345969 C8.62655304,2.70956604 9.248303,3.63877469 10.2091955,3.89535416 L10.2091955,8.04757 C9.18664202,8.17997253 8.25485538,8.70253661 7.60864968,9.50600668 L3.94590917,7.398266 C3.97950887,7.25644001 3.99627337,7.11114775 3.99585563,6.96539667 C4.00513855,6.00248065 3.32621697,5.1699587 2.38111945,4.98533984 C1.43602193,4.80072099 0.493709435,5.31654507 0.13993856,6.21216754 C-0.213832316,7.10779001 0.121616455,8.12832978 0.937764524,8.63940294 C1.75391259,9.1504761 2.81849613,9.00663867 3.4697529,8.29730231 L7.0692279,10.3684156 C6.84491681,10.879352 6.73143165,11.4320248 6.73625149,11.9900107 C6.73706785,12.4844612 6.82964929,12.9744654 7.00929214,13.4351283 L3.4231362,15.5029118 C2.75649638,14.8372714 1.71247112,14.7352754 0.929606425,15.2593066 C0.146741728,15.7833379 -0.156895786,16.7874276 0.204404449,17.6574552 C0.565704684,18.5274827 1.49130265,19.0211024 2.41508475,18.8364067 C3.33886685,18.6517111 4.003514,17.8401471 4.00251515,16.898083 C4.00310666,16.7258332 3.97956967,16.5543495 3.93259011,16.3886291 L7.49210794,14.3308349 C8.13670338,15.2192984 9.12019706,15.8014399 10.2091955,15.9391109 L10.2091955,20.1046458 C9.248303,20.3612253 8.62655304,21.290434 8.75594243,22.2765403 C8.88533182,23.2626467 9.72575538,24 10.7203142,24 C11.7148731,24 12.5552967,23.2626467 12.6846861,22.2765403 C12.8140754,21.290434 12.1923255,20.3612253 11.231433,20.1046458 L11.231433,15.9457705 C12.3205966,15.8037882 13.3032851,15.2197147 13.9485205,14.3308349 L17.4680812,16.3586612 C17.4200018,16.5321848 17.3953648,16.711363 17.3948264,16.8914235 C17.3921309,17.6936513 17.873485,18.4183244 18.6140044,18.7268821 C19.3545237,19.0354398 20.2080293,18.8669726 20.7757709,18.3001867 C21.3435125,17.7334009 21.5134177,16.8801804 21.2061081,16.1391422 C20.8987986,15.398104 20.1749375,14.9155296 19.3727063,14.9168734 L19.3727063,14.9235329 Z" id="Path"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <text id="5.-Operational-&amp;-Org" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                        <tspan x="52" y="16">5. Operational &amp; </tspan>
+                                        <tspan x="52" y="36">Organisational Model</tspan>
+                                    </text>
+                                </g>
+                                <text id="Creates-a-view-of-th" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="-0.2" fill="#474747">
+                                    <tspan x="16" y="81">Creates a view of the end-state </tspan>
+                                    <tspan x="16" y="101">operating model, priorities and </tspan>
+                                    <tspan x="16" y="121">phasing (Day 1, Day 100, 6 months, 1 </tspan>
+                                    <tspan x="16" y="141">year, 2 year view). This is supported </tspan>
+                                    <tspan x="16" y="161">by the integration hypotheses to </tspan>
+                                    <tspan x="16" y="181">influence and direct the focus.</tspan>
+                                </text>
+                            </g>
+                            <g id="Modal-Copy-9" transform="translate(568, 0)">
+                                <g id="Rectangle">
+                                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                                </g>
+                                <g id="Menu" transform="translate(208, 12)">
+                                    <rect id="Hover" fill="#F3F3F3" opacity="0" x="0" y="0" width="40" height="40" rx="4"></rect>
+                                    <text id="Icon" font-family="appkit-font" font-size="16" font-weight="normal" line-spacing="24" fill="#474747">
+                                        <tspan x="12" y="22"></tspan>
+                                    </text>
+                                </g>
+                                <g id="Group-43" transform="translate(24, 22)">
+                                    <g id="Group-44">
+                                        <g id="Group-42" transform="translate(0, 4)" fill="#C52A1A" fill-rule="nonzero">
+                                            <g id="Group" transform="translate(0.5, 0)">
+                                                <path d="M10.9227456,5.60978871 L7.2623751,0 L0.311840217,10.6826119 L0.0950529003,11.0161309 C0.032972162,11.1163024 0,11.231801 0,11.3496498 C0,11.634855 0.185870261,11.8867671 0.458363921,11.9709646 C0.730857581,12.0551621 1.02641588,11.9519978 1.18732746,11.7165207 L4.52251694,6.61201315 L10.3774421,6.61201315 C10.6169434,6.6206353 10.8400955,6.49089576 10.9510947,6.27849421 C11.0654974,6.06737688 11.0546059,5.81046596 10.9227456,5.60978871 Z" id="Path"></path>
+                                            </g>
+                                        </g>
+                                        <text id="High-risk" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="-0.2" fill="#474747">
+                                            <tspan x="20" y="13">High risk</tspan>
+                                        </text>
+                                        <g id="Utilities/Icon/24" transform="translate(90, 10) scale(1, -1) translate(-90, -10)translate(82, 2)" fill="#474747" font-family="appkit-font" font-size="12" font-weight="normal" line-spacing="16">
+                                            <text id="Icon">
+                                                <tspan x="2" y="10"></tspan>
+                                            </text>
+                                        </g>
+                                    </g>
+                                    <text id="RSK-1" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="-0.2" fill="#696969">
+                                        <tspan x="114" y="13">RSK-1</tspan>
+                                    </text>
+                                </g>
+                                <text id="Target-Company-funct" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="-0.2" fill="#474747">
+                                    <tspan x="24" y="81">Target Company functional </tspan>
+                                    <tspan x="24" y="101">operating model logic and small </tspan>
+                                    <tspan x="24" y="121">scale means quickly connecting </tspan>
+                                    <tspan x="24" y="141">ops areas to the more industrial </tspan>
+                                    <tspan x="24" y="161">scale processes within the </tspan>
+                                    <tspan x="24" y="181">Acquirer business may increase </tspan>
+                                    <tspan x="24" y="201">operational risks.</tspan>
+                                </text>
+                                <g id="Group-51" transform="translate(16, 46)">
+                                    <g id="Rectangle">
+                                        <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                                    </g>
+                                    <rect id="Rectangle" fill="#F3F3F3" x="4" y="4" width="106" height="28" rx="4"></rect>
+                                    <rect id="Rectangle-Copy-2" fill="#F3F3F3" opacity="0" x="4" y="36" width="106" height="28" rx="4"></rect>
+                                    <rect id="Rectangle-Copy-9" fill="#F3F3F3" opacity="0" x="4" y="68" width="106" height="28" rx="4"></rect>
+                                    <g id="Group-48" transform="translate(8, 8)">
+                                        <g id="Icon/Fill/lifeinsurance-fill" transform="translate(0.5, 4)" fill="#C52A1A" fill-rule="nonzero">
+                                            <g id="Group">
+                                                <path d="M10.9227456,5.60978871 L7.2623751,0 L0.311840217,10.6826119 L0.0950529003,11.0161309 C0.032972162,11.1163024 0,11.231801 0,11.3496498 C0,11.634855 0.185870261,11.8867671 0.458363921,11.9709646 C0.730857581,12.0551621 1.02641588,11.9519978 1.18732746,11.7165207 L4.52251694,6.61201315 L10.3774421,6.61201315 C10.6169434,6.6206353 10.8400955,6.49089576 10.9510947,6.27849421 C11.0654974,6.06737688 11.0546059,5.81046596 10.9227456,5.60978871 Z" id="Path"></path>
+                                            </g>
+                                        </g>
+                                        <text id="High-risk" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="-0.2" fill="#474747">
+                                            <tspan x="20" y="13">High risk</tspan>
+                                        </text>
+                                    </g>
+                                    <g id="Group-49" transform="translate(8, 40)">
+                                        <g id="Icon/Fill/lifeinsurance-fill" transform="translate(0.5, 4)" fill="#FFBF1F" fill-rule="nonzero">
+                                            <g id="Group">
+                                                <path d="M10.9227456,5.60978871 L7.2623751,0 L0.311840217,10.6826119 L0.0950529003,11.0161309 C0.032972162,11.1163024 0,11.231801 0,11.3496498 C0,11.634855 0.185870261,11.8867671 0.458363921,11.9709646 C0.730857581,12.0551621 1.02641588,11.9519978 1.18732746,11.7165207 L4.52251694,6.61201315 L10.3774421,6.61201315 C10.6169434,6.6206353 10.8400955,6.49089576 10.9510947,6.27849421 C11.0654974,6.06737688 11.0546059,5.81046596 10.9227456,5.60978871 Z" id="Path"></path>
+                                            </g>
+                                        </g>
+                                        <text id="Medium-risk" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="-0.2" fill="#474747">
+                                            <tspan x="20" y="13">Medium risk</tspan>
+                                        </text>
+                                    </g>
+                                    <g id="Group-50" transform="translate(8, 72)">
+                                        <g id="Icon/Fill/lifeinsurance-fill" transform="translate(0.5, 4)" fill="#21812D" fill-rule="nonzero">
+                                            <g id="Group">
+                                                <path d="M10.9227456,5.60978871 L7.2623751,0 L0.311840217,10.6826119 L0.0950529003,11.0161309 C0.032972162,11.1163024 0,11.231801 0,11.3496498 C0,11.634855 0.185870261,11.8867671 0.458363921,11.9709646 C0.730857581,12.0551621 1.02641588,11.9519978 1.18732746,11.7165207 L4.52251694,6.61201315 L10.3774421,6.61201315 C10.6169434,6.6206353 10.8400955,6.49089576 10.9510947,6.27849421 C11.0654974,6.06737688 11.0546059,5.81046596 10.9227456,5.60978871 Z" id="Path"></path>
+                                            </g>
+                                        </g>
+                                        <text id="Low-risk" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="-0.2" fill="#474747">
+                                            <tspan x="20" y="13">Low risk</tspan>
+                                        </text>
+                                    </g>
+                                </g>
+                            </g>
+                            <g id="Modal-Copy-10" transform="translate(284, 0)">
+                                <g id="Rectangle">
+                                    <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-7"></use>
+                                </g>
+                                <g id="Menu" transform="translate(208, 12)">
+                                    <rect id="Hover" fill="#F3F3F3" opacity="0" x="0" y="0" width="40" height="40" rx="4"></rect>
+                                    <text id="Icon" font-family="appkit-font" font-size="16" font-weight="normal" line-spacing="24" fill="#474747">
+                                        <tspan x="12" y="22"></tspan>
+                                    </text>
+                                </g>
+                                <g id="Background">
+                                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-9"></use>
+                                    <rect stroke-opacity="0.12" stroke="#415385" stroke-width="4" x="14" y="58" width="232" height="158" rx="4"></rect>
+                                    <rect stroke="#415385" stroke-width="1" stroke-linejoin="square" x="16.5" y="60.5" width="227" height="153" rx="4"></rect>
+                                </g>
+                                <text id="New-rationale" font-family="HelveticaNeue, Helvetica Neue" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="-0.4" fill="#696969">
+                                    <tspan x="16" y="35">New rationale</tspan>
+                                </text>
+                                <text id="Target-Company-funct" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="-0.2" fill="#474747">
+                                    <tspan x="24" y="81">Target Company functional </tspan>
+                                    <tspan x="24" y="101">operating model logic and small </tspan>
+                                    <tspan x="24" y="121">scale means quickly connecting </tspan>
+                                    <tspan x="24" y="141">ops areas to the more</tspan>
+                                </text>
+                                <g id="Group" transform="translate(201, 193)" fill="#696969" font-family="HelveticaNeue, Helvetica Neue" font-weight="normal" line-spacing="12">
+                                    <text id="Total" font-size="10" letter-spacing="-0.333333333">
+                                        <tspan x="19" y="11">250</tspan>
+                                    </text>
+                                    <text id="Backslash" font-size="12" letter-spacing="-0.4">
+                                        <tspan x="13" y="11">/</tspan>
+                                    </text>
+                                    <text id="Count" font-size="10" letter-spacing="-0.333333333">
+                                        <tspan x="0" y="11">78</tspan>
+                                    </text>
+                                </g>
+                                <image id="Bitmap" x="159" y="133" width="5.19745223" height="12" xlink:href="data:image/png;base64,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"></image>
+                            </g>
+                        </g>
+                        <g id="Group-67" transform="translate(44, 1)">
+                            <g id="Group-65">
+                                <circle id="Oval" fill="#EE675C" cx="12" cy="12" r="12"></circle>
+                                <text id="1" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="24" letter-spacing="-0.4" fill="#FFFFFF">
+                                    <tspan x="8.252" y="16">1</tspan>
+                                </text>
+                            </g>
+                            <g id="Group-65-Copy" transform="translate(351, 28)">
+                                <circle id="Oval" fill="#EE675C" cx="12" cy="12" r="12"></circle>
+                                <text id="2" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="24" letter-spacing="-0.4" fill="#FFFFFF">
+                                    <tspan x="8.252" y="16">2</tspan>
+                                </text>
+                            </g>
+                            <g id="Group-65-Copy-2" transform="translate(623, 0)">
+                                <circle id="Oval" fill="#EE675C" cx="12" cy="12" r="12"></circle>
+                                <text id="3" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="24" letter-spacing="-0.4" fill="#FFFFFF">
+                                    <tspan x="7.252" y="16">3</tspan>
+                                </text>
+                            </g>
+                            <g id="Group-65-Copy-3" transform="translate(728, 44)">
+                                <circle id="Oval" fill="#EE675C" cx="12" cy="12" r="12"></circle>
+                                <text id="4" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="24" letter-spacing="-0.4" fill="#FFFFFF">
+                                    <tspan x="7.252" y="16">4</tspan>
+                                </text>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

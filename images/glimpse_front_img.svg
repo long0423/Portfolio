@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="448px" height="570px" viewBox="0 0 448 570" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 24</title>
+    <g id="👋-Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-page" transform="translate(-930, -2934)">
+            <g id="Group-26" transform="translate(222, 1616)">
+                <g id="Group-24" transform="translate(708, 1318)">
+                    <rect id="Rectangle-Copy-6" fill="#EEEBE7" x="0" y="0" width="448" height="570" rx="28"></rect>
+                    <g id="Group-23" transform="translate(65, 157)">
+                        <text id="A-glimpse-into-my-de" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="32" font-weight="bold" line-spacing="40" letter-spacing="-0.533333333" fill="#252525">
+                            <tspan x="0" y="76">A glimpse into my </tspan>
+                            <tspan x="0" y="116">design journey</tspan>
+                        </text>
+                        <g id="4443632d-ecc2-4201-b946-e4689f15f67a" transform="translate(0.5, 0)" fill="#444746" fill-rule="nonzero">
+                            <path d="M28,33 L17.208,22.209 C16.375,22.903 15.403,23.459 14.292,23.875 C13.166831,24.2664962 11.9833227,24.463973 10.792,24.459 C7.764,24.459 5.208,23.417 3.125,21.334 C1.042,19.25 0,16.722 0,13.75 C0,10.778 1.042,8.25 3.125,6.167 C5.208,4.056 7.75,3 10.75,3 C11.694,3 12.611,3.125 13.5,3.375 C14.389,3.625 15.222,3.973 16,4.417 L13.917,6.5 C13.4381369,6.27558942 12.9347368,6.10778938 12.417,6 C11.8726193,5.8591155 11.3123086,5.78920271 10.75,5.792 C8.528,5.792 6.639,6.57 5.083,8.125 C3.556,9.681 2.792,11.555 2.792,13.75 C2.792,15.945 3.556,17.82 5.083,19.375 C6.639,20.903 8.528,21.667 10.75,21.667 C12.75,21.667 14.458,21.056 15.875,19.834 C17.319,18.584 18.208,17.014 18.542,15.125 L21.333,15.125 C21.2242906,16.061292 20.9712949,16.9751126 20.583,17.834 C20.2199455,18.6984223 19.7437897,19.5108463 19.167,20.25 L30,31 L28,33 Z M24.167,17.75 C24.167,15.278 23.306,13.18 21.583,11.459 C19.861,9.736 17.763,8.875 15.292,8.875 C17.764,8.875 19.862,8.015 21.583,6.292 C23.306,4.57 24.167,2.472 24.167,0 C24.167,2.473 25.027,4.57 26.75,6.292 C28.472,8.014 30.57,8.875 33.042,8.875 C30.569,8.875 28.472,9.736 26.75,11.459 C25.028,13.181 24.167,15.279 24.167,17.75 Z" id="Shape"></path>
+                        </g>
+                        <text id="This-portfolio-featu" font-family="HelveticaNeue, Helvetica Neue" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                            <tspan x="0.5" y="152">This portfolio features select projects </tspan>
+                            <tspan x="0.5" y="172">showcasing my innovation and expertise as a </tspan>
+                            <tspan x="0.5" y="192">Senior UX/UI Designer. Each piece reflects my </tspan>
+                            <tspan x="0.5" y="212">dedication to impactful, user-centric design. </tspan>
+                            <tspan x="0.5" y="232">For more insights or to view my full portfolio, </tspan>
+                            <tspan x="0.5" y="252">let's connect.</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

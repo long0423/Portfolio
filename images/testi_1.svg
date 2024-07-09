@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="920px" height="240px" viewBox="0 0 920 240" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 82</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="920" height="240" rx="28"></rect>
+    </defs>
+    <g id="👋-Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-page" transform="translate(-340, -3840)">
+            <g id="Group-82" transform="translate(340, 3840)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Rectangle-Copy-11" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <text id="“" opacity="0.0776599702" mask="url(#mask-2)" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="256" font-weight="400" line-spacing="224" letter-spacing="-4.26666667" fill="#474747">
+                    <tspan x="9.5" y="234">“</tspan>
+                </text>
+                <text id="“Long-is-an-amazing" mask="url(#mask-2)" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="24" font-weight="400" line-spacing="32" letter-spacing="-0.4" fill="#252525">
+                    <tspan x="69.58" y="71">“Long is an amazing individual, who puts tremendous care and effort into </tspan>
+                    <tspan x="76.364" y="103">producing extremely high-quality work. I would recommend him without </tspan>
+                    <tspan x="101.172" y="135">reservation. If you have the chance to collaborate with him, take it!"</tspan>
+                </text>
+                <text id="Mike-Daniel,-Directo" mask="url(#mask-2)" font-family="HelveticaNeue, Helvetica Neue" font-size="20" font-weight="normal" line-spacing="24" letter-spacing="-0.4" fill="#252525">
+                    <tspan x="273.13" y="187">Mike Daniel, Director @PwC Product House</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

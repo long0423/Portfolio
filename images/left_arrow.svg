@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 29</title>
+    <g id="👋-Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-page" transform="translate(-238, -3933)">
+            <g id="Group-29" transform="translate(238, 3933)">
+                <circle id="Oval-Copy" fill="#FFFFFF" cx="27" cy="27" r="27"></circle>
+                <g id="Icon/Outline/arrow-right-outline-smaller" transform="translate(27, 26.864) scale(-1, 1) translate(-27, -26.864)translate(19, 20)" fill="#696969" fill-rule="nonzero" stroke="#696969" stroke-width="0.5">
+                    <g id="Arrow-right">
+                        <path d="M14.0857865,6.36396103 L8.5753788,0.853553389 C8.38011665,0.658291244 8.38011665,0.341708754 8.5753788,0.146446609 C8.77064095,-0.0488155363 9.08722345,-0.0488155363 9.2824856,0.146446609 L16,6.86396103 L9.2824856,13.5814754 C9.08722345,13.7767376 8.77064095,13.7767376 8.5753788,13.5814754 C8.38011665,13.3862133 8.38011665,13.0696308 8.5753788,12.8743687 L14.0857865,7.36396103 L0.5,7.36396103 C0.223857625,7.36396103 0,7.14010338 0,6.86396103 C0,6.58781868 0.223857625,6.36396103 0.5,6.36396103 L14.0857865,6.36396103 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

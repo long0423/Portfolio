@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="920px" height="240px" viewBox="0 0 920 240" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 82</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="920" height="240" rx="28"></rect>
+    </defs>
+    <g id="👋-Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="M&amp;A-Path" transform="translate(-340, -27520)">
+            <g id="Group-77" transform="translate(0, 26420)">
+                <g id="Group-78" transform="translate(222, 384)">
+                    <g id="Group-82" transform="translate(118, 716)">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Rectangle-Copy-11" fill="#FFFFFF" xlink:href="#path-1"></use>
+                        <text id="“" opacity="0.0776599702" mask="url(#mask-2)" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="256" font-weight="400" line-spacing="224" letter-spacing="-4.26666667" fill="#474747">
+                            <tspan x="9.5" y="234">“</tspan>
+                        </text>
+                        <text id="&quot;The-transformation" mask="url(#mask-2)" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="24" font-weight="400" line-spacing="32" letter-spacing="-0.4" fill="#252525">
+                            <tspan x="49.248" y="71">"The transformation from a complex to a user-friendly interface has markedly </tspan>
+                            <tspan x="72.624" y="103">improved our operational efficiency. The platform now feels like a natural </tspan>
+                            <tspan x="289.896" y="135">extension of our work process."</tspan>
+                        </text>
+                        <text id="Alex-Cameron,-SME" mask="url(#mask-2)" font-family="HelveticaNeue, Helvetica Neue" font-size="20" font-weight="normal" line-spacing="24" letter-spacing="-0.4" fill="#252525">
+                            <tspan x="373.57" y="187">Alex Cameron, SME</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
