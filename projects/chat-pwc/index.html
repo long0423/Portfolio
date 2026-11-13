@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="../../assets/js/embed-boot.js"></script>
+        <script src="../../assets/js/site-base.js"></script>
+
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="content-language" content="en" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Long Geng" />
+
+        <title>ChatPwC • Long Geng</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
+<link href="../../assets/css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../../assets/css/site-system.css" />
+        <link rel="stylesheet" href="../../assets/css/landing-assistant.css" />
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+
+        <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+        <script src="../../assets/js/portfolio-knowledge.js"></script>
+        <script src="../../assets/js/global-sidebar.js"></script>
+
+        
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+            .tab-link {
+                transition: color 0.5s ease;
+            }
+            .tab-link:hover {
+                color: #999 !important;
+            }
+            .news-card {
+                transition: all 0.3s ease;
+                text-decoration: none;
+                color: inherit;
+                display: block;
+            }
+            .news-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);
+                background-color: #F5F6F8 !important;
+                text-decoration: none;
+            }
+            .news-card:hover .text-dark {
+                color: #252525 !important;
+            }
+            .news-card:hover * {
+                text-decoration: none;
+            }
+            .evolution-thumbnail {
+                transition: opacity 0.3s ease;
+            }
+            .evolution-thumbnail:hover {
+                opacity: 0.9;
+            }
+            .image-modal {
+                display: none;
+                position: fixed;
+                z-index: 9999;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.8);
+                animation: fadeIn 0.3s ease;
+            }
+            .image-modal.active {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            .image-modal-content {
+                position: relative;
+                max-width: 90%;
+                max-height: 90%;
+                margin: auto;
+            }
+            .image-modal-content img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+            }
+            .image-modal-close {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                color: #ffffff;
+                font-size: 36px;
+                font-weight: 300;
+                line-height: 1;
+                cursor: pointer;
+                background: none;
+                border: none;
+                padding: 0;
+                width: 44px;
+                height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: opacity 0.3s ease;
+                z-index: 10000;
+            }
+            .image-modal-close:hover {
+                opacity: 0.7;
+            }
+            .compliments-section {
+                background-color: #ffffff;
+                width: 100%;
+                padding: 72px 0;
+            }
+            .compliments-inner {
+                margin: 0 auto;
+                padding: 0;
+            }
+            .compliments-viewport {
+                overflow: hidden;
+                position: relative;
+            }
+            .compliments-viewport::before,
+            .compliments-viewport::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 96px;
+                z-index: 2;
+                pointer-events: none;
+            }
+            .compliments-viewport::before {
+                left: 0;
+                background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+            }
+            .compliments-viewport::after {
+                right: 0;
+                background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+            }
+            .compliments-track {
+                display: flex;
+                gap: 20px;
+                width: max-content;
+                animation: compliments-scroll 40s linear infinite;
+            }
+            .compliments-track:hover {
+                animation-play-state: paused;
+            }
+            .compliment-card {
+                min-width: 380px;
+                max-width: 420px;
+                min-height: 260px;
+                background-color: #ffffff;
+                border-radius: 16px;
+                padding: 28px;
+                border: 1px solid #0000001a;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+            .compliment-meta {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-top: auto;
+            }
+            .compliment-avatar {
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 1px solid #d7d7d7;
+            }
+            @keyframes compliments-scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+            .title-emoji {
+                font-size: 1.4em;
+                margin-right: 6px;
+                line-height: 1;
+                display: inline-block;
+            }
+            .problem-carousel-media {
+                margin-top: 20px;
+            }
+            .problem-carousel-media img {
+                width: 100%;
+                border-radius: 16px;
+                display: block;
+            }
+            .problem-carousel-frame {
+                position: relative;
+            }
+            .problem-carousel-control {
+                position: absolute;
+                top: 56%;
+                transform: translateY(-50%);
+                width: 48px;
+                height: 48px;
+                background: #dedede;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2;
+            }
+            .problem-carousel-control.carousel-control-prev {
+                left: 24px;
+            }
+            .problem-carousel-control.carousel-control-next {
+                right: 24px;
+            }
+            .problem-carousel-control .carousel-control-prev-icon,
+            .problem-carousel-control .carousel-control-next-icon {
+                filter: invert(1);
+            }
+            .problem-carousel-control .carousel-control-prev-icon,
+            .problem-carousel-control .carousel-control-next-icon {
+                background-image: none;
+                width: 12px;
+                height: 12px;
+                border-top: 2px solid #8e8e8e;
+                border-right: 2px solid #8e8e8e;
+            }
+            .problem-carousel-control .carousel-control-prev-icon {
+                transform: rotate(-135deg);
+                margin-left: 4px;
+            }
+            .problem-carousel-control .carousel-control-next-icon {
+                transform: rotate(45deg);
+                margin-right: 4px;
+            }
+            .staggered-menu-wrapper {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                z-index: 40;
+                pointer-events: none;
+            }
+            .staggered-menu-wrapper.fixed-wrapper {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 40;
+                overflow: hidden;
+            }
+            .staggered-menu-panel {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: clamp(260px, 38vw, 420px);
+                height: 100%;
+                background: #ffffff;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                display: flex;
+                flex-direction: column;
+                padding: 6em 2em 2em 2em;
+                overflow-y: auto;
+                z-index: 10;
+                pointer-events: auto;
+            }
+            .sm-prelayers {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: clamp(260px, 38vw, 420px);
+                pointer-events: none;
+                z-index: 5;
+            }
+            .sm-prelayer {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: 100%;
+                transform: translateX(0);
+            }
+            .sm-panel-inner {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 1.25rem;
+                align-items: flex-start;
+            }
+            .sm-panel-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            .sm-panel-itemWrap {
+                position: relative;
+                overflow: visible;
+                line-height: 1;
+            }
+            .sm-panel-item {
+                position: relative;
+                color: #000;
+                font-weight: 600;
+                font-size: 3rem;
+                cursor: pointer;
+                line-height: 1;
+                letter-spacing: -1px;
+                text-transform: uppercase;
+                transition: color 0.25s;
+                display: inline-block;
+                text-decoration: none;
+                padding-right: 0;
+            }
+            .sm-panel-itemLabel {
+                display: inline-block;
+                will-change: transform;
+                transform-origin: 50% 100%;
+                position: relative;
+            }
+            .sm-panel-item:hover {
+                color: var(--sm-accent, #5227ff);
+            }
+            .sm-panel-list[data-numbering] {
+                counter-reset: smItem;
+            }
+            .sm-panel-list[data-numbering] .sm-panel-item::after {
+                counter-increment: smItem;
+                content: counter(smItem, decimal-leading-zero);
+                position: absolute;
+                top: 0.1em;
+                right: -1.6em;
+                font-size: 16px;
+                font-weight: 400;
+                color: var(--sm-accent, #5227ff);
+                letter-spacing: 0;
+                pointer-events: none;
+                user-select: none;
+                opacity: var(--sm-num-opacity, 0);
+            }
+            @media (max-width: 1024px) {
+                .staggered-menu-panel {
+                    width: 100%;
+                    left: 0;
+                    right: 0;
+                }
+                .sm-prelayers {
+                    width: 100%;
+                    left: 0;
+                    right: 0;
+                }
+            }
+        </style>
+    </head>
+    
+        <body class="la-case-study-page la-sidebar-collapsed" style="background-color: #ffffff">
+        <a class="la-skip" href="#case-study-main">Skip to main content</a>
+        <div class="la-backdrop" id="la-backdrop" hidden aria-hidden="true"></div>
+        <div id="la-mobile-bar-root"></div>
+
+        <div class="la-shell la-case-study-shell" id="la-shell">
+            <div id="la-sidebar-root"></div>
+            <script>
+              GlobalSidebar.mount(GlobalSidebar.caseStudyOptions("chatpwc"));
+            </script>
+
+            <main class="la-case-study-main" id="case-study-main">
+        <!-- Legacy case study navigation retained but hidden while global sidebar is active. -->
+        <div class="legacy-case-study-navigation" hidden aria-hidden="true">
+            <a href="../../Me.html" title="Long Geng Design">
+                <img src="../../assets/images/shared/logo_new.svg" class="logo">
+            </a>
+            <a href="#menu" id="toggle"><span></span></a>
+            <div id="menu">
+                <div class="staggered-menu-wrapper fixed-wrapper" data-position="right" style="--sm-accent: #5227ff;">
+                    <div class="sm-prelayers" aria-hidden="true">
+                        <div class="sm-prelayer" style="background: #b19eef;"></div>
+                        <div class="sm-prelayer" style="background: #5227ff;"></div>
+                    </div>
+                    <aside id="staggered-menu-panel" class="staggered-menu-panel" aria-hidden="true">
+                        <div class="sm-panel-inner">
+                            <ul class="sm-panel-list" role="list" data-numbering="true">
+                                <li class="sm-panel-itemWrap">
+                                    <a class="sm-panel-item" href="../write/index.html"><span class="sm-panel-itemLabel">Write</span></a>
+                                </li>
+                                <li class="sm-panel-itemWrap">
+                                    <a class="sm-panel-item" href="../agent-os/index.html"><span class="sm-panel-itemLabel">AgentOS</span></a>
+                                </li>
+                                <li class="sm-panel-itemWrap">
+                                    <a class="sm-panel-item" href="./index.html"><span class="sm-panel-itemLabel">ChatPwC</span></a>
+                                </li>
+                                <li class="sm-panel-itemWrap">
+                                    <a class="sm-panel-item" href="../ma-path/index.html"><span class="sm-panel-itemLabel">M&amp;A Path</span></a>
+                                </li>
+                                <li class="sm-panel-itemWrap">
+                                    <a class="sm-panel-item" href="../dcb/index.html"><span class="sm-panel-itemLabel">DCB</span></a>
+                                </li>
+                                <li class="sm-panel-itemWrap">
+                                    <a class="sm-panel-item" href="../pulse/index.html"><span class="sm-panel-itemLabel">Pulse</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero / Jumbotron -->
+        <div class="row mx-auto" style="padding-top: 2rem; max-width: 1600px">
+            <div class="mx-auto px-3">
+                <div class="big-header-section" style="padding: 2rem 0; height: auto;">
+                    <div class="big-header">
+                        <div class="w-100" style="max-width: 1156px;">
+                            <div class="text-left text-dark mb-2" style="font-size: 12px !important; font-weight: 500; letter-spacing: 0.6px; line-height: normal;">
+                                <span style="display: inline-block; margin: 0 0.5rem 0 0; padding: 0.25rem 0.5rem; border: 1px solid #252525; border-radius: 20px;">DESIGN LEAD</span>
+                                <span style="display: inline-block; margin: 0 0.5rem 0 0; padding: 0.25rem 0.5rem; border: 1px solid #252525; border-radius: 20px;">UX + IDENTITY</span>
+                                <span style="display: inline-block; margin: 0; padding: 0.25rem 0.5rem; border: 1px solid #252525; border-radius: 20px;">2025</span>
+                            </div>
+                            <div class="text-left">
+                                <p class="lead text-left text-dark my-4" style="font-size: 40px !important; font-weight: 400;">ChatPwC</p>
+                                <p class="text-left text-dark" style="font-size: 16px !important; max-width: 70% !important;">
+                                    I led the redesign of Tax Advice AI, evolving an existing, limited tax advice editor into an AI-agent-enabled drafting and review experience. My role focused on defining the core interaction model, system structure, and visual language that would support more complex, real-world tax advisory workflows. <br><br>
+                                    This project challenged me to rethink how AI could meaningfully augment professional judgement, introducing new patterns for context-aware drafting, review, and iteration. The work was made possible through close collaboration with tax specialists, engineers, and product partners, whose expertise shaped the final solution.
+                                </p>
+                            </div>
+                            <div class="text-left" style="display: flex; flex-direction: row; gap: 32px;">
+                                <a href="https://www.pwc.com/us/en/tech-effect/ai-analytics/ai-agents.html" target="_blank" class="news-card mt-4" style="background-color: #F7F8F9; border-radius: 20px; width: 100%;">
+                                    <div class="p-3" style="display: flex; flex-direction: row; gap: 24px; align-items: center;">
+                                        <img src="../write/assets/images/write-post-thumb-2.jpg" style="width: 160px; height: 86px; object-fit: cover; border-radius: 8px;"></img>
+                                        <div class="text-left">
+                                            <h5 class="text-dark mt-2" style="font-weight: 500; font-size: 16px !important;">AI Agents in Tax</h5>
+                                            <p class="text-muted mb-0" style="font-size: 16px !important;">Bringing intelligence and automation to real-world tax advisory work.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="https://www.linkedin.com/posts/nolan-ogden_pwcs-agent-os-is-here-to-redefine-ai-deployment-activity-7311090405427580928-WT_4" target="_blank" class="news-card mt-4" style="background-color: #F7F8F9; border-radius: 20px; width: 100%;">
+                                    <div class="p-3" style="display: flex; flex-direction: row; gap: 24px; align-items: center;">
+                                        <img src="../write/assets/images/write-post-thumb-1.jpg" style="width: 160px; height: 86px; object-fit: cover; border-radius: 8px;"></img>
+                                        <div class="text-left">
+                                            <h5 class="text-dark mt-2" style="font-weight: 500; font-size: 16px !important;">Reframing for Tax Advisors</h5>
+                                            <p class="text-muted mb-0" style="font-size: 16px !important;">Making waves in the tax sector, delivering faster insights and streamlining operations.</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anchor Panel -->
+        <div class="mt-3 mx-auto fade" style="max-width: 1156px;">
+            <div class="d-flex align-items-center" style="gap: 0;">
+                <!-- Down Arrow -->
+                <span style="margin-right: 0.5rem; color: #333; font-size: 16px;">↓</span>
+                <!-- Tabs -->
+                <div class="d-flex align-items-center" style="gap: 0;">
+                    <a href="#architecture" class="tab-link" style="letter-spacing: 0.6px; padding: 0rem 1.5rem; text-decoration: none; color: #252525; font-size: 16px; font-weight: 400; border-right: 2px solid #e0e0e0;">Architecture</a>
+                    <a href="#problem-framing" class="tab-link" style="letter-spacing: 0.6px; padding: 0rem 1.5rem; text-decoration: none; color: #252525; font-size: 16px; font-weight: 400; border-right: 2px solid #e0e0e0;">Problem Framing</a>
+                    <a href="#solutions" class="tab-link" style="letter-spacing: 0.6px; padding: 0rem 1.5rem; text-decoration: none; color: #252525; font-size: 16px; font-weight: 400; border-right: 2px solid #e0e0e0;">Solutions</a>
+                    <a href="#alternative-solutions" class="tab-link" style="letter-spacing: 0.6px; padding: 0rem 1.5rem; text-decoration: none; color: #252525; font-size: 16px; font-weight: 400; border-right: 2px solid #e0e0e0;">Iteration</a>
+                    <a href="#milestones" class="tab-link" style="letter-spacing: 0.6px; padding: 0rem 1.5rem; text-decoration: none; color: #252525; font-size: 16px; font-weight: 400; border-right: 2px solid #e0e0e0;">Milestones</a>
+                    <a href="#takeaways" class="tab-link" style="letter-spacing: 0.6px; padding: 0rem 1.5rem; text-decoration: none; color: #252525; font-size: 16px; font-weight: 400;">Takeaways</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture -->
+        <div id="architecture" class="mt-3 mx-auto pt-5 fade" style="max-width: 1156px;">
+            <div>
+                <p class="lead text-left text-dark mb-4" style="font-size: 32px !important; font-weight: 400;">Architecture</p>
+                <img src="./assets/images/Architecture - ChatPwC.jpg" style="width: 100%; border-radius: 16px;">
+            </div>
+        </div>
+        
+        <!-- Design Evolution -->
+        <div id="iteration" class="mt-5 mx-auto py-5 fade" style="max-width: 1156px;">
+            <div>
+                <p class="lead text-left text-dark mb-1" style="font-size: 24px !important; font-weight: 500;">Design Evolution</p>
+            </div>
+            <div class="pt-4">
+                <div class="row" style="column-gap: 24px;">
+                    <div class="col my-3">
+                        <img src="../write/assets/images/write-evolution-1.png" class="evolution-thumbnail" data-full-image="../write/assets/images/write-evolution-1.png" style="width: 100%; border-radius: 16px; cursor: pointer;">
+                        <div style="display: flex; flex-direction: row; gap: 12px; align-items: center; margin: 28px 0 16px 0;">
+                            <img src="../../assets/images/shared/no.1.jpg" style="width: 24px; height: 24px;">
+                            <h5 class="text-dark" style="font-weight: 500; font-size: 20px !important; margin-bottom: 0;">Early Product</h5>
+                        </div>
+                        <p class="text-muted mb-3" style="font-size: 16px !important;">
+                            Early experience of the project when I joined. Conversational output driven UI.
+                        </p>
+                    </div>
+                    <div class="col my-3">
+                        <img src="../write/assets/images/write-evolution-2.png" class="evolution-thumbnail" data-full-image="../write/assets/images/write-evolution-2.png" style="width: 100%; border-radius: 16px; cursor: pointer;">
+                        <div style="display: flex; flex-direction: row; gap: 12px; align-items: center; margin: 28px 0 16px 0;">
+                            <img src="../../assets/images/shared/no.2.jpg" style="width: 24px; height: 24px;">
+                            <h5 class="text-dark" style="font-weight: 500; font-size: 20px !important; margin-bottom: 0;">File editor driven UI</h5>
+                        </div>
+                        <p class="text-muted mb-3" style="font-size: 16px !important;">
+                            Three pannel structure as a split view on the canvas.
+                        </p>
+                    </div>
+                    <div class="col my-3">
+                        <img src="../write/assets/images/write-evolution-3.png" class="evolution-thumbnail" data-full-image="../write/assets/images/write-evolution-3.png" style="width: 100%; border-radius: 16px; cursor: pointer;">
+                        <div style="display: flex; flex-direction: row; gap: 12px; align-items: center; margin: 28px 0 16px 0;">
+                            <img src="../../assets/images/shared/no.3.jpg" style="width: 24px; height: 24px;">
+                            <h5 class="text-dark" style="font-weight: 500; font-size: 20px !important; margin-bottom: 0;">Editor + Agentw</h5>
+                        </div>
+                        <p class="text-muted mb-3" style="font-size: 16px !important;">
+                            Synthesizes Agent, Chat, and Artefacts into a scalable and adaptive layout.
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div id="problem-framing" class="mt-5 mx-auto d-flex flex-row py-5 fade" style="max-width: 1156px; gap: 64px;">
+            <div class="w-50 px-0">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Problem + Requirements</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    A key challenge in Tax Advice AI was workflow fragmentation — users spent more effort navigating the process than applying professional judgement. <br><br>
+                    <b>→ Inputs</b><br>
+                    • Case details without clear starting structure<br>
+                    • Knowledge and legislation disconnected from drafting<br>
+                    <b>Outputs →</b> <br>
+                    • Drafts requiring repeated rewrites<br>
+                    • Low confidence in review readiness<br>
+                    <b>Interaction</b><br>
+                    • Editing without intent awareness<br>
+                    • Manual source-to-content mapping<br>
+                </p>
+            </div>
+            <div class="w-50 my-auto">
+                <img src="../write/assets/images/write-interview.png" style="width: 100%;">
+            </div>
+        </div>
+
+        <div id="problemCarousel" class="carousel slide mt-5 mx-auto py-5 fade" style="max-width: 1156px;" data-interval="false">
+            <ol class="carousel-indicators">
+                <li data-target="#problemCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#problemCarousel" data-slide-to="1"></li>
+                <li data-target="#problemCarousel" data-slide-to="2"></li>
+                <li data-target="#problemCarousel" data-slide-to="3"></li>
+            </ol>
+            <div class="problem-carousel-frame">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div>
+                        <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;"><span class="title-emoji">🙇‍♀️</span>Starting From Uncertainty</h5>
+                        <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                            When creating a new tax document, users are immediately forced to make decisions without enough guidance. Choosing between a blank document or a precedent-based draft requires upfront knowledge of structure, scope, and expectations—creating hesitation before any real work can begin.
+                        </p>
+                    </div>
+                    <div class="problem-carousel-media">
+                        <img src="../write/assets/images/Write-problem-1.png" alt="Problem 1 screenshot">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div>
+                        <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;"><span class="title-emoji">🤷</span>Context That Feels Optional</h5>
+                        <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                            Although knowledge bases are meant to provide critical context, users struggle to understand when and how they should be used. Without clear signals of impact, knowledge bases feel disconnected from the drafting workflow and are often skipped or underutilised.
+                        </p>
+                    </div>
+                    <div class="problem-carousel-media">
+                        <img src="../write/assets/images/Write-problem-2.png" alt="Problem 2 screenshot">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div>
+                        <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;"><span class="title-emoji">🤦‍♂️</span>Too Much to Verify, Too Little to Act On</h5>
+                        <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                            When reviewing generated content, users are presented with extensive legislation and source references. While comprehensive, the information is difficult to prioritise and cannot be directly acted upon, forcing users to mentally connect sources back to the draft.
+                        </p>
+                    </div>
+                    <div class="problem-carousel-media">
+                        <img src="../write/assets/images/Write-problem-3.png" alt="Problem 3 screenshot">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div>
+                        <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;"><span class="title-emoji">🙂‍↕️</span>Editing Without Intent</h5>
+                        <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                            Users can edit or rewrite content, but the system treats all changes as generic text updates. Without understanding the user’s intent—such as improving technical accuracy or adjusting tone—editing becomes an iterative trial-and-error process rather than a guided refinement.
+                        </p>
+                    </div>
+                    <div class="problem-carousel-media">
+                        <img src="../write/assets/images/Write-problem-4.png" alt="Problem 4 screenshot">
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev problem-carousel-control" href="#problemCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next problem-carousel-control" href="#problemCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            </div>
+        </div>
+
+        <!-- Solutions -->
+        <div id="solutions" class="mt-4 mx-auto pt-5 fade" style="max-width: 1156px; gap: 64px;">
+            <div class=px-0" style="max-width: 70% !important;">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Solutions</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    To simplify how users begin, I designed a single, flexible prompt input on the homepage that supports a wide range of drafting needs without requiring upfront decisions about structure or format.<br><br>
+                    Inside the editor, an intelligent agent sidebar provides continuous guidance and refinement, while a clean, structured layout ensures generated content remains clear, scannable, and easy to review—keeping complex tax advice readable rather than overwhelming.
+                </p>
+            </div>
+        </div>
+
+        <!-- Solution • Intellegent Input -->
+        <div class="mx-auto d-flex flex-row py-5 fade" style="max-width: 1156px; gap: 64px;">
+            <div class="px-0 my-auto" style="width: 30%;">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Unified Input</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    A single, flexible prompt input acts as the primary entry point, allowing users to start drafting without deciding structure, format, or workflow upfront.
+                </p>
+            </div>
+            <div class="my-auto" style="width: 70%;">
+                <img src="../write/assets/images/write-solution-1.png" style="max-width: 100%; height: auto; border-radius: 16px;">
+            </div>
+        </div>
+
+        <div class="mt-4 mx-auto d-flex flex-row py-5 fade" style="max-width: 1156px; gap: 64px;">
+            <div class="px-0 my-auto" style="width: 30%;">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Agent Sidebar</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    An intelligent agent sidebar provides continuous guidance, context, and refinement actions, enabling users to research, reason, and revise without leaving the editor.
+                </p>
+            </div>
+            <div class="my-auto" style="width: 70%;">
+                <img src="../write/assets/images/write-solution-2.png" style="max-width: 100%; height: auto; border-radius: 16px;">
+            </div>
+        </div>
+
+        <div class="mt-4 mx-auto d-flex flex-row py-5 fade" style="max-width: 1156px; gap: 64px;">
+            <div class="px-0 my-auto" style="width: 30%;">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Clear Output</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    A clean, structured document layout prioritises readability and hierarchy, ensuring complex tax content remains scannable, review-ready, and easy to validate.
+                </p>
+            </div>
+            <div class="my-auto" style="width: 70%;">
+                <img src="../write/assets/images/write-solution-3.png" style="max-width: 100%; height: auto; border-radius: 16px;">
+            </div>
+        </div>
+
+        <div id="optimisedCarousel" class="carousel slide mt-5 mx-auto py-5 fade" style="max-width: 1156px;" data-interval="false">
+            <ol class="carousel-indicators">
+                <li data-target="#optimisedCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#optimisedCarousel" data-slide-to="1"></li>
+                <li data-target="#optimisedCarousel" data-slide-to="2"></li>
+                <li data-target="#optimisedCarousel" data-slide-to="3"></li>
+            </ol>
+            <div class="problem-carousel-frame">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div>
+                        <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;"><span class="title-emoji">👉</span>From blank starts to guided intent</h5>
+                        <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                            Users no longer begin with an empty page. A single, universal prompt box brings together files, knowledge bases, and recommended prompts—helping them move from intent to draft without figuring out where to start.
+                        </p>
+                    </div>
+                    <div class="problem-carousel-media">
+                        <img src="../write/assets/images/Write-optimised-1.png" alt="Problem 1 screenshot">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div>
+                        <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;"><span class="title-emoji">😊</span>Knowledge appears when it’s needed</h5>
+                        <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                            Instead of switching tools to verify sources, legislative context and precedents surface alongside the content. Users stay focused on drafting while the system quietly pulls in the right references at the right moment.
+                        </p>
+                    </div>
+                    <div class="problem-carousel-media">
+                        <img src="../write/assets/images/Write-optimised-2.png" alt="Problem 2 screenshot">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div>
+                        <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;"><span class="title-emoji">✨</span>Edit with clarity, not clutter</h5>
+                        <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                            The editor keeps the document front and center, while the AI assistant works in the background. Changes, rewrites, and assumptions are clearly separated, reducing cognitive load and making revisions easier to trust.
+                        </p>
+                    </div>
+                    <div class="problem-carousel-media">
+                        <img src="../write/assets/images/Write-optimised-3.png" alt="Problem 3 screenshot">
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div>
+                        <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;"><span class="title-emoji">👀</span>Every insight stays accountable</h5>
+                        <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                            Inline citations, source panels, and version history ensure users always know why something was written. The design turns AI assistance into a transparent collaborator—supporting confidence, not replacing judgment.
+                        </p>
+                    </div>
+                    <div class="problem-carousel-media">
+                        <img src="../write/assets/images/Write-optimised-4.png" alt="Problem 4 screenshot">
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev problem-carousel-control" href="#optimisedCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next problem-carousel-control" href="#optimisedCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            </div>
+        </div>
+
+        <div class="mt-5 mx-auto d-flex flex-row py-5 fade" style="max-width: 1156px; gap: 64px;">
+            
+            <div class="w-50 px-0 my-auto">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Feedback</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    User and stakeholder feedback surfaced overlooked scenarios such as live collaboration, shared prompts, prompt history, and dark mode. These perspectives expanded the experience beyond my initial assumptions and strengthened the overall product direction.
+                </p>
+            </div>
+            <div class="w-50 my-auto">
+                <img src="../write/assets/images/write-feedback-3.png" style="width: 100%; border-radius: 16px;">
+            </div>
+        </div>
+
+        <div class="mt-5 mx-auto d-flex flex-row py-5 fade" style="max-width: 1156px; gap: 64px;">
+            <div class="w-50 my-auto">
+                <img src="../write/assets/images/write-feedback-2.png" style="width: 100%; border-radius: 16px;">
+            </div>
+            <div class="w-50 px-0 my-auto">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Technical Constraints</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    One of the core problems we set out to solve with AgentOS was “tab overwhelm” the scattered, fractured experience of jumping between tools while trying to synthesize ideas. We wanted to create a space where every part of the creation journey could happen in one place.
+                </p>
+            </div>
+        </div>
+
+        <div id="alternative-solutions" class="mx-auto d-flex flex-row py-5 mt-5" style="max-width: 1156px; gap: 48px;">
+            <div class="w-100 px-0">
+                <div style="display: flex; flex-direction: row; gap: 12px; align-items: center; margin-bottom: 16px;">
+                    <h5 class="text-dark mb-0" style="font-weight: 500; font-size: 18px !important;">Alternative solutions</h5>
+                </div>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    Where inputs turn into outputs. This is the space for creating, shaping, and capturing work.
+                </p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <img src="../write/assets/images/Write-constraint-1.png" style="max-width: 100%; height: auto; width: inherit; border-radius: 16px;">
+                <img src="../write/assets/images/Write-constraint-3.png" style="max-width: 100%; height: auto; width: inherit; border-radius: 16px;">
+                <img src="../write/assets/images/Write-constraint-2.png" style="max-width: 100%; height: auto; width: inherit; border-radius: 16px;">
+            </div>
+        </div>
+        
+        <div class="mx-auto d-flex flex-row py-5" style="max-width: 1156px; gap: 48px;">
+            <div class="w-100 px-0">
+                <div style="display: flex; flex-direction: row; gap: 12px; align-items: center; margin-bottom: 16px;">
+                    <h5 class="text-dark mb-0" style="font-weight: 500; font-size: 18px !important;">Share & Collaborate</h5>
+                </div>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    This is where all user-provided sources or “inputs” live. It’s the starting point of the user’s journey.
+                </p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <img src="../write/assets/images/Write-share-1.png" style="max-width: 100%; height: auto; width: inherit; border-radius: 16px;">
+                <img src="../write/assets/images/Write-share-2.png" style="max-width: 100%; height: auto; width: inherit; border-radius: 16px;">
+            </div>
+        </div>
+
+        <div class="mx-auto d-flex flex-row py-5 mt-5" style="max-width: 1156px; gap: 48px;">
+            <div class="w-100 px-0">
+                <div style="display: flex; flex-direction: row; gap: 12px; align-items: center; margin-bottom: 16px;">
+                    <h5 class="text-dark mb-0" style="font-weight: 500; font-size: 18px !important;">Prompt history</h5>
+                </div>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    The chat panel stays at the core of the experience, dynamically adjusting its size to accommodate other tools as needed.
+                </p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <img src="../write/assets/images/Write-prompt-history-1.png" style="max-width: 100%; height: auto; width: inherit; border-radius: 16px;">
+                <img src="../write/assets/images/Write-prompt-history-2.png" style="max-width: 100%; height: auto; width: inherit; border-radius: 16px;">
+            </div>
+        </div>
+
+        <div class="mt-5 mx-auto py-5" style="max-width: 1156px; gap: 64px;">
+            <div class=px-0" style="max-width: 70% !important;">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Dark mode</h5>
+            </div>
+            <div class="d-flex justify-content-center" style="flex-direction: column; gap: 20px;">
+                <img src="../write/assets/images/Write-dark-1.png" class="fade" style="width: 100%; margin-top: 20px;">
+                <img src="../write/assets/images/Write-dark-2.png" class="fade" style="width: 100%; margin-top: 20px;">
+            </div>
+        </div>
+        
+        <div id="milestones" class="mt-5 mx-auto pt-5 pb-0 fade" style="max-width: 1156px; gap: 64px;">
+            <div class=px-0" style="max-width: 70% !important;">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Features breakdown</h5>
+            </div>
+        </div>
+        <div class="mx-auto d-flex flex-row py-5 fade" style="max-width: 1156px; gap: 64px;">
+            <div class="w-50 my-auto">
+                <img src="../write/assets/images/Write-milestone-1.png" style="width: 100%; border-radius: 16px;">
+            </div>
+            <div class="w-50 px-0 my-auto">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Milestones 1</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    One of the core problems we set out to solve with AgentOS was “tab overwhelm” the scattered, fractured experience of jumping between tools while trying to synthesize ideas. We wanted to create a space where every part of the creation journey could happen in one place.
+                </p>
+            </div>
+        </div>
+
+        <div class="mx-auto d-flex flex-row py-5 fade" style="max-width: 1156px; gap: 64px;">
+            <div class="w-50 my-auto">
+                <img src="../write/assets/images/Write-milestone-1.png" style="width: 100%; border-radius: 16px;">
+            </div>
+            <div class="w-50 px-0 my-auto">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">Milestones 2</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    One of the core problems we set out to solve with AgentOS was “tab overwhelm” the scattered, fractured experience of jumping between tools while trying to synthesize ideas. We wanted to create a space where every part of the creation journey could happen in one place.
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-5 mx-auto d-flex flex-row py-5 fade" style="max-width: 1156px; gap: 64px;">
+            
+            <div class="w-50 px-0 my-auto">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">We made a difference</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    One of the core problems we set out to solve with AgentOS was “tab overwhelm” the scattered, fractured experience of jumping between tools while trying to synthesize ideas. We wanted to create a space where every part of the creation journey could happen in one place.
+                </p>
+            </div>
+            <div class="w-50 my-auto">
+                <img src="../write/assets/images/write-impact.jpg" style="width: 100%; border-radius: 16px;">
+            </div>
+        </div>
+
+        
+
+        <!-- Compliments -->
+        <div class="compliments-section fade">
+            <div class="compliments-inner">
+                <div class="compliments-viewport mt-4">
+                    <div class="compliments-track">
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The new layout finally makes complex tax work feel approachable. Everything is where I expect it to be.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="compliment-avatar" alt="Avery Chen avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Avery Chen</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Senior Tax Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The AI guidance feels built-in, not bolted on. It saves time without disrupting my flow.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="compliment-avatar" alt="Jordan Patel avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Jordan Patel</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Tax Technology Lead</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The three-panel view keeps me oriented. I can draft, reference sources, and review without losing context.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" class="compliment-avatar" alt="Morgan Lee avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Morgan Lee</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Director, Advisory</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The visual polish and hierarchy make reviews faster. It feels like a premium workflow.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/men/76.jpg" class="compliment-avatar" alt="Riley Brooks avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Riley Brooks</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Tax Operations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The redesign made onboarding new team members significantly easier.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/women/12.jpg" class="compliment-avatar" alt="Taylor Nguyen avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Taylor Nguyen</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Engagement Manager</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The new layout finally makes complex tax work feel approachable. Everything is where I expect it to be.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="compliment-avatar" alt="Avery Chen avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Avery Chen</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Senior Tax Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The AI guidance feels built-in, not bolted on. It saves time without disrupting my flow.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="compliment-avatar" alt="Jordan Patel avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Jordan Patel</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Tax Technology Lead</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The three-panel view keeps me oriented. I can draft, reference sources, and review without losing context.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" class="compliment-avatar" alt="Morgan Lee avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Morgan Lee</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Director, Advisory</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The visual polish and hierarchy make reviews faster. It feels like a premium workflow.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/men/76.jpg" class="compliment-avatar" alt="Riley Brooks avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Riley Brooks</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Tax Operations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compliment-card">
+                        <p class="text-left" style="font-size: 18px !important; color: #474747; margin-bottom: 0;">
+                            “The redesign made onboarding new team members significantly easier.”
+                        </p>
+                        <div class="compliment-meta">
+                            <img src="https://randomuser.me/api/portraits/women/12.jpg" class="compliment-avatar" alt="Taylor Nguyen avatar">
+                            <div>
+                                <p class="text-dark mb-0" style="font-weight: 500; font-size: 15px !important;">Taylor Nguyen</p>
+                                <p class="mb-0" style="font-size: 15px !important; color: #8b8b8b;">Engagement Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Takeaways -->
+        <div id="takeaways" class="my-5 mx-auto py-5" style="background-color: #fafafa;">
+            <div class="mr-auto" style="max-width: 800px; margin: 0 auto; text-align: left;">
+                <p class="lead text-left text-dark mb-4" style="font-size: 24px !important; font-weight: 500;">Key takeaways from the journey</p>
+                <div class="fade" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 48px;">
+                    <p class="text-left" style="font-size: 24px !important; font-weight: 400; color: #474747;">Building the right thing > building the thing right</p>
+                    <div style="display: flex; flex-direction: column; gap: 12px; background-color: #ffffff; border-radius: 16px; padding: 32px; border: 1px solid #0000001a; box-shadow: rgba(0, 0, 0, 0.02) 0px 4px 8px 0px, rgba(0, 0, 0, 0.03) 0px 6px 12px 0px;">
+                        <div style="display: flex; flex-direction: row; gap: 20px; align-items: left; margin-bottom: 20px;">
+                            <span class="site-avatar site-avatar--lg" aria-label="Long Geng">L</span>
+                            <div>
+                                <p style="font-weight: 500; font-size: 16px !important; margin-bottom: 4px;">Long Geng</p>
+                                <a href="https://www.linkedin.com/in/longgeng/" target="_blank" style="font-size: 16px !important; color: #8b8b8b; text-decoration: none; font-weight: 400;">PwC AI CoE</a>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 12px; align-items: left;">
+                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
+                                This project reminded me that the true value of design doesn’t come from polishing every pixel or perfecting a screen in isolation. It comes from stepping back and making sure we are solving the right problem in the first place. That shift in mindset set the foundation for everything that followed.
+                            </p>
+                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
+                                Throughout the journey, I saw how quickly ideas could evolve once we aligned on what really mattered — the user needs, the workflow constraints, and the broader business outcomes that PwC cares about. Whenever we paused to question assumptions or revisit the brief, the product gained clarity, and our decisions became far more intentional.
+                            </p>
+                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
+                                As the team formed a clearer shared understanding, momentum naturally accelerated. We weren’t just designing faster; we were designing with purpose. That alignment across design, engineering, and product leadership created a sense of confidence that moved the entire project forward in a meaningful way.
+                            </p>
+                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
+                                What stood out most was how validation prevented us from perfecting solutions that didn’t matter. Early feedback loops — even when they challenged our assumptions — helped us refine direction before refining details. It was a reminder that direction is more important than speed, especially when building something foundational like AgentOS.
+                            </p>
+                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">In the end, this project reinforced a principle that will guide my work long after this case ends: building the thing right is valuable, but building the right thing is what truly creates impact. When we design with clarity, alignment, and purpose, the craft becomes more than execution — it becomes a way to shape products that actually matter.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Next Project -->
+        <div class="pt-2 pb-5 mt-0 fade" style="background: #ffffff">
+            <div class="container">
+                <h5 class="text-dark mb-3 text-center">NEXT PROJECT</h5>
+                <div class="row text-center ">
+                    <div class="col-md-12 my-3">
+                        <h3 class="text-dark" style="font-weight: 600">PwC AgentOS</h3>
+                    </div>
+                    <a href="../dcb/index.html" role="button" aria-label="Next project" title="Next project" class="btn m-auto badge-pill d-flex align-items-center justify-content-center site-next-btn" style="width: 48px; height: 48px; background-color: #f2f2f2;"><i data-lucide="arrow-right" class="site-icon" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <a id="button" href="#" aria-label="Scroll to top" title="Scroll to top"><i data-lucide="arrow-up" class="site-icon" aria-hidden="true"></i></a>
+
+        <!-- Image Modal -->
+        <div id="imageModal" class="image-modal">
+            <div class="image-modal-content">
+                <button class="image-modal-close" id="closeModal">&times;</button>
+                <img id="modalImage" src="" alt="Full size image">
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="../../assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="../../assets/js/script.js"></script>
+        <script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script type="text/javascript">
+            // Image modal functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                const closeBtn = document.getElementById('closeModal');
+                const thumbnails = document.querySelectorAll('.evolution-thumbnail');
+                
+                // Open modal when thumbnail is clicked
+                thumbnails.forEach(function(thumbnail) {
+                    thumbnail.addEventListener('click', function() {
+                        const fullImageSrc = this.getAttribute('data-full-image');
+                        modalImage.src = fullImageSrc;
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                    });
+                });
+                
+                // Close modal when close button is clicked
+                closeBtn.addEventListener('click', function() {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scrolling
+                });
+                
+                // Close modal when clicking outside the image
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = ''; // Restore scrolling
+                    }
+                });
+                
+                // Close modal with Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && modal.classList.contains('active')) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = ''; // Restore scrolling
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                if (!window.gsap) return;
+
+                const wrapper = document.querySelector('#menu .staggered-menu-wrapper');
+                const panel = document.getElementById('staggered-menu-panel');
+                const prelayers = Array.from(document.querySelectorAll('#menu .sm-prelayer'));
+                const toggleBtn = document.getElementById('toggle');
+                const itemEls = Array.from(document.querySelectorAll('#menu .sm-panel-itemLabel'));
+                const numberEls = Array.from(document.querySelectorAll('#menu .sm-panel-list[data-numbering] .sm-panel-item'));
+
+                if (!panel || !toggleBtn) return;
+
+                const offscreen = 100;
+                gsap.set([panel, ...prelayers], { xPercent: offscreen });
+                gsap.set(toggleBtn, { transformOrigin: '50% 50%' });
+
+                let open = false;
+                let busy = false;
+
+                const buildOpenTimeline = () => {
+                    const tl = gsap.timeline({ paused: true });
+
+                    prelayers.forEach((layer, i) => {
+                        tl.fromTo(
+                            layer,
+                            { xPercent: offscreen },
+                            { xPercent: 0, duration: 0.5, ease: 'power4.out' },
+                            i * 0.07
+                        );
+                    });
+
+                    const panelInsertTime = prelayers.length ? (prelayers.length - 1) * 0.07 + 0.08 : 0;
+                    tl.fromTo(
+                        panel,
+                        { xPercent: offscreen },
+                        { xPercent: 0, duration: 0.65, ease: 'power4.out' },
+                        panelInsertTime
+                    );
+
+                    if (itemEls.length) {
+                        gsap.set(itemEls, { yPercent: 140, rotate: 10 });
+                        const itemsStart = panelInsertTime + 0.65 * 0.15;
+                        tl.to(
+                            itemEls,
+                            {
+                                yPercent: 0,
+                                rotate: 0,
+                                duration: 1,
+                                ease: 'power4.out',
+                                stagger: { each: 0.1, from: 'start' }
+                            },
+                            itemsStart
+                        );
+                        if (numberEls.length) {
+                            gsap.set(numberEls, { '--sm-num-opacity': 0 });
+                            tl.to(
+                                numberEls,
+                                {
+                                    duration: 0.6,
+                                    ease: 'power2.out',
+                                    '--sm-num-opacity': 1,
+                                    stagger: { each: 0.08, from: 'start' }
+                                },
+                                itemsStart + 0.1
+                            );
+                        }
+                    }
+
+                    return tl;
+                };
+
+                const playClose = () => {
+                    const all = [...prelayers, panel];
+                    gsap.to(all, {
+                        xPercent: offscreen,
+                        duration: 0.32,
+                        ease: 'power3.in',
+                        overwrite: 'auto',
+                        onComplete: () => {
+                            busy = false;
+                        }
+                    });
+                };
+
+                const animateToggle = (opening) => {
+                    gsap.to(toggleBtn, {
+                        rotate: opening ? 90 : 0,
+                        duration: opening ? 0.4 : 0.3,
+                        ease: 'power4.out'
+                    });
+                };
+
+                toggleBtn.addEventListener('click', () => {
+                    if (busy) return;
+                    busy = true;
+                    open = !open;
+                    toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+                    if (wrapper) {
+                        if (open) {
+                            wrapper.setAttribute('data-open', 'true');
+                        } else {
+                            wrapper.removeAttribute('data-open');
+                        }
+                    }
+                    if (open) {
+                        const tl = buildOpenTimeline();
+                        tl.eventCallback('onComplete', () => {
+                            busy = false;
+                        });
+                        tl.play(0);
+                    } else {
+                        playClose();
+                    }
+                    animateToggle(open);
+                });
+            });
+        </script>
+
+        
+
+            </main>
+        </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons({ attrs: { 'stroke-width': 1.75 } });
+    }
+    if (window.GlobalSidebar) {
+      GlobalSidebar.init(GlobalSidebar.caseStudyOptions('chatpwc'));
+    }
+  });
+</script>
+</body>
+</html>

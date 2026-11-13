@@ -1,0 +1,1782 @@
+/* Lightweight Approach / Contact pages — matches homepage tokens */
+
+.sp-body {
+  min-height: 100dvh;
+  background: var(--background-primary);
+}
+
+.sp-top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.sp-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.sp-back:hover {
+  background: var(--interactive-hover);
+}
+
+.sp-back:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.sp-back [data-lucide] {
+  width: 18px;
+  height: 18px;
+}
+
+.sp-main {
+  display: flex;
+  justify-content: center;
+  padding: 24px 24px 64px;
+}
+
+.sp-card {
+  width: 100%;
+  max-width: 640px;
+}
+
+.sp-title {
+  margin: 0 0 10px;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.sp-lead {
+  margin: 0 0 28px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.sp-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sp-steps li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 36px;
+  counter-increment: step;
+}
+
+.sp-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: var(--background-tertiary);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-steps strong {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.sp-steps span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* —— Approach scrollytelling: full sticky page shell —— */
+.approach-body {
+  margin: 0;
+}
+
+.approach-scroll-section {
+  --approach-steps: 6;
+  display: grid;
+  position: relative;
+}
+
+.approach-page-shell,
+.approach-scroll-track {
+  grid-area: 1 / 1;
+}
+
+.approach-scroll-track {
+  height: calc(var(--approach-steps) * 100vh);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.approach-page-shell {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  align-self: start;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  margin: 0 auto;
+  padding: 14px 24px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 0;
+  background: var(--background-primary);
+}
+
+.approach-page-shell--embedded {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+/* Workspace embed: library-like Approach layout */
+html.la-embed .approach-workspace-embed .approach-scroll-track {
+  display: none !important;
+  height: 0 !important;
+}
+
+html.la-embed .approach-workspace-embed .approach-page-shell,
+html.la-embed .approach-workspace-embed .approach-page-shell--embedded {
+  position: static !important;
+  height: auto !important;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+  overflow: visible !important;
+  display: block !important;
+  background: transparent;
+}
+
+html.la-embed .approach-workspace-embed .approach-page-intro {
+  margin: 0 0 24px;
+  text-align: left;
+}
+
+html.la-embed .approach-workspace-embed .approach-page-intro .sp-lead {
+  margin: 0;
+  max-width: none;
+  text-align: left;
+}
+
+html.la-embed .approach-workspace-embed .approach-scrollytelling-stage {
+  position: relative;
+  display: block;
+  padding: 0;
+  min-height: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+html.la-embed .approach-workspace-embed .approach-rail {
+  position: static;
+  top: auto;
+  right: auto;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 20px;
+}
+
+html.la-embed .approach-workspace-embed .approach-rail__list {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+html.la-embed .approach-workspace-embed .approach-rail__btn {
+  width: auto;
+  gap: 4px;
+  padding: 7px 10px 7px 9px;
+  border-radius: 999px;
+  align-items: center;
+}
+
+html.la-embed .approach-workspace-embed .approach-rail__num {
+  min-width: 0;
+  letter-spacing: 0;
+}
+
+html.la-embed .approach-workspace-embed .approach-main-column {
+  width: 100%;
+  max-width: none;
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 16px;
+}
+
+html.la-embed .approach-workspace-embed .approach-copy {
+  text-align: left;
+  width: 100%;
+}
+
+html.la-embed .approach-workspace-embed .approach-step-title {
+  text-align: left;
+}
+
+html.la-embed .approach-workspace-embed .approach-step-desc {
+  margin: 0;
+  max-width: none;
+  text-align: left;
+}
+
+html.la-embed .approach-workspace-embed .approach-preview-stage {
+  width: 100%;
+  max-width: none;
+  min-height: clamp(300px, 44vh, 440px);
+}
+
+html.la-embed .approach-workspace-embed .approach-preview {
+  width: 100%;
+  max-width: none;
+  height: clamp(300px, 44vh, 440px);
+}
+
+html.la-embed .approach-workspace-embed .approach-actions.sp-actions {
+  justify-content: flex-start;
+}
+
+.approach-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-bottom: 20px;
+}
+
+.approach-page-intro {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.approach-page-intro .sp-title {
+  margin: 0 0 10px;
+}
+
+.approach-page-intro .sp-lead {
+  margin: 0 auto;
+  max-width: 40em;
+}
+
+.approach-scrollytelling-stage {
+  position: relative;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 180px 0 24px;
+  box-sizing: border-box;
+}
+
+.approach-rail {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  z-index: 3;
+  min-width: 0;
+  width: max-content;
+  max-width: 168px;
+  transform: translateY(-50%);
+}
+
+.approach-rail__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.approach-rail__btn {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-tertiary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.approach-rail__btn:hover {
+  background: var(--interactive-hover, rgba(0, 0, 0, 0.04));
+  color: var(--text-secondary);
+}
+
+.approach-rail__btn:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.approach-rail__btn.is-active,
+.approach-rail__btn[aria-current="step"] {
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.approach-rail__num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  min-width: 1.5em;
+}
+
+.approach-rail__label {
+  color: inherit;
+  opacity: 0.85;
+}
+
+.approach-rail__btn.is-active .approach-rail__label,
+.approach-rail__btn[aria-current="step"] .approach-rail__label {
+  opacity: 1;
+}
+
+.approach-main-column {
+  min-width: 0;
+  min-height: 0;
+  width: min(100%, 640px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  text-align: center;
+}
+
+.approach-copy {
+  min-height: 0;
+  width: 100%;
+}
+
+.approach-step-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.approach-step-desc {
+  margin: 0 auto;
+  max-width: 36em;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.approach-preview-stage {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  min-height: 0;
+}
+
+.approach-panel {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 280ms ease;
+  pointer-events: none;
+}
+
+.approach-panel.is-active,
+.approach-panel.is-visible {
+  position: relative;
+  inset: auto;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.approach-panel[hidden] {
+  display: none;
+}
+
+.approach-panel.is-active[hidden] {
+  display: block;
+}
+
+.approach-actions.sp-actions {
+  margin-top: 4px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .approach-scrollytelling-stage {
+    padding-right: 88px;
+  }
+
+  .approach-rail {
+    right: 8px;
+    max-width: 64px;
+  }
+
+  .approach-rail__label {
+    display: none;
+  }
+}
+
+@media (max-height: 760px) {
+  .approach-page-shell {
+    padding-block: 12px 16px;
+  }
+
+  .approach-page-header {
+    margin-bottom: 14px;
+    min-height: 36px;
+  }
+
+  .approach-page-intro {
+    margin-bottom: 16px;
+  }
+
+  .approach-page-intro .sp-title {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .approach-page-intro .sp-lead {
+    font-size: 14px;
+  }
+
+  .approach-step-title {
+    font-size: 18px;
+  }
+
+  .approach-actions.sp-actions {
+    margin-top: 16px;
+  }
+
+  .approach-body .approach-preview {
+    height: clamp(180px, 28vh, 230px);
+  }
+
+  .approach-preview-stage {
+    min-height: clamp(180px, 28vh, 230px);
+  }
+}
+
+@media (max-width: 800px) {
+  .approach-scroll-section {
+    display: block;
+  }
+
+  .approach-scroll-track {
+    display: none;
+  }
+
+  .approach-page-shell {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px 32px;
+    gap: 0;
+  }
+
+  .approach-page-header {
+    margin-bottom: 16px;
+  }
+
+  .approach-page-intro {
+    margin-bottom: 20px;
+  }
+
+  .approach-scrollytelling-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    padding: 0;
+  }
+
+  .approach-rail {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    order: -1;
+  }
+
+  .approach-rail__list {
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .approach-rail__btn {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 52px;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+
+  .approach-rail__label {
+    display: none;
+  }
+
+  .approach-main-column {
+    width: 100%;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .approach-page-intro {
+    text-align: left;
+  }
+
+  .approach-page-intro .sp-lead,
+  .approach-step-desc {
+    margin-inline: 0;
+  }
+
+  .approach-step-title {
+    font-size: 18px;
+  }
+
+  .approach-preview-stage {
+    min-height: 230px;
+    max-width: 100%;
+  }
+
+  .approach-actions.sp-actions {
+    margin-top: 8px;
+    justify-content: flex-start;
+  }
+}
+
+/* —— Approach preview surfaces —— */
+.approach-preview,
+.workflow-preview {
+  --radius-node-small: 7px;
+  --radius-node-medium: 10px;
+  --radius-node-large: 16px;
+  --radius-decision: 7px;
+  --radius-edge-corner: 10px;
+}
+
+.approach-preview {
+  width: 100%;
+  max-width: 560px;
+  height: clamp(200px, 32vh, 280px);
+  margin-top: 0;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-node-large);
+  background: var(--background-secondary);
+}
+
+.workflow-preview-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+}
+
+.workflow-preview-caption {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  pointer-events: none;
+  user-select: none;
+}
+
+.workflow-edges {
+  transition: opacity 450ms ease;
+}
+
+.workflow-edges--initial {
+  opacity: 0;
+}
+
+.workflow-edges--final {
+  opacity: 0;
+}
+
+.workflow-preview .wp-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition:
+    stroke-dashoffset 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke 350ms ease,
+    opacity 400ms ease;
+}
+
+.workflow-preview .wp-line--primary {
+  stroke: var(--text-secondary);
+  stroke-width: 1.25;
+}
+
+.workflow-preview .wp-line--secondary {
+  stroke: var(--border-default);
+  stroke-width: 1;
+  opacity: 0.55;
+}
+
+.workflow-preview .workflow-node {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 400ms ease;
+}
+
+.workflow-preview .wp-step {
+  fill: var(--background-primary);
+  stroke: var(--border-default);
+  stroke-width: 1;
+  /* rx/ry set in SVG from radius tokens via JS */
+}
+
+.workflow-preview .wp-actor {
+  fill: var(--background-primary);
+  stroke: var(--border-default);
+  stroke-width: 1;
+}
+
+.workflow-preview .wp-decision {
+  fill: var(--background-tertiary);
+  stroke: var(--border-default);
+  stroke-width: 1;
+  transition: fill 350ms ease, stroke 350ms ease;
+}
+
+.workflow-preview .workflow-node.is-secondary {
+  opacity: 0.45;
+}
+
+/* discover: nodes fade in */
+.workflow-preview[data-phase="discover"] .workflow-node {
+  opacity: 1;
+}
+.workflow-preview[data-phase="discover"] .workflow-node.is-secondary {
+  opacity: 0.45;
+}
+.workflow-preview[data-phase="discover"] .workflow-edges--initial,
+.workflow-preview[data-phase="discover"] .workflow-edges--final {
+  opacity: 0;
+}
+
+/* connect: draw initial edges */
+.workflow-preview[data-phase="connect"] .workflow-node {
+  opacity: 1;
+}
+.workflow-preview[data-phase="connect"] .workflow-node.is-secondary {
+  opacity: 0.45;
+}
+.workflow-preview[data-phase="connect"] .workflow-edges--initial {
+  opacity: 1;
+}
+.workflow-preview[data-phase="connect"] .workflow-edges--final {
+  opacity: 0;
+}
+
+/* identify: highlight decision, mute secondary */
+.workflow-preview[data-phase="identify"] .workflow-node {
+  opacity: 1;
+}
+.workflow-preview[data-phase="identify"] .workflow-edges--initial {
+  opacity: 1;
+}
+.workflow-preview[data-phase="identify"] .workflow-edges--final {
+  opacity: 0;
+}
+.workflow-preview[data-phase="identify"] .wp-decision,
+.workflow-preview[data-phase="finalize"] .wp-decision,
+.workflow-preview[data-phase="hold"] .wp-decision,
+.workflow-preview[data-phase="reorganize"] .wp-decision {
+  fill: var(--text-primary);
+  stroke: var(--text-primary);
+}
+.workflow-preview.is-muted-secondary .wp-line--secondary {
+  opacity: 0.22;
+}
+.workflow-preview.is-muted-secondary .workflow-node.is-secondary {
+  opacity: 0.38;
+}
+.workflow-preview[data-phase="identify"] .wp-line--primary {
+  stroke: var(--text-primary);
+  opacity: 0.85;
+}
+
+/* reorganize: hide edges, nodes move (JS sets transforms) */
+.workflow-preview[data-phase="reorganize"] .workflow-node {
+  opacity: 1;
+}
+.workflow-preview[data-phase="reorganize"] .workflow-edges--initial,
+.workflow-preview[data-phase="reorganize"] .workflow-edges--final {
+  opacity: 0;
+}
+
+/* finalize / hold: final edges visible */
+.workflow-preview[data-phase="finalize"] .workflow-node,
+.workflow-preview[data-phase="hold"] .workflow-node {
+  opacity: 1;
+}
+.workflow-preview[data-phase="finalize"] .workflow-edges--initial,
+.workflow-preview[data-phase="hold"] .workflow-edges--initial {
+  opacity: 0;
+}
+.workflow-preview[data-phase="finalize"] .workflow-edges--final,
+.workflow-preview[data-phase="hold"] .workflow-edges--final {
+  opacity: 1;
+}
+
+.workflow-preview[data-phase="reset"] {
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+}
+
+.workflow-preview.is-resetting {
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+}
+.workflow-preview.is-resetting .workflow-node,
+.workflow-preview.is-resetting .wp-line,
+.workflow-preview.is-resetting .workflow-edges {
+  transition: none !important;
+  animation: none !important;
+}
+
+.workflow-preview[data-reduced="true"] .workflow-node,
+.workflow-preview[data-reduced="true"] .wp-line,
+.workflow-preview[data-reduced="true"] .wp-decision {
+  transition: none !important;
+  animation: none !important;
+}
+
+@media (max-width: 600px) {
+  .approach-preview,
+  .workflow-preview {
+    --radius-edge-corner: 8px;
+  }
+
+  .approach-preview {
+    height: 230px;
+    max-width: 100%;
+  }
+
+  .workflow-preview .workflow-node[data-id="actorB"] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workflow-preview .workflow-node,
+  .workflow-preview .wp-line,
+  .workflow-preview .workflow-edges,
+  .workflow-preview .wp-decision {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .workflow-preview-caption {
+    display: none;
+  }
+}
+
+/* —— Second approach point: human / AI responsibility preview —— */
+.responsibility-preview .rp-lanes {
+  opacity: 0;
+  transition: opacity 450ms ease;
+  pointer-events: none;
+}
+
+.responsibility-preview.is-roles-active .rp-lanes {
+  opacity: 1;
+}
+
+.responsibility-preview .responsibility-lane {
+  fill: rgba(0, 0, 0, 0.015);
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+}
+
+.responsibility-preview .rp-lane--ai .responsibility-lane {
+  fill: rgba(0, 0, 0, 0.02);
+}
+
+.responsibility-preview .rp-lane--human .responsibility-lane {
+  fill: rgba(0, 0, 0, 0.01);
+}
+
+.responsibility-preview .rp-lane-label {
+  fill: var(--text-tertiary);
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.responsibility-preview .rp-label {
+  fill: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  opacity: 0.55;
+  transition: opacity 350ms ease, fill 350ms ease;
+  pointer-events: none;
+}
+
+.responsibility-preview .rp-node.is-role-revealed .rp-label {
+  opacity: 1;
+}
+
+.responsibility-preview .rp-node--ai.is-role-revealed .rp-step {
+  fill: var(--background-tertiary);
+  stroke: var(--border-default);
+}
+
+.responsibility-preview .rp-node--human.is-role-revealed .rp-step {
+  fill: var(--background-primary);
+  stroke: var(--border-default);
+}
+
+.responsibility-preview .rp-node--human.is-role-revealed .rp-label {
+  fill: var(--text-primary);
+}
+
+.responsibility-preview .rp-node.is-emphasis.is-role-revealed .rp-step {
+  stroke: var(--text-secondary);
+  stroke-width: 1.25;
+}
+
+.responsibility-preview .rp-node.is-assessing .rp-step,
+.responsibility-preview .rp-node.is-assessing .rp-decision {
+  stroke: var(--text-primary);
+  stroke-width: 1.5;
+}
+
+.responsibility-preview[data-phase="assess"] .workflow-node {
+  opacity: 0.72;
+}
+
+.responsibility-preview[data-phase="assess"] .workflow-node.is-assessing {
+  opacity: 1;
+}
+
+.responsibility-preview .wp-line--handoff {
+  stroke: var(--text-secondary);
+  stroke-width: 1.25;
+}
+
+.responsibility-preview .wp-line--approval {
+  stroke: var(--text-primary);
+  stroke-width: 1.35;
+  opacity: 0.9;
+}
+
+.responsibility-preview .rp-handoff-markers {
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
+}
+
+.responsibility-preview[data-phase="handoff"] .rp-handoff-markers,
+.responsibility-preview[data-phase="hold"] .rp-handoff-markers {
+  opacity: 1;
+}
+
+.responsibility-preview .rp-handoff-dot {
+  fill: var(--background-primary);
+  stroke: var(--text-secondary);
+  stroke-width: 1;
+}
+
+.responsibility-preview[data-phase="shared"] .workflow-node {
+  opacity: 1;
+}
+
+.responsibility-preview[data-phase="shared"] .workflow-edges--initial {
+  opacity: 1;
+}
+
+.responsibility-preview[data-phase="shared"] .workflow-edges--final,
+.responsibility-preview[data-phase="assess"] .workflow-edges--final,
+.responsibility-preview[data-phase="assign"] .workflow-edges--final {
+  opacity: 0;
+}
+
+.responsibility-preview[data-phase="assess"] .workflow-edges--initial {
+  opacity: 1;
+}
+
+.responsibility-preview[data-phase="assign"] .workflow-edges--initial {
+  opacity: 0;
+}
+
+.responsibility-preview[data-phase="assign"] .workflow-node {
+  opacity: 1;
+}
+
+.responsibility-preview[data-phase="handoff"] .workflow-node,
+.responsibility-preview[data-phase="hold"] .workflow-node {
+  opacity: 1;
+}
+
+.responsibility-preview[data-phase="handoff"] .workflow-edges--initial,
+.responsibility-preview[data-phase="hold"] .workflow-edges--initial {
+  opacity: 0;
+}
+
+.responsibility-preview[data-phase="handoff"] .workflow-edges--final,
+.responsibility-preview[data-phase="hold"] .workflow-edges--final {
+  opacity: 1;
+}
+
+.responsibility-preview[data-phase="handoff"] .rp-decision,
+.responsibility-preview[data-phase="hold"] .rp-decision {
+  fill: var(--text-primary);
+  stroke: var(--text-primary);
+}
+
+.responsibility-preview[data-phase="reset"] {
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+}
+
+@media (max-width: 600px) {
+  .responsibility-preview .rp-lane-label {
+    font-size: 10px;
+  }
+
+  .responsibility-preview .rp-label {
+    font-size: 10px;
+  }
+}
+
+/* —— Third approach point: trust / evidence / recovery preview —— */
+.trust-preview .tp-label {
+  fill: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  pointer-events: none;
+}
+
+.trust-preview .tp-node--ai .tp-step {
+  fill: var(--background-tertiary);
+}
+
+.trust-preview .tp-evidence-card {
+  fill: var(--background-primary);
+  stroke: var(--border-default);
+  stroke-width: 1;
+}
+
+.trust-preview .tp-evidence-line {
+  fill: var(--border-default);
+  opacity: 0.7;
+}
+
+.trust-preview .tp-confidence-track {
+  fill: var(--background-tertiary);
+}
+
+.trust-preview .tp-confidence-fill {
+  fill: var(--text-tertiary);
+  transition: fill 350ms ease;
+}
+
+.trust-preview .tp-confidence-fill.is-low {
+  fill: var(--text-secondary);
+}
+
+.trust-preview .tp-node.is-hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.trust-preview .tp-node--evidence {
+  transform-box: fill-box;
+  transform-origin: center top;
+}
+
+.trust-preview .tp-warning {
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
+}
+
+.trust-preview.is-warning .tp-warning {
+  opacity: 1;
+}
+
+.trust-preview .tp-warning-badge {
+  fill: var(--background-primary);
+  stroke: var(--text-secondary);
+  stroke-width: 1.25;
+}
+
+.trust-preview .tp-warning-mark {
+  fill: var(--text-primary);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.trust-preview .wp-line--recovery {
+  stroke: var(--border-default);
+  stroke-width: 1;
+  opacity: 0.35;
+  transition:
+    stroke-dashoffset 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 450ms ease,
+    stroke 350ms ease;
+}
+
+.trust-preview.is-recovery-strong .wp-line--recovery {
+  stroke: var(--text-secondary);
+  opacity: 1;
+}
+
+.trust-preview[data-phase="stable"] .wp-line--recovery,
+.trust-preview[data-phase="hold"] .wp-line--recovery {
+  stroke: var(--text-tertiary);
+  opacity: 0.45;
+}
+
+.trust-preview .workflow-edges--build,
+.trust-preview .workflow-edges--primary,
+.trust-preview .workflow-edges--recovery {
+  opacity: 0;
+  transition: opacity 450ms ease;
+}
+
+.trust-preview[data-phase="build"] .workflow-node:not(.is-hidden) {
+  opacity: 1;
+}
+
+.trust-preview[data-phase="build"] .workflow-edges--build {
+  opacity: 1;
+}
+
+.trust-preview[data-phase="evidence"] .workflow-node:not(.is-hidden) {
+  opacity: 1;
+}
+
+.trust-preview[data-phase="evidence"] .workflow-edges--build,
+.trust-preview[data-phase="evidence"] .workflow-edges--primary,
+.trust-preview[data-phase="evidence"] .workflow-edges--recovery {
+  opacity: 0;
+}
+
+.trust-preview[data-phase="verify"] .workflow-node:not(.is-hidden),
+.trust-preview[data-phase="exception"] .workflow-node:not(.is-hidden),
+.trust-preview[data-phase="stable"] .workflow-node:not(.is-hidden),
+.trust-preview[data-phase="hold"] .workflow-node:not(.is-hidden) {
+  opacity: 1;
+}
+
+.trust-preview[data-phase="verify"] .workflow-edges--primary,
+.trust-preview[data-phase="exception"] .workflow-edges--primary,
+.trust-preview[data-phase="stable"] .workflow-edges--primary,
+.trust-preview[data-phase="hold"] .workflow-edges--primary {
+  opacity: 1;
+}
+
+.trust-preview[data-phase="exception"] .workflow-edges--recovery,
+.trust-preview[data-phase="stable"] .workflow-edges--recovery,
+.trust-preview[data-phase="hold"] .workflow-edges--recovery {
+  opacity: 1;
+}
+
+.trust-preview[data-phase="verify"] .tp-decision,
+.trust-preview[data-phase="exception"] .tp-decision,
+.trust-preview[data-phase="stable"] .tp-decision,
+.trust-preview[data-phase="hold"] .tp-decision {
+  fill: var(--text-primary);
+  stroke: var(--text-primary);
+}
+
+.trust-preview[data-phase="reset"] {
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+}
+
+@media (max-width: 600px) {
+  .trust-preview .tp-label {
+    font-size: 10px;
+  }
+}
+
+/* —— Fourth approach point: prototype high-risk interactions —— */
+.prototype-preview .pp-label,
+.prototype-preview .pp-state-label,
+.prototype-preview .pp-proto-label {
+  fill: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  pointer-events: none;
+}
+
+.prototype-preview .pp-proto-label {
+  fill: var(--text-tertiary);
+}
+
+.prototype-preview .prototype-area {
+  fill: rgba(0, 0, 0, 0.015);
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+}
+
+.prototype-preview .pp-prototype-area {
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
+}
+
+.prototype-preview.is-prototyping .pp-prototype-area {
+  opacity: 1;
+}
+
+.prototype-preview .pp-states .pp-state-card {
+  opacity: 0;
+  transition:
+    opacity 350ms ease,
+    transform 350ms ease;
+}
+
+.prototype-preview.is-prototyping .pp-states .pp-state-card {
+  opacity: 1;
+}
+
+.prototype-preview.is-prototyping .pp-states .pp-state-card[data-state="success"] {
+  transition-delay: 80ms;
+}
+
+.prototype-preview.is-prototyping .pp-states .pp-state-card[data-state="uncertain"] {
+  transition-delay: 160ms;
+  opacity: 0.78;
+}
+
+.prototype-preview.is-prototyping .pp-states .pp-state-card[data-state="recovery"] {
+  transition-delay: 240ms;
+}
+
+.prototype-preview .pp-state-rect {
+  fill: var(--background-primary);
+  stroke: var(--border-default);
+  stroke-width: 1;
+  transition: stroke 300ms ease, stroke-width 300ms ease;
+}
+
+.prototype-preview .pp-state-card--recovery .pp-state-rect {
+  stroke: var(--text-tertiary);
+}
+
+.prototype-preview .pp-state-card.is-active .pp-state-rect,
+.prototype-preview .pp-state-card.is-confirmed .pp-state-rect {
+  stroke: var(--text-secondary);
+  stroke-width: 1.35;
+}
+
+.prototype-preview .pp-state-card.is-active {
+  opacity: 1 !important;
+}
+
+.prototype-preview .pp-skel {
+  fill: var(--border-default);
+}
+
+.prototype-preview .pp-marker--filled {
+  fill: var(--text-tertiary);
+  stroke: none;
+}
+
+.prototype-preview .pp-marker--outline {
+  fill: none;
+  stroke: var(--text-tertiary);
+  stroke-width: 1.25;
+}
+
+.prototype-preview .pp-return {
+  stroke: var(--text-tertiary);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.prototype-preview .pp-focus-frame {
+  fill: none;
+  stroke: var(--text-secondary);
+  stroke-width: 1;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.prototype-preview.is-focused .pp-focus-frame {
+  opacity: 0.55;
+}
+
+.prototype-preview .pp-risk-badge {
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.prototype-preview.is-focused .pp-risk-badge {
+  opacity: 1;
+}
+
+.prototype-preview .pp-risk-badge-bg {
+  fill: var(--background-primary);
+  stroke: var(--text-secondary);
+  stroke-width: 1;
+}
+
+.prototype-preview .pp-risk-badge-text {
+  fill: var(--text-primary);
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.prototype-preview.is-focused .workflow-node:not(.is-risk) {
+  opacity: 0.42;
+}
+
+.prototype-preview.is-focused .workflow-node.is-risk {
+  opacity: 1;
+}
+
+.prototype-preview.is-focused .pp-decision {
+  stroke: var(--text-primary);
+  stroke-width: 1.35;
+}
+
+.prototype-preview[data-phase="observe"] .workflow-node {
+  opacity: 1;
+}
+
+.prototype-preview[data-phase="observe"] .workflow-edges--initial {
+  opacity: 1;
+}
+
+.prototype-preview[data-phase="observe"] .workflow-edges--final {
+  opacity: 0;
+}
+
+.prototype-preview[data-phase="identify"] .workflow-edges--initial {
+  opacity: 1;
+}
+
+.prototype-preview[data-phase="identify"] .workflow-edges--final {
+  opacity: 0;
+}
+
+.prototype-preview[data-phase="isolate"] .workflow-node,
+.prototype-preview[data-phase="test"] .workflow-node {
+  opacity: 1;
+}
+
+.prototype-preview[data-phase="isolate"].is-focused .workflow-node:not(.is-risk),
+.prototype-preview[data-phase="test"].is-focused .workflow-node:not(.is-risk) {
+  opacity: 0.42;
+}
+
+.prototype-preview[data-phase="isolate"] .workflow-edges--initial,
+.prototype-preview[data-phase="test"] .workflow-edges--initial,
+.prototype-preview[data-phase="isolate"] .workflow-edges--final,
+.prototype-preview[data-phase="test"] .workflow-edges--final {
+  opacity: 0;
+}
+
+.prototype-preview[data-phase="refine"] .workflow-node,
+.prototype-preview[data-phase="hold"] .workflow-node {
+  opacity: 1;
+}
+
+.prototype-preview[data-phase="refine"] .workflow-edges--initial,
+.prototype-preview[data-phase="hold"] .workflow-edges--initial {
+  opacity: 0;
+}
+
+.prototype-preview[data-phase="refine"] .workflow-edges--final,
+.prototype-preview[data-phase="hold"] .workflow-edges--final {
+  opacity: 1;
+}
+
+.prototype-preview.is-refined .pp-decision {
+  fill: var(--text-primary);
+  stroke: var(--text-primary);
+}
+
+.prototype-preview.is-refined .pp-focus-frame,
+.prototype-preview.is-refined .pp-risk-badge {
+  opacity: 0;
+}
+
+.prototype-preview.is-refined .pp-states .pp-state-card[data-state="uncertain"] {
+  opacity: 0.55;
+}
+
+.prototype-preview[data-phase="reset"] {
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+}
+
+@media (max-width: 600px) {
+  .prototype-preview .pp-label,
+  .prototype-preview .pp-state-label,
+  .prototype-preview .pp-proto-label {
+    font-size: 10px;
+  }
+}
+
+/* —— Fifth approach point: validate with users and delivery teams —— */
+.validate-preview .vp-label {
+  fill: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  pointer-events: none;
+}
+
+.validate-preview .vp-proto-name {
+  fill: var(--text-primary);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.validate-preview .vp-node--prototype .vp-step {
+  fill: var(--background-primary);
+  stroke: var(--border-default);
+  stroke-width: 1;
+  transition: stroke 350ms ease, stroke-width 350ms ease;
+}
+
+.validate-preview .vp-node--prototype.is-refined .vp-step {
+  stroke: var(--text-secondary);
+  stroke-width: 1.35;
+}
+
+.validate-preview .vp-skel {
+  fill: var(--border-default);
+  opacity: 0.55;
+  transition:
+    opacity 350ms ease,
+    width 400ms ease;
+}
+
+.validate-preview .vp-confidence-track {
+  fill: var(--background-tertiary);
+  opacity: 0.35;
+  transition: opacity 350ms ease;
+}
+
+.validate-preview .vp-confidence-fill {
+  fill: var(--text-tertiary);
+  transition: width 400ms ease, fill 350ms ease;
+}
+
+/* Maturity: skeleton becomes denser / more aligned */
+.validate-preview[data-maturity="0"] .vp-skel-b {
+  opacity: 0.25;
+}
+
+.validate-preview[data-maturity="0"] .vp-confidence-track,
+.validate-preview[data-maturity="0"] .vp-confidence-fill {
+  opacity: 0.2;
+}
+
+.validate-preview[data-maturity="1"] .vp-skel-a {
+  opacity: 0.7;
+}
+
+.validate-preview[data-maturity="1"] .vp-skel-b {
+  opacity: 0.45;
+}
+
+.validate-preview[data-maturity="2"] .vp-skel {
+  opacity: 0.75;
+}
+
+.validate-preview[data-maturity="2"] .vp-confidence-track {
+  opacity: 0.7;
+}
+
+.validate-preview[data-maturity="3"] .vp-skel {
+  opacity: 0.85;
+}
+
+.validate-preview[data-maturity="3"] .vp-confidence-track {
+  opacity: 1;
+}
+
+.validate-preview[data-maturity="3"] .vp-confidence-fill {
+  fill: var(--text-secondary);
+}
+
+.validate-preview .vp-node.is-hidden {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.validate-preview .vp-edges {
+  opacity: 1;
+}
+
+.validate-preview .vp-edge--user,
+.validate-preview .vp-edge--product,
+.validate-preview .vp-edge--engineering,
+.validate-preview .vp-edge--refined {
+  opacity: 0.85;
+}
+
+.validate-preview .vp-feedback-token {
+  fill: var(--text-tertiary);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.validate-preview .workflow-node {
+  transition:
+    opacity 400ms ease,
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.validate-preview[data-phase="prototype"] .vp-node--prototype {
+  opacity: 1;
+}
+
+.validate-preview[data-phase="user"] .workflow-node:not(.is-hidden),
+.validate-preview[data-phase="product"] .workflow-node:not(.is-hidden),
+.validate-preview[data-phase="engineering"] .workflow-node:not(.is-hidden),
+.validate-preview[data-phase="deliver"] .workflow-node:not(.is-hidden),
+.validate-preview[data-phase="hold"] .workflow-node:not(.is-hidden) {
+  opacity: 1;
+}
+
+.validate-preview[data-phase="reset"] {
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+}
+
+@media (max-width: 600px) {
+  .validate-preview .vp-label,
+  .validate-preview .vp-proto-name {
+    font-size: 10px;
+  }
+}
+
+/* —— Sixth approach point: reusable systems —— */
+.system-preview .sys-product-label,
+.system-preview .sys-system-label,
+.system-preview .sys-pattern-label {
+  fill: var(--text-tertiary);
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  pointer-events: none;
+}
+
+.system-preview .sys-system-label {
+  fill: var(--text-secondary);
+}
+
+.system-preview .sys-pattern-label {
+  fill: var(--text-secondary);
+}
+
+.system-preview .sys-product-frame,
+.system-preview .sys-system-frame {
+  fill: rgba(0, 0, 0, 0.015);
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+  transition: stroke 350ms ease, opacity 400ms ease;
+}
+
+.system-preview .sys-system-frame {
+  opacity: 0;
+}
+
+.system-preview.is-system-visible .sys-system-frame,
+.system-preview.is-system-visible .sys-system-label {
+  opacity: 1;
+}
+
+.system-preview .sys-system-label {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.system-preview.is-standardised .sys-system-frame {
+  stroke: var(--border-default);
+}
+
+.system-preview .sys-mini {
+  fill: var(--background-primary);
+  stroke: var(--border-default);
+  stroke-width: 1;
+  transition:
+    opacity 400ms ease,
+    stroke 300ms ease,
+    stroke-width 300ms ease;
+}
+
+.system-preview .sys-mini.is-focused {
+  stroke: var(--text-secondary);
+  stroke-width: 1.35;
+}
+
+.system-preview .sys-product-standard {
+  opacity: 0;
+  transition: opacity 500ms ease;
+  pointer-events: none;
+}
+
+.system-preview .sys-product-internals {
+  opacity: 1;
+  transition: opacity 500ms ease;
+}
+
+.system-preview.is-reused .sys-product-internals {
+  opacity: 0;
+}
+
+.system-preview.is-reused .sys-product-standard {
+  opacity: 1;
+}
+
+.system-preview.is-extracted .sys-product-internals .sys-mini {
+  opacity: 0.35;
+}
+
+.system-preview .sys-pattern {
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
+}
+
+.system-preview.is-extracted .sys-pattern {
+  opacity: 1;
+}
+
+.system-preview.is-extracted .sys-pattern--composer {
+  transition-delay: 60ms;
+}
+
+.system-preview.is-extracted .sys-pattern--loading {
+  transition-delay: 140ms;
+}
+
+.system-preview.is-extracted .sys-pattern--result {
+  transition-delay: 220ms;
+}
+
+.system-preview.is-extracted .sys-pattern--error {
+  transition-delay: 300ms;
+}
+
+.system-preview .sys-pattern-card {
+  fill: var(--background-primary);
+  stroke: var(--border-default);
+  stroke-width: 1;
+  transition: stroke 350ms ease, stroke-width 350ms ease;
+}
+
+.system-preview.is-standardised .sys-pattern-card {
+  stroke: var(--text-tertiary);
+}
+
+.system-preview .sys-mark-line,
+.system-preview .sys-mark-chip {
+  fill: var(--border-default);
+}
+
+.system-preview .sys-mark-dot {
+  fill: var(--text-tertiary);
+}
+
+.system-preview .extraction-edges,
+.system-preview .reuse-edges {
+  opacity: 0;
+  transition: opacity 450ms ease;
+}
+
+.system-preview[data-phase="extract"] .extraction-edges {
+  opacity: 1;
+}
+
+.system-preview[data-phase="reuse"] .reuse-edges,
+.system-preview[data-phase="hold"] .reuse-edges {
+  opacity: 1;
+}
+
+.system-preview .sys-product {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.system-preview[data-phase="separate"] .sys-product--a {
+  opacity: 1;
+  transition-delay: 0ms;
+}
+
+.system-preview[data-phase="separate"] .sys-product--b {
+  opacity: 1;
+  transition-delay: 100ms;
+}
+
+.system-preview[data-phase="separate"] .sys-product--c {
+  opacity: 1;
+  transition-delay: 200ms;
+}
+
+.system-preview[data-phase="identify"] .sys-product,
+.system-preview[data-phase="extract"] .sys-product,
+.system-preview[data-phase="standardise"] .sys-product,
+.system-preview[data-phase="reuse"] .sys-product,
+.system-preview[data-phase="hold"] .sys-product {
+  opacity: 1;
+  transition-delay: 0ms;
+}
+
+.system-preview[data-phase="reset"] {
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+}
+
+@media (max-width: 600px) {
+  .system-preview .sys-product-label,
+  .system-preview .sys-system-label,
+  .system-preview .sys-pattern-label {
+    font-size: 10px;
+  }
+}
+
+.sp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.sp-contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sp-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-default);
+  border-radius: 14px;
+  background: var(--background-primary);
+  transition: background 150ms ease;
+}
+
+.sp-contact-row:hover {
+  background: #f7f7f7;
+}
+
+.sp-contact-row:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.sp-contact-row [data-lucide] {
+  width: 18px;
+  height: 18px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.sp-contact-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+
+.sp-contact-value {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.sp-meta {
+  margin: 20px 0 0;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 600px) {
+  .sp-main {
+    padding: 16px 16px 48px;
+  }
+
+  .sp-title {
+    font-size: 24px;
+  }
+}

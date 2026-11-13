@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1158px" height="429px" viewBox="0 0 1158 429" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 88</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="764" height="266" rx="28"></rect>
+    </defs>
+    <g id="Pulse" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-221, -6120)" id="Group-123">
+            <g transform="translate(80, 5256)">
+                <g id="Group-37" transform="translate(141, 816)">
+                    <g id="Group-88" transform="translate(0, 48)">
+                        <g id="Group-2" transform="translate(394, 0)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="Rectangle-Copy-4" fill="#F8F9FA" xlink:href="#path-1"></use>
+                            <g id="Group-35" mask="url(#mask-2)">
+                                <g transform="translate(12, 139)">
+                                    <rect id="Rectangle-Copy-3" fill="#22992E" fill-rule="evenodd" x="0" y="0" width="240" height="115" rx="12"></rect>
+                                    <text id="#22992E" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="24" y="40" fill="#FFFFFF">#22992E</tspan>
+                                    </text>
+                                    <text id="Success" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="24" y="87" fill="#FFFFFF">Success</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-35-Copy" mask="url(#mask-2)">
+                                <g transform="translate(264, 139)">
+                                    <rect id="Rectangle-Copy-3" fill="#FFBF1F" fill-rule="evenodd" x="0" y="0" width="238" height="115" rx="12"></rect>
+                                    <text id="#FFBF1F" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="24" y="40" fill="#252525">#FFBF1F</tspan>
+                                    </text>
+                                    <text id="Warning" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="24" y="87" fill="#252525">Warning</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-35-Copy-8" mask="url(#mask-2)">
+                                <g transform="translate(514, 139)">
+                                    <rect id="Rectangle-Copy-3" fill="#C52A1A" fill-rule="evenodd" x="0" y="0" width="238" height="115" rx="12"></rect>
+                                    <text id="#C52A1A" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="24" y="40" fill="#FFFFFF">#C52A1A</tspan>
+                                    </text>
+                                    <text id="Error" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="24" y="87" fill="#FFFFFF">Error</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-35" mask="url(#mask-2)">
+                                <g transform="translate(14, 12)">
+                                    <rect id="Rectangle-Copy-3" fill="#111111" fill-rule="evenodd" x="0" y="0" width="113" height="115" rx="12"></rect>
+                                    <text id="#191919" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="40" fill="#FFFFFF">#191919</tspan>
+                                    </text>
+                                    <text id="Darker" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="87" fill="#FFFFFF">Darker</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-35-Copy-2" mask="url(#mask-2)">
+                                <g transform="translate(264, 12)">
+                                    <rect id="Rectangle-Copy-3" fill="#464646" fill-rule="evenodd" x="0" y="0" width="113" height="115" rx="12"></rect>
+                                    <text id="#464646" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="40" fill="#FFFFFF">#464646</tspan>
+                                    </text>
+                                    <text id="Medium" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="87" fill="#FFFFFF">Medium</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-35-Copy-6" mask="url(#mask-2)">
+                                <g transform="translate(514, 12)">
+                                    <rect id="Rectangle-Copy-3" fill="#DEDEDE" fill-rule="evenodd" x="0" y="0" width="113" height="115" rx="12"></rect>
+                                    <text id="#DEDEDE" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="40" fill="#252525">#DEDEDE</tspan>
+                                    </text>
+                                    <text id="Light" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="87" fill="#252525">Light</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-35-Copy" mask="url(#mask-2)">
+                                <g transform="translate(139, 12)">
+                                    <rect id="Rectangle-Copy-3" fill="#2D2D2D" fill-rule="evenodd" x="0" y="0" width="113" height="115" rx="12"></rect>
+                                    <text id="#2D2D2D" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="40" fill="#FFFFFF">#2D2D2D</tspan>
+                                    </text>
+                                    <text id="Dark" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="87" fill="#FFFFFF">Dark</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-35-Copy-3" mask="url(#mask-2)">
+                                <g transform="translate(389, 12)">
+                                    <rect id="Rectangle-Copy-3" fill="#7D7D7D" fill-rule="evenodd" x="0" y="0" width="113" height="115" rx="12"></rect>
+                                    <text id="#7D7D7D" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="40" fill="#FFFFFF">#7D7D7D</tspan>
+                                    </text>
+                                    <text id="Regular" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="87" fill="#FFFFFF">Regular</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-35-Copy-7" mask="url(#mask-2)">
+                                <g transform="translate(639, 12)">
+                                    <rect id="Rectangle-Copy-3" fill="#FFFFFF" fill-rule="evenodd" x="0" y="0" width="113" height="115" rx="12"></rect>
+                                    <text id="#FFFFFF" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="40" fill="#252525">#FFFFFF</tspan>
+                                    </text>
+                                    <text id="White" fill="none" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="12" y="87" fill="#252525">White</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                        </g>
+                        <g id="Group-38" transform="translate(0, 290)">
+                            <rect id="Rectangle-Copy-3" fill="#F8F9FA" x="0" y="0" width="1158" height="139" rx="28"></rect>
+                            <g id="Group-35" transform="translate(585, 12)">
+                                <rect id="Rectangle-Copy-3" fill="#B056F6" x="0" y="0" width="179" height="115" rx="12"></rect>
+                                <text id="#B056F6" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="40">#B056F6</tspan>
+                                </text>
+                                <text id="Accent-4" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="87">Accent 4</tspan>
+                                </text>
+                            </g>
+                            <g id="Group-35-Copy-4" transform="translate(12, 12)">
+                                <rect id="Rectangle-Copy-3" fill="#E86153" x="0" y="0" width="179" height="115" rx="12"></rect>
+                                <text id="#E86153" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="40">#E86153</tspan>
+                                </text>
+                                <text id="Accent-1" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="87">Accent 1</tspan>
+                                </text>
+                            </g>
+                            <g id="Group-35-Copy" transform="translate(776, 12)">
+                                <rect id="Rectangle-Copy-3" fill="#86DB4F" x="0" y="0" width="179" height="115" rx="12"></rect>
+                                <text id="#86DB4F" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="40">#86DB4F</tspan>
+                                </text>
+                                <text id="Accent-5" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="87">Accent 5</tspan>
+                                </text>
+                            </g>
+                            <g id="Group-35-Copy-5" transform="translate(203, 12)">
+                                <rect id="Rectangle-Copy-3" fill="#FFC83D" x="0" y="0" width="179" height="115" rx="12"></rect>
+                                <text id="#FFC83D" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="40">#FFC83D</tspan>
+                                </text>
+                                <text id="Accent-2" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="87">Accent 2</tspan>
+                                </text>
+                            </g>
+                            <g id="Group-35-Copy-8" transform="translate(967, 12)">
+                                <rect id="Rectangle-Copy-3" fill="#7D7D7D" x="0" y="0" width="179" height="115" rx="12"></rect>
+                                <text id="#7D7D7D" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#FFFFFF">
+                                    <tspan x="24" y="40">#7D7D7D</tspan>
+                                </text>
+                                <text id="Accent-6" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#FFFFFF">
+                                    <tspan x="24" y="87">Accent 6</tspan>
+                                </text>
+                            </g>
+                            <g id="Group-35-Copy-9" transform="translate(394, 12)">
+                                <rect id="Rectangle-Copy-3" fill="#4DACF1" x="0" y="0" width="179" height="115" rx="12"></rect>
+                                <text id="#4DACF1" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="40">#4DACF1</tspan>
+                                </text>
+                                <text id="Accent-3" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#252525">
+                                    <tspan x="24" y="87">Accent 3</tspan>
+                                </text>
+                            </g>
+                        </g>
+                        <g id="Group-11">
+                            <rect id="Rectangle-Copy-3" fill="#F8F9FA" x="0" y="0" width="370" height="266" rx="28"></rect>
+                            <g id="Group-35" transform="translate(12, 139)">
+                                <rect id="Rectangle-Copy-3" fill="#D93954" x="0" y="0" width="346" height="115" rx="12"></rect>
+                                <circle id="Oval" fill="#FFFFFF" cx="331" cy="15" r="3"></circle>
+                                <text id="#D93954" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#FFFFFF">
+                                    <tspan x="24" y="40">#D93954</tspan>
+                                </text>
+                                <g id="Group-34" transform="translate(24, 71)" fill="#FFFFFF">
+                                    <g id="Group-33">
+                                        <text id="AA" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                            <tspan x="0" y="16">AA</tspan>
+                                        </text>
+                                        <g id="Icon/Outline/circle-checkmark-outline" transform="translate(25, 3)" fill-rule="nonzero">
+                                            <g id="circle-checkmark" transform="translate(-0, 0)">
+                                                <path d="M8,0 C12.4186667,0 16,3.58200001 16,8 C16,12.4180001 12.4186667,16 8,16 C3.58200001,16 0,12.4180001 0,8 C0,3.58200001 3.58200001,0 8,0 Z M8,15 C11.86,15 15,11.86 15,8 C15,4.14000002 11.86,1 8,1 C4.14000002,1 1,4.14000002 1,8 C1,11.86 4.14000002,15 8,15 Z M7.00673338,9.29586669 L10.9987334,5.28920002 L11.7067334,5.99520002 L7.00740003,10.7112 L4.70140002,8.40453339 L5.40806667,7.69786668 L7.00673338,9.29586669 Z" id="Combined-Shape"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <g id="Group-33-Copy" transform="translate(53, 0)">
+                                        <text id="AAA" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                            <tspan x="0" y="16">AAA</tspan>
+                                        </text>
+                                        <g id="Icon/Outline/circle-checkmark-outline" transform="translate(35, 3)" fill-rule="nonzero">
+                                            <g id="circle-checkmark">
+                                                <path d="M8,0 C12.4186667,0 16,3.58200001 16,8 C16,12.4180001 12.4186667,16 8,16 C3.58200001,16 0,12.4180001 0,8 C0,3.58200001 3.58200001,0 8,0 Z M8,15 C11.86,15 15,11.86 15,8 C15,4.14000002 11.86,1 8,1 C4.14000002,1 1,4.14000002 1,8 C1,11.86 4.14000002,15 8,15 Z M7.00673338,9.29586669 L10.9987334,5.28920002 L11.7067334,5.99520002 L7.00740003,10.7112 L4.70140002,8.40453339 L5.40806667,7.69786668 L7.00673338,9.29586669 Z" id="Combined-Shape"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <text id="11.63:1" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="116" y="16">11.63:1</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-36" transform="translate(12, 12)">
+                                <rect id="Rectangle-Copy-10" fill="#D04A02" x="0" y="0" width="346" height="115" rx="12"></rect>
+                                <circle id="Oval" fill="#FFFFFF" cx="331" cy="15" r="3"></circle>
+                                <text id="#D04A02" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4" fill="#FFFFFF">
+                                    <tspan x="24" y="40">#D04A02</tspan>
+                                </text>
+                                <g id="Group-34" transform="translate(24, 71)" fill="#FFFFFF">
+                                    <g id="Group-33">
+                                        <text id="AA" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                            <tspan x="0" y="16">AA</tspan>
+                                        </text>
+                                        <g id="Icon/Outline/circle-checkmark-outline" transform="translate(25, 3)" fill-rule="nonzero">
+                                            <g id="circle-checkmark" transform="translate(-0, 0)">
+                                                <path d="M8,0 C12.4186667,0 16,3.58200001 16,8 C16,12.4180001 12.4186667,16 8,16 C3.58200001,16 0,12.4180001 0,8 C0,3.58200001 3.58200001,0 8,0 Z M8,15 C11.86,15 15,11.86 15,8 C15,4.14000002 11.86,1 8,1 C4.14000002,1 1,4.14000002 1,8 C1,11.86 4.14000002,15 8,15 Z M7.00673338,9.29586669 L10.9987334,5.28920002 L11.7067334,5.99520002 L7.00740003,10.7112 L4.70140002,8.40453339 L5.40806667,7.69786668 L7.00673338,9.29586669 Z" id="Combined-Shape"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <g id="Group-33-Copy" transform="translate(53, 0)">
+                                        <text id="AAA" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                            <tspan x="0" y="16">AAA</tspan>
+                                        </text>
+                                        <g id="Icon/Outline/circle-checkmark-outline" transform="translate(35, 3)" fill-rule="nonzero">
+                                            <g id="circle-checkmark">
+                                                <path d="M8,0 C12.4186667,0 16,3.58200001 16,8 C16,12.4180001 12.4186667,16 8,16 C3.58200001,16 0,12.4180001 0,8 C0,3.58200001 3.58200001,0 8,0 Z M8,15 C11.86,15 15,11.86 15,8 C15,4.14000002 11.86,1 8,1 C4.14000002,1 1,4.14000002 1,8 C1,11.86 4.14000002,15 8,15 Z M7.00673338,9.29586669 L10.9987334,5.28920002 L11.7067334,5.99520002 L7.00740003,10.7112 L4.70140002,8.40453339 L5.40806667,7.69786668 L7.00673338,9.29586669 Z" id="Combined-Shape"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <text id="4.5:1" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="16" font-weight="400" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="116" y="16">4.5:1</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

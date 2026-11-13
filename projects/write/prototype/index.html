@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="../../../assets/js/site-base.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Tax Advice AI (Write) — drafting home screen prototype" />
+  <title>Write Builder • Tax Advice AI</title>
+  <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("write-theme");
+        var theme =
+          stored === "light" || stored === "dark"
+            ? stored
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/write-builder.css?v=55" />
+</head>
+<body class="wb-body">
+  <div class="wb-demo-camera-viewport" id="wb-demo-camera-viewport">
+    <div class="wb-demo-camera-stage" id="wb-demo-camera-stage">
+  <div class="wb-app" id="wb-app">
+    <header class="wb-header">
+      <div class="wb-header__brand">
+        <button type="button" class="wb-header__home" id="wb-header-home" aria-label="Go to Write home">
+          <svg
+            class="wb-header__logo"
+            width="42"
+            height="16"
+            viewBox="0 0 42 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M5.30273 0.0195312V1.48047C7.27595 0.283751 7.95335 0.0810547 8.9502 0.0810547C11.2833 0.0810654 12.997 2.27145 12.9971 5.29297C12.9971 8.80076 10.7046 11.1533 7.07617 11.1533C6.67816 11.1533 5.97947 11.1341 5.28223 11.0527L5.30273 14.5801L7.05664 14.9863V16H0.180664V14.9863L1.75488 14.5801V2.37207H0V1.31836L4.20703 0.0195312H5.30273ZM37.7734 0C40.2256 0 41.9004 1.13573 41.9004 2.79883C41.9003 3.87328 41.1233 4.62383 39.9473 4.62402C39.3494 4.62402 38.8507 4.46173 38.2334 4.09668L38.2529 1.17676C36.4387 1.48139 35.502 2.83965 35.502 5.25293C35.502 7.66501 36.7378 9.28703 38.6309 9.28711C39.5077 9.28711 40.3253 8.98289 42 8.15137V10.0977C39.9663 11.0513 38.791 11.3359 37.1562 11.3359C35.3821 11.3359 34.1462 10.8493 33.1289 9.81445C32.0931 8.76071 31.5753 7.36153 31.5752 5.7998C31.5752 2.33276 34.0866 8.30318e-05 37.7734 0ZM29.6211 0C30.6979 3.09302e-05 31.4951 0.831604 31.4951 1.84473C31.4951 2.85984 30.917 3.71103 29.2822 5.7998L25.1758 11.1934H22.2061V4.4209L18.1602 11.1934H15.4492V2.4541L13.3555 2.23047V1.23633L17.1826 0.28418H18.6377V7.40137L22.8633 0.28418H25.415V8.53809L28.0869 4.90723V0.649414C28.3659 0.305085 28.9637 0 29.6211 0ZM6.53809 2.37207C6.23962 2.37207 5.94066 2.41375 5.32227 2.49512L5.30273 9.81445C5.5817 9.83529 5.72092 9.83496 5.90137 9.83496C8.07437 9.83485 9.25 8.4551 9.25 5.7998C9.24991 3.56932 8.2927 2.37209 6.53809 2.37207Z"
+              fill="currentColor"
+            />
+          </svg>
+          <span class="wb-header__name">Write</span>
+        </button>
+        <button
+          type="button"
+          class="wb-icon-btn"
+          id="wb-sidebar-toggle"
+          aria-expanded="true"
+          aria-controls="wb-sidebar"
+          aria-label="Collapse sidebar"
+          title="Collapse sidebar"
+          data-tooltip="Collapse sidebar"
+        >
+          <i data-lucide="panel-left-close" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="wb-header__actions">
+        <div class="wb-popover-wrap wb-settings-wrap">
+          <button
+            type="button"
+            class="wb-btn wb-btn--secondary"
+            id="wb-settings-btn"
+            aria-label="Settings"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="wb-settings-menu"
+          >
+            <i data-lucide="settings" class="wb-btn__icon" aria-hidden="true"></i>
+            <span>Settings</span>
+          </button>
+          <div
+            class="wb-popover wb-settings-menu"
+            id="wb-settings-menu"
+            role="menu"
+            aria-label="Settings"
+            hidden
+          >
+            <button
+              type="button"
+              class="wb-settings-menu__item wb-settings-menu__item--submenu"
+              id="wb-settings-demo-trigger"
+              role="menuitem"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              aria-controls="wb-settings-demo-menu"
+            >
+              <span>Demo</span>
+              <i data-lucide="chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div
+            class="wb-popover wb-settings-submenu"
+            id="wb-settings-demo-menu"
+            role="menu"
+            aria-label="Demo"
+            hidden
+          >
+            <button
+              type="button"
+              class="wb-settings-menu__item wb-settings-menu__item--demo"
+              data-demo-play="create-report"
+              role="menuitem"
+            >
+              Create Report
+            </button>
+            <button
+              type="button"
+              class="wb-settings-menu__item wb-settings-menu__item--demo"
+              data-demo-play="references"
+              role="menuitem"
+            >
+              Evidence
+            </button>
+            <button
+              type="button"
+              class="wb-settings-menu__item wb-settings-menu__item--demo"
+              data-demo-play="review"
+              role="menuitem"
+            >
+              Show Edits
+            </button>
+            <button
+              type="button"
+              class="wb-settings-menu__item wb-settings-menu__item--demo"
+              data-demo-play="collaboration"
+              role="menuitem"
+            >
+              Live Collaboration
+            </button>
+            <button
+              type="button"
+              class="wb-settings-menu__item wb-settings-menu__item--demo"
+              data-demo-play="prompt-history"
+              role="menuitem"
+            >
+              Prompt History
+            </button>
+          </div>
+        </div>
+        <div class="wb-avatar" aria-label="User avatar">
+          <img src="../../../assets/images/shared/profile_headshot.png" alt="Long Geng" />
+        </div>
+      </div>
+    </header>
+
+    <div class="wb-shell">
+      <aside class="wb-sidebar" id="wb-sidebar" aria-label="Write navigation">
+        <div class="wb-sidebar__top">
+          <img class="wb-sidebar__logo" src="../assets/images/write-builder/write-logo.png" alt="Write" />
+          <button type="button" class="wb-icon-btn" id="wb-filter-btn" aria-label="Filter" title="Filter" data-tooltip="Filter">
+            <i data-lucide="list-filter" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="wb-sidebar__body">
+          <button type="button" class="wb-btn wb-btn--new-doc" id="wb-new-doc" title="New document" data-tooltip="New document">
+            <i data-lucide="file-plus" class="wb-btn__icon" aria-hidden="true"></i>
+            <span>New document</span>
+          </button>
+          <nav class="wb-nav">
+            <div class="wb-nav__group">
+              <button type="button" class="wb-nav__item"><i data-lucide="search" aria-hidden="true"></i><span>Search</span></button>
+              <button type="button" class="wb-nav__item"><i data-lucide="file-stack" aria-hidden="true"></i><span>Documents</span></button>
+              <button type="button" class="wb-nav__item"><i data-lucide="book-open" aria-hidden="true"></i><span>Knowledge</span></button>
+              <button type="button" class="wb-nav__item"><i data-lucide="layout-template" aria-hidden="true"></i><span>Templates</span></button>
+              <button type="button" class="wb-nav__item"><i data-lucide="panels-top-left" aria-hidden="true"></i><span>Frames</span></button>
+            </div>
+            <div class="wb-nav__group wb-nav__group--bottom">
+              <button type="button" class="wb-nav__item"><i data-lucide="circle-help" aria-hidden="true"></i><span>Help</span></button>
+              <button type="button" class="wb-nav__item"><i data-lucide="sliders-horizontal" aria-hidden="true"></i><span>Customise</span></button>
+              <button
+                type="button"
+                class="wb-nav__item"
+                id="wb-theme-toggle"
+                aria-label="Switch to dark mode"
+                title="Dark mode"
+                data-tooltip="Dark mode"
+              >
+                <i data-lucide="moon" aria-hidden="true"></i>
+                <span>Dark mode</span>
+              </button>
+            </div>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="wb-main">
+        <div class="wb-compose-view" id="wb-compose-view">
+        <div class="wb-main__tips">
+          <button type="button" class="wb-btn wb-btn--ghost" id="wb-tips-btn">
+            <i data-lucide="lightbulb" class="wb-btn__icon" aria-hidden="true"></i>
+            <span>Tips</span>
+          </button>
+        </div>
+
+        <div class="wb-main__content">
+          <section class="wb-hero" aria-labelledby="wb-greeting">
+            <h1 class="wb-hero__title" id="wb-greeting">Hello Long!</h1>
+            <p class="wb-hero__subtitle">I've pulled together what you might need to start drafting.</p>
+          </section>
+
+          <section class="wb-composer-wrap" aria-label="Draft composer">
+            <button type="button" class="wb-btn wb-btn--ghost wb-btn--project" id="wb-choose-project">
+              <i data-lucide="folder-open" class="wb-btn__icon" aria-hidden="true"></i>
+              <span>Choose project</span>
+            </button>
+
+            <div class="wb-composer">
+              <div class="wb-composer__body">
+                <div class="wb-composer__attachments" id="wb-composer-attachments"></div>
+                <div
+                  id="wb-composer-input"
+                  class="wb-composer__input"
+                  contenteditable="true"
+                  role="textbox"
+                  aria-multiline="true"
+                  aria-label="Prompt input"
+                  data-placeholder="Describe what you want to draft, or refine the current advice…"
+                ></div>
+              </div>
+              <p class="wb-composer__hint" id="wb-tofa-hint" hidden>
+                Customize the highlighted fields before generating
+              </p>
+              <div class="wb-composer__toolbar">
+                <div class="wb-composer__actions">
+                  <button type="button" class="wb-btn wb-btn--ghost wb-composer-toggle" data-toggle="files">
+                    <i data-lucide="paperclip" class="wb-btn__icon" aria-hidden="true"></i>
+                    <span>Files and sources</span>
+                  </button>
+                  <button type="button" class="wb-btn wb-btn--ghost wb-composer-toggle" data-toggle="prompts">
+                    <i data-lucide="message-square-text" class="wb-btn__icon" aria-hidden="true"></i>
+                    <span>Prompts</span>
+                  </button>
+                  <button type="button" class="wb-btn wb-btn--ghost wb-composer-toggle" data-toggle="improve">
+                    <i data-lucide="wand-sparkles" class="wb-btn__icon" aria-hidden="true"></i>
+                    <span>Improve</span>
+                  </button>
+                </div>
+                <button type="button" class="wb-icon-btn wb-send" id="wb-send" disabled aria-label="Send (disabled)">
+                  <i data-lucide="arrow-up" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="wb-chips" role="radiogroup" aria-label="Document templates">
+              <button
+                type="button"
+                class="wb-btn wb-btn--ghost wb-btn--chip wb-chip"
+                data-template="tofa"
+                data-edu="tofa"
+                aria-pressed="false"
+                aria-describedby="wb-edu-popout"
+              >
+                <i data-lucide="landmark" class="wb-btn__icon" aria-hidden="true"></i>
+                TOFA
+                <i data-lucide="plus" class="wb-btn__icon wb-btn__icon--plus" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                class="wb-btn wb-btn--ghost wb-btn--chip wb-chip"
+                data-template="transaction-cost"
+                data-edu="transaction-cost"
+                aria-pressed="false"
+                aria-describedby="wb-edu-popout"
+              >
+                <i data-lucide="receipt-text" class="wb-btn__icon" aria-hidden="true"></i>
+                Transaction Cost
+                <i data-lucide="plus" class="wb-btn__icon wb-btn__icon--plus" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                class="wb-btn wb-btn--ghost wb-btn--chip wb-chip"
+                data-template="tax-consolidation"
+                data-edu="tax-consolidation"
+                aria-pressed="false"
+                aria-describedby="wb-edu-popout"
+              >
+                <i data-lucide="network" class="wb-btn__icon" aria-hidden="true"></i>
+                Tax Consolidation
+                <i data-lucide="plus" class="wb-btn__icon wb-btn__icon--plus" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                class="wb-btn wb-btn--ghost wb-btn--chip wb-chip"
+                data-template="tax-loss"
+                data-edu="tax-loss"
+                aria-pressed="false"
+                aria-describedby="wb-edu-popout"
+              >
+                <i data-lucide="trending-down" class="wb-btn__icon" aria-hidden="true"></i>
+                Tax Loss
+                <i data-lucide="plus" class="wb-btn__icon wb-btn__icon--plus" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <div
+              class="wb-edu-popout"
+              id="wb-edu-popout"
+              hidden
+              role="tooltip"
+              aria-hidden="true"
+            >
+              <header class="wb-edu-popout__header">
+                <p class="wb-edu-popout__title" id="wb-edu-title"></p>
+                <p class="wb-edu-popout__subtitle" id="wb-edu-subtitle"></p>
+              </header>
+
+              <div class="wb-edu-canvas" aria-hidden="true">
+                <div class="wb-edu-canvas__glow wb-edu-canvas__glow--a"></div>
+                <div class="wb-edu-canvas__glow wb-edu-canvas__glow--b"></div>
+                <div class="wb-edu-canvas__sheet" aria-hidden="true"></div>
+
+                <article class="wb-edu-report wb-edu-report--tofa" data-edu-doc="tofa">
+                  <h1 class="wb-edu-report__title">TOFA Classification and Implementation Advisory</h1>
+                  <hr class="wb-edu-report__rule" />
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">01</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Executive Summary</h2>
+                      <p class="wb-edu-report__p">
+                        Assesses whether the arrangement falls within Division 230 and the classification, timing and implementation issues that follow.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">02</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">TOFA Framework</h2>
+                      <p class="wb-edu-report__p">
+                        Population tests, financial benefits and carve-outs determine whether TOFA applies to the instrument.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">03</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Classification Assessment</h2>
+                      <p class="wb-edu-report__p">
+                        Rights, obligations and election posture drive the TOFA / non-TOFA conclusion and ownership of the classification memo.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">04</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Tax Timing Methods</h2>
+                      <table class="wb-edu-report__table">
+                        <thead>
+                          <tr>
+                            <th>Method</th>
+                            <th>When used</th>
+                            <th>Owner</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Accruals</td>
+                            <td>Sufficiently certain</td>
+                            <td>Tax</td>
+                          </tr>
+                          <tr>
+                            <td>Realisation</td>
+                            <td>Default fallback</td>
+                            <td>Tax</td>
+                          </tr>
+                          <tr>
+                            <td>Fair value</td>
+                            <td>Election active</td>
+                            <td>Finance</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">05</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Implementation Considerations</h2>
+                      <p class="wb-edu-report__p">
+                        Systems readiness, FX mapping and period-end reconciliations before go-live…
+                      </p>
+                    </div>
+                  </section>
+                </article>
+
+                <article class="wb-edu-report wb-edu-report--txcost" data-edu-doc="transaction-cost" hidden>
+                  <h1 class="wb-edu-report__title">Transaction Cost Tax Analysis</h1>
+                  <hr class="wb-edu-report__rule" />
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">01</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Executive Summary</h2>
+                      <p class="wb-edu-report__p">
+                        Summarises deductibility, capital treatment and documentation priorities for costs arising from the transaction.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">02</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Transaction Overview</h2>
+                      <p class="wb-edu-report__p">
+                        Scope covers advisory, financing, stamp duty and integration costs across the acquisition or disposal timeline.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">03</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Cost Classification</h2>
+                      <table class="wb-edu-report__table">
+                        <thead>
+                          <tr>
+                            <th>Cost category</th>
+                            <th>Treatment</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Advisory fees</td>
+                            <td>Mixed / review</td>
+                          </tr>
+                          <tr>
+                            <td>Financing costs</td>
+                            <td>Deductible</td>
+                          </tr>
+                          <tr>
+                            <td>Stamp duty</td>
+                            <td>Capital</td>
+                          </tr>
+                          <tr>
+                            <td>Integration</td>
+                            <td>Revenue / capital</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">04</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Tax Treatment</h2>
+                      <p class="wb-edu-report__p">
+                        Capital versus revenue characterisation depends on nexus to the transaction and whether the outlay creates an enduring advantage.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">05</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Documentation / Recommendations</h2>
+                      <p class="wb-edu-report__p">
+                        Retain engagement letters, fee schedules and allocation workpapers…
+                      </p>
+                    </div>
+                  </section>
+                </article>
+
+                <article class="wb-edu-report wb-edu-report--consolidation" data-edu-doc="tax-consolidation" hidden>
+                  <h1 class="wb-edu-report__title">Tax Consolidation Analysis</h1>
+                  <hr class="wb-edu-report__rule" />
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">01</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Group Structure</h2>
+                      <p class="wb-edu-report__p">
+                        Maps the proposed consolidated group, head company and wholly owned subsidiaries in scope.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">02</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Consolidation Eligibility</h2>
+                      <p class="wb-edu-report__p">
+                        Confirms ownership thresholds, residency and membership tests for consolidation eligibility.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">03</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Joining / Leaving Events</h2>
+                      <p class="wb-edu-report__p">
+                        Identifies joining and leaving times and the consequential tax adjustments for members.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">04</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Tax Cost Setting</h2>
+                      <table class="wb-edu-report__table">
+                        <thead>
+                          <tr>
+                            <th>Entity</th>
+                            <th>Joining Date</th>
+                            <th>Status</th>
+                            <th>Tax Cost Setting</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Sub A Pty Ltd</td>
+                            <td>1 Jul 2025</td>
+                            <td>Joining</td>
+                            <td>Open</td>
+                          </tr>
+                          <tr>
+                            <td>Sub B Pty Ltd</td>
+                            <td>1 Jul 2025</td>
+                            <td>Joining</td>
+                            <td>Draft</td>
+                          </tr>
+                          <tr>
+                            <td>Hold Co Ltd</td>
+                            <td>—</td>
+                            <td>Head</td>
+                            <td>N/A</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">05</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Implementation Considerations</h2>
+                      <p class="wb-edu-report__p">
+                        Elections, notice requirements and systems updates for group tax reporting…
+                      </p>
+                    </div>
+                  </section>
+                </article>
+
+                <article class="wb-edu-report wb-edu-report--taxloss" data-edu-doc="tax-loss" hidden>
+                  <h1 class="wb-edu-report__title">Tax Loss Analysis</h1>
+                  <hr class="wb-edu-report__rule" />
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">01</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Loss Position</h2>
+                      <p class="wb-edu-report__p">
+                        Summarises carried-forward tax losses available to the entity or consolidated group.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">02</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Available Tax Losses</h2>
+                      <table class="wb-edu-report__table">
+                        <thead>
+                          <tr>
+                            <th>Loss Type</th>
+                            <th>Available Balance</th>
+                            <th>Utilisation</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Revenue</td>
+                            <td>$4.2m</td>
+                            <td>Partial</td>
+                            <td>Review</td>
+                          </tr>
+                          <tr>
+                            <td>Capital</td>
+                            <td>$1.1m</td>
+                            <td>None</td>
+                            <td>Open</td>
+                          </tr>
+                          <tr>
+                            <td>Transferred</td>
+                            <td>$0.6m</td>
+                            <td>Restricted</td>
+                            <td>Flag</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">03</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Continuity of Ownership Test</h2>
+                      <p class="wb-edu-report__p">
+                        Tests whether ownership continuity is maintained across the relevant loss years.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">04</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Business Continuity Test</h2>
+                      <p class="wb-edu-report__p">
+                        Assesses whether the same business test or similar business test can be relied upon.
+                      </p>
+                    </div>
+                  </section>
+
+                  <section class="wb-edu-report__section">
+                    <p class="wb-edu-report__num">05</p>
+                    <div class="wb-edu-report__body">
+                      <h2 class="wb-edu-report__h2">Loss Utilisation</h2>
+                      <p class="wb-edu-report__p">
+                        Models utilisation against forecast taxable income and group offsetting constraints…
+                      </p>
+                    </div>
+                  </section>
+                </article>
+              </div>
+
+              <p class="wb-edu-popout__desc" id="wb-edu-desc"></p>
+            </div>
+          </section>
+        </div>
+
+        <section class="wb-workflows" aria-labelledby="wb-workflows-title">
+          <div class="wb-workflows__header">
+            <h2 class="wb-workflows__title" id="wb-workflows-title">Recommended workflows</h2>
+            <div class="wb-workflows__tools">
+              <label class="wb-search-field">
+                <i data-lucide="search" aria-hidden="true"></i>
+                <input
+                  type="search"
+                  class="wb-search-field__input"
+                  id="wb-workflow-search"
+                  placeholder="Search"
+                  aria-label="Search workflows"
+                />
+              </label>
+              <button type="button" class="wb-icon-btn" aria-label="More options">
+                <i data-lucide="ellipsis" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="wb-workflows__scroll-wrap" id="wb-workflows-scroll-wrap">
+            <div class="wb-workflows__fade wb-workflows__fade--left" aria-hidden="true"></div>
+            <div class="wb-workflows__grid" id="wb-workflows-scroll">
+              <article class="wb-workflow-card" tabindex="0">
+                <h3 class="wb-workflow-card__title">Client Alert &amp; Tax Update Drafting</h3>
+                <div class="wb-workflow-card__meta">
+                  <div class="wb-workflow-card__stats">
+                    <span class="wb-workflow-card__stat"><i data-lucide="file-pen-line" aria-hidden="true"></i> Draft</span>
+                    <span>5 steps</span>
+                  </div>
+                  <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+              </article>
+              <article class="wb-workflow-card" tabindex="0">
+                <h3 class="wb-workflow-card__title">Transaction Tax Obligations Checklist</h3>
+                <div class="wb-workflow-card__meta">
+                  <div class="wb-workflow-card__stats">
+                    <span class="wb-workflow-card__stat"><i data-lucide="file-output" aria-hidden="true"></i> Output</span>
+                    <span>3 steps</span>
+                  </div>
+                  <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+              </article>
+              <article class="wb-workflow-card" tabindex="0">
+                <h3 class="wb-workflow-card__title">Tax Risk &amp; Issue Identification</h3>
+                <div class="wb-workflow-card__meta">
+                  <div class="wb-workflow-card__stats">
+                    <span class="wb-workflow-card__stat"><i data-lucide="file-search" aria-hidden="true"></i> Review</span>
+                    <span>2 steps</span>
+                  </div>
+                  <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+              </article>
+              <article class="wb-workflow-card" tabindex="0">
+                <h3 class="wb-workflow-card__title">Key Tax Events &amp; Effective Dates</h3>
+                <div class="wb-workflow-card__meta">
+                  <div class="wb-workflow-card__stats">
+                    <span class="wb-workflow-card__stat"><i data-lucide="file-output" aria-hidden="true"></i> Output</span>
+                    <span>3 steps</span>
+                  </div>
+                  <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+              </article>
+              <article class="wb-workflow-card" tabindex="0">
+                <h3 class="wb-workflow-card__title">Review Tax Position</h3>
+                <div class="wb-workflow-card__meta">
+                  <div class="wb-workflow-card__stats">
+                    <span class="wb-workflow-card__stat"><i data-lucide="file-search" aria-hidden="true"></i> Review</span>
+                    <span>4 steps</span>
+                  </div>
+                  <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+              </article>
+              <article class="wb-workflow-card" tabindex="0">
+                <h3 class="wb-workflow-card__title">Draft Client Advice</h3>
+                <div class="wb-workflow-card__meta">
+                  <div class="wb-workflow-card__stats">
+                    <span class="wb-workflow-card__stat"><i data-lucide="file-pen-line" aria-hidden="true"></i> Draft</span>
+                    <span>6 steps</span>
+                  </div>
+                  <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+              </article>
+              <article class="wb-workflow-card" tabindex="0">
+                <h3 class="wb-workflow-card__title">Compare Jurisdictions</h3>
+                <div class="wb-workflow-card__meta">
+                  <div class="wb-workflow-card__stats">
+                    <span class="wb-workflow-card__stat"><i data-lucide="file-output" aria-hidden="true"></i> Output</span>
+                    <span>3 steps</span>
+                  </div>
+                  <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+              </article>
+              <article class="wb-workflow-card" tabindex="0">
+                <h3 class="wb-workflow-card__title">Identify Filing Obligations</h3>
+                <div class="wb-workflow-card__meta">
+                  <div class="wb-workflow-card__stats">
+                    <span class="wb-workflow-card__stat"><i data-lucide="file-output" aria-hidden="true"></i> Output</span>
+                    <span>4 steps</span>
+                  </div>
+                  <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+              </article>
+              <article class="wb-workflow-card" tabindex="0">
+                <h3 class="wb-workflow-card__title">Summarise Tax Risks</h3>
+                <div class="wb-workflow-card__meta">
+                  <div class="wb-workflow-card__stats">
+                    <span class="wb-workflow-card__stat"><i data-lucide="file-search" aria-hidden="true"></i> Review</span>
+                    <span>3 steps</span>
+                  </div>
+                  <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+              </article>
+            </div>
+            <div class="wb-workflows__fade wb-workflows__fade--right" aria-hidden="true"></div>
+          </div>
+        </section>
+        </div>
+
+        <section
+          class="wb-editor-view"
+          id="wb-editor-view"
+          hidden
+          aria-hidden="true"
+          aria-label="Report editing workspace"
+        >
+          <div class="wb-report" id="wb-report">
+            <header class="wb-report__header">
+              <div class="wb-report__header-main">
+                <p class="wb-report__eyebrow">Tax Advice</p>
+                <div class="wb-report__title-row">
+                  <h1
+                    class="wb-report__title"
+                    id="wb-report-title"
+                    contenteditable="true"
+                    spellcheck="false"
+                  >TOFA Classification and Implementation Advisory Report</h1>
+                  <button type="button" class="wb-icon-btn" id="wb-report-rename" aria-label="Edit title" title="Edit title">
+                    <i data-lucide="pencil" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="wb-report__meta">
+                  <span>Created today</span>
+                  <span class="wb-report__meta-sep" aria-hidden="true">·</span>
+                  <span>TOFA</span>
+                  <span class="wb-report__meta-sep" aria-hidden="true">·</span>
+                  <span>Australia</span>
+                  <span class="wb-report__status" id="wb-report-status" hidden aria-live="polite"></span>
+                  <span class="wb-sync-status" id="wb-sync-status" hidden aria-live="polite"></span>
+                </div>
+              </div>
+              <div class="wb-report__header-actions">
+                <div class="wb-collab-presence" id="wb-collab-presence" aria-label="Active collaborators">
+                  <div class="wb-collab-avatars" id="wb-collab-avatars"></div>
+                  <button
+                    type="button"
+                    class="wb-collab-overflow"
+                    id="wb-collab-overflow"
+                    hidden
+                    aria-label="More active collaborators"
+                  >+0</button>
+                </div>
+                <div class="wb-popover-wrap">
+                  <button
+                    type="button"
+                    class="wb-btn wb-btn--ghost"
+                    id="wb-share-btn"
+                    aria-label="Share report"
+                    aria-expanded="false"
+                    aria-controls="wb-share-popover"
+                  >
+                    <i data-lucide="share-2" class="wb-btn__icon" aria-hidden="true"></i>
+                    <span>Share</span>
+                  </button>
+                  <div
+                    class="wb-popover wb-share-popover"
+                    id="wb-share-popover"
+                    hidden
+                    role="dialog"
+                    aria-label="Share report"
+                  >
+                    <div class="wb-share-popover__header">
+                      <p class="wb-popover__title wb-share-popover__title">Share report</p>
+                      <div class="wb-share-popover__header-actions">
+                        <button
+                          type="button"
+                          class="wb-icon-btn wb-share-header-btn"
+                          id="wb-share-access-btn"
+                          aria-label="General access: Restricted"
+                          title="General access: Restricted"
+                          aria-expanded="false"
+                          aria-controls="wb-share-access-menu"
+                        >
+                          <i data-lucide="lock" aria-hidden="true"></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="wb-icon-btn wb-share-header-btn"
+                          id="wb-share-copy"
+                          aria-label="Copy share link"
+                          title="Copy link"
+                        >
+                          <i data-lucide="link" aria-hidden="true"></i>
+                        </button>
+                        <button
+                          type="button"
+                          class="wb-icon-btn wb-share-header-btn"
+                          id="wb-share-close"
+                          aria-label="Close share panel"
+                          title="Close"
+                        >
+                          <i data-lucide="x" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                      <div
+                        class="wb-share-access-menu"
+                        id="wb-share-access-menu"
+                        hidden
+                        role="menu"
+                        aria-label="General access"
+                      >
+                        <p class="wb-share-access-menu__title">General access</p>
+                        <button type="button" class="wb-share-access-menu__item is-selected" data-access="restricted" role="menuitemradio" aria-checked="true">
+                          <i data-lucide="lock" aria-hidden="true"></i>
+                          <span>Restricted</span>
+                        </button>
+                        <button type="button" class="wb-share-access-menu__item" data-access="link" role="menuitemradio" aria-checked="false">
+                          <i data-lucide="globe-2" aria-hidden="true"></i>
+                          <span>Anyone with the link</span>
+                        </button>
+                      </div>
+                    </div>
+                    <p class="wb-share-popover__label">People with access</p>
+                    <ul class="wb-share-people" id="wb-share-people"></ul>
+                    <div class="wb-share-add">
+                      <label class="wb-share-popover__label wb-share-popover__label--add" for="wb-share-add-input">Add people</label>
+                      <div class="wb-share-add__row">
+                        <input
+                          type="text"
+                          id="wb-share-add-input"
+                          class="wb-share-add__input"
+                          placeholder="Name or email"
+                          autocomplete="off"
+                        />
+                      </div>
+                      <ul class="wb-share-suggestions" id="wb-share-suggestions" hidden></ul>
+                      <p class="wb-share-toast" id="wb-share-toast" hidden aria-live="polite"></p>
+                    </div>
+                    <div class="wb-share-perm-menu" id="wb-share-perm-menu" hidden role="menu" aria-label="Permission">
+                      <button type="button" class="wb-share-perm-menu__item" data-perm="edit" role="menuitem">Can edit</button>
+                      <button type="button" class="wb-share-perm-menu__item" data-perm="view" role="menuitem">Can view</button>
+                      <button type="button" class="wb-share-perm-menu__item wb-share-perm-menu__item--remove" data-perm="remove" role="menuitem">Remove access</button>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="wb-btn wb-btn--ghost" id="wb-new-thread">
+                  <i data-lucide="plus" class="wb-btn__icon" aria-hidden="true"></i>
+                  <span>New thread</span>
+                </button>
+                <button type="button" class="wb-btn wb-btn--ghost" id="wb-export-btn">
+                  <i data-lucide="download" class="wb-btn__icon" aria-hidden="true"></i>
+                  <span>Export</span>
+                </button>
+              </div>
+            </header>
+
+            <div class="wb-report__toolbar" role="toolbar" aria-label="Editor formatting">
+              <div class="wb-report__toolbar-left">
+                <button type="button" class="wb-btn wb-btn--ghost wb-toolbar-btn" data-cmd="formatBlock" data-value="p" aria-label="Text style">
+                  <span>Text</span>
+                  <i data-lucide="chevron-down" class="wb-btn__icon" aria-hidden="true"></i>
+                </button>
+                <span class="wb-toolbar-sep" aria-hidden="true"></span>
+                <button type="button" class="wb-icon-btn wb-toolbar-btn" data-cmd="bold" aria-label="Bold" title="Bold">
+                  <i data-lucide="bold" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="wb-icon-btn wb-toolbar-btn" data-cmd="italic" aria-label="Italic" title="Italic">
+                  <i data-lucide="italic" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="wb-icon-btn wb-toolbar-btn" data-cmd="underline" aria-label="Underline" title="Underline">
+                  <i data-lucide="underline" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="wb-icon-btn wb-toolbar-btn" data-cmd="strikeThrough" aria-label="Strikethrough" title="Strikethrough">
+                  <i data-lucide="strikethrough" aria-hidden="true"></i>
+                </button>
+                <span class="wb-toolbar-sep" aria-hidden="true"></span>
+                <button type="button" class="wb-icon-btn wb-toolbar-btn" data-cmd="insertUnorderedList" aria-label="Bulleted list" title="Bulleted list">
+                  <i data-lucide="list" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="wb-icon-btn wb-toolbar-btn" data-cmd="insertOrderedList" aria-label="Numbered list" title="Numbered list">
+                  <i data-lucide="list-ordered" aria-hidden="true"></i>
+                </button>
+                <span class="wb-toolbar-sep" aria-hidden="true"></span>
+                <button type="button" class="wb-icon-btn wb-toolbar-btn" data-cmd="createLink" aria-label="Link" title="Link">
+                  <i data-lucide="link" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="wb-icon-btn" id="wb-comment-btn" aria-label="Comment" title="Comment">
+                  <i data-lucide="message-square" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="wb-report__toolbar-right">
+                <button
+                  type="button"
+                  class="wb-btn wb-btn--ghost wb-toolbar-util"
+                  id="wb-show-edits"
+                  aria-pressed="false"
+                  title="Show edits"
+                  aria-description="View tracked changes in this report"
+                >
+                  <i data-lucide="git-compare" class="wb-btn__icon" aria-hidden="true"></i>
+                  <span>Show edits</span>
+                </button>
+                <div class="wb-popover-wrap">
+                  <button type="button" class="wb-btn wb-btn--ghost wb-toolbar-util" id="wb-sources-btn" aria-expanded="false" aria-controls="wb-sources-popover">
+                    <i data-lucide="book-marked" class="wb-btn__icon" aria-hidden="true"></i>
+                    <span>Sources</span>
+                  </button>
+                  <div class="wb-popover" id="wb-sources-popover" hidden role="dialog" aria-label="Sources used">
+                    <p class="wb-popover__title">Sources used</p>
+                    <ul class="wb-sources-list" id="wb-sources-list"></ul>
+                  </div>
+                </div>
+                <div class="wb-popover-wrap">
+                  <button type="button" class="wb-btn wb-btn--ghost wb-toolbar-util" id="wb-versions-btn" aria-expanded="false" aria-controls="wb-versions-popover">
+                    <i data-lucide="history" class="wb-btn__icon" aria-hidden="true"></i>
+                    <span>Version history</span>
+                  </button>
+                  <div class="wb-popover" id="wb-versions-popover" hidden role="dialog" aria-label="Version history">
+                    <p class="wb-popover__title">Version history</p>
+                    <ul class="wb-versions-list" id="wb-versions-list"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="wb-report__scroll" id="wb-report-scroll">
+              <div class="wb-report__flow" id="wb-report-flow">
+                <article
+                  class="wb-report__doc"
+                  id="wb-report-doc"
+                  contenteditable="true"
+                  spellcheck="true"
+                  aria-label="Report document"
+                  data-placeholder="Report will appear here…"
+                ></article>
+                <div id="wb-remote-layer" class="wb-remote-layer" aria-hidden="true">
+                  <div id="wb-remote-selection" class="wb-remote-selection" hidden></div>
+                  <div id="wb-remote-cursor" class="wb-remote-cursor" hidden>
+                    <span class="wb-remote-cursor__caret"></span>
+                    <span class="wb-remote-cursor__label">Alex</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="wb-report__follow-layer" id="wb-report-follow-layer">
+              <button type="button" class="wb-follow-chip" id="wb-follow-chip" hidden>
+                <span class="wb-follow-chip__avatar wb-collab-avatar wb-collab-avatar--xs" aria-hidden="true"></span>
+                <span class="wb-follow-chip__label">Someone is editing</span>
+                <span class="wb-follow-chip__dir" aria-hidden="true">
+                  <i data-lucide="arrow-down"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <aside class="wb-assistant" id="wb-assistant" aria-label="Write assistant">
+            <header class="wb-assistant__header">
+              <h2 class="wb-assistant__title">Write assistant</h2>
+              <div class="wb-assistant__header-actions">
+                <div class="wb-popover-wrap">
+                  <button
+                    type="button"
+                    class="wb-icon-btn"
+                    id="wb-prompt-history-btn"
+                    aria-label="Open prompt history"
+                    title="Prompt history"
+                    aria-expanded="false"
+                    aria-controls="wb-prompt-history-popover"
+                  >
+                    <i data-lucide="history" aria-hidden="true"></i>
+                  </button>
+                  <div
+                    class="wb-popover wb-prompt-history-popover"
+                    id="wb-prompt-history-popover"
+                    hidden
+                    role="dialog"
+                    aria-label="Prompt history"
+                  >
+                    <p class="wb-popover__title">Prompt history</p>
+                    <label class="wb-prompt-history-search">
+                      <i data-lucide="search" aria-hidden="true"></i>
+                      <input
+                        type="search"
+                        id="wb-prompt-history-search"
+                        class="wb-prompt-history-search__input"
+                        placeholder="Search prompts..."
+                        autocomplete="off"
+                      />
+                    </label>
+                    <div class="wb-prompt-history-body" id="wb-prompt-history-body"></div>
+                  </div>
+                </div>
+                <button type="button" class="wb-icon-btn" id="wb-assistant-sources" aria-label="Sources" title="Sources" aria-pressed="false">
+                  <i data-lucide="book-marked" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="wb-icon-btn" aria-label="Assistant settings" title="Settings">
+                  <i data-lucide="settings" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="wb-icon-btn wb-assistant__close" id="wb-assistant-close" aria-label="Close assistant" title="Close">
+                  <i data-lucide="x" aria-hidden="true"></i>
+                </button>
+              </div>
+            </header>
+
+            <div class="wb-assistant__write" id="wb-assistant-write">
+            <div class="wb-assistant__thread" id="wb-assistant-thread" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+            <div class="wb-assistant__composer-wrap">
+              <div class="wb-assistant-selection-context" id="wb-assistant-selection-context" hidden>
+                <div class="wb-assistant-selection-context__head">
+                  <span class="wb-assistant-selection-context__label">Selected text</span>
+                  <button type="button" class="wb-icon-btn" id="wb-assistant-selection-clear" aria-label="Clear selection context" title="Clear">
+                    <i data-lucide="x" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <blockquote class="wb-assistant-selection-context__quote" id="wb-assistant-selection-quote"></blockquote>
+                <div class="wb-assistant-selection-actions" id="wb-assistant-selection-actions">
+                  <button type="button" class="wb-btn wb-btn--ghost wb-assistant-suggestion" data-ask-action="improve">Improve wording</button>
+                  <button type="button" class="wb-btn wb-btn--ghost wb-assistant-suggestion" data-ask-action="explain">Explain this</button>
+                  <button type="button" class="wb-btn wb-btn--ghost wb-assistant-suggestion" data-ask-action="concise">Make more concise</button>
+                </div>
+              </div>
+              <div class="wb-assistant__composer">
+                <div class="wb-composer-quote" id="wb-composer-quote" hidden>
+                  <div class="wb-composer-quote__body">
+                    <span class="wb-composer-quote__mark" aria-hidden="true">“</span>
+                    <div class="wb-composer-quote__content">
+                      <div class="wb-composer-quote__clip">
+                        <p class="wb-composer-quote__text" id="wb-composer-quote-text"></p>
+                        <span class="wb-composer-quote__fade" aria-hidden="true"></span>
+                      </div>
+                      <button type="button" class="wb-composer-quote__more" id="wb-composer-quote-more" hidden>Show more</button>
+                    </div>
+                    <button type="button" class="wb-icon-btn wb-composer-quote__remove" id="wb-composer-quote-remove" aria-label="Remove quoted prompt" title="Remove">
+                      <i data-lucide="x" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="wb-assistant__composer-main">
+                  <div
+                    id="wb-assistant-input"
+                    class="wb-assistant__input"
+                    contenteditable="true"
+                    role="textbox"
+                    aria-multiline="true"
+                    aria-label="Ask Write"
+                    data-placeholder="Ask Write…"
+                  ></div>
+                </div>
+                <div class="wb-assistant__composer-bar">
+                  <button type="button" class="wb-icon-btn" id="wb-assistant-plus" aria-label="Add context" title="Add">
+                    <i data-lucide="plus" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" class="wb-icon-btn wb-send wb-assistant__send" id="wb-assistant-send" disabled aria-label="Send (disabled)">
+                    <i data-lucide="arrow-up" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            </div>
+
+            <div class="wb-source-panel" id="wb-source-panel" hidden>
+              <div class="wb-source-panel__head">
+                <div class="wb-source-panel__identity">
+                  <p class="wb-source-panel__title" id="wb-source-panel-title">No source selected</p>
+                  <p class="wb-source-panel__meta" id="wb-source-panel-meta">Open a source from Sources Used to inspect it here.</p>
+                </div>
+                <p class="wb-source-panel__page" id="wb-source-panel-page" hidden></p>
+              </div>
+              <div class="wb-source-panel__viewer" id="wb-source-panel-viewer"></div>
+              <div class="wb-source-panel__usage" id="wb-source-panel-usage" hidden>
+                <button
+                  type="button"
+                  class="wb-source-usage-toggle"
+                  id="wb-source-usage-toggle"
+                  aria-expanded="false"
+                  aria-controls="wb-source-panel-list"
+                >
+                  <span class="wb-source-panel__count" id="wb-source-panel-count"></span>
+                  <i data-lucide="chevron-down" aria-hidden="true"></i>
+                </button>
+                <ul class="wb-source-panel__list" id="wb-source-panel-list" hidden></ul>
+              </div>
+            </div>
+          </aside>
+
+          <button type="button" class="wb-assistant-fab" id="wb-assistant-fab" aria-label="Open Write assistant" hidden>
+            <i data-lucide="sparkles" aria-hidden="true"></i>
+            <span>Assistant</span>
+          </button>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div class="wb-demo-overlay-layer" id="wb-demo-overlay-layer" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div
+    id="wb-selection-toolbar"
+    class="wb-selection-toolbar"
+    role="toolbar"
+    aria-label="Selection actions"
+    hidden
+  >
+    <button type="button" class="wb-btn wb-btn--ghost wb-selection-toolbar__btn" id="wb-ask-right-btn" aria-label="Ask Write about selected text">
+      <i data-lucide="sparkles" class="wb-btn__icon" aria-hidden="true"></i>
+      <span>Ask Write</span>
+    </button>
+    <button type="button" class="wb-btn wb-btn--ghost wb-selection-toolbar__btn" id="wb-add-comment-btn">
+      <i data-lucide="message-square-plus" class="wb-btn__icon" aria-hidden="true"></i>
+      <span>Comment</span>
+    </button>
+  </div>
+
+  <div
+    id="wb-comment-composer"
+    class="wb-comment-popover wb-comment-composer"
+    role="dialog"
+    aria-label="Add comment"
+    hidden
+  ></div>
+  <div
+    id="wb-comment-thread"
+    class="wb-comment-popover wb-comment-thread"
+    role="dialog"
+    aria-label="Comment thread"
+    hidden
+  ></div>
+
+  <div
+    class="wb-presence-popover"
+    id="wb-presence-popover"
+    hidden
+    role="dialog"
+    aria-label="Collaborator presence"
+  ></div>
+
+  <div
+    id="wb-cite-popover"
+    class="wb-cite-popover"
+    hidden
+    role="dialog"
+    aria-modal="false"
+    aria-label="Source reference"
+  >
+    <header class="wb-cite-popover__header">
+      <div class="wb-cite-popover__row wb-cite-popover__row--top">
+        <p class="wb-cite-popover__source" id="wb-cite-source"></p>
+        <span class="wb-cite-popover__page" id="wb-cite-page" hidden></span>
+        <div class="wb-cite-popover__actions">
+          <button
+            type="button"
+            class="wb-icon-btn wb-cite-popover__icon-btn"
+            id="wb-cite-view"
+            aria-label="View source"
+            title="View source"
+            disabled
+          >
+            <i data-lucide="external-link" aria-hidden="true"></i>
+          </button>
+          <button
+            type="button"
+            class="wb-icon-btn wb-cite-popover__icon-btn"
+            id="wb-cite-close"
+            aria-label="Close reference"
+          >
+            <i data-lucide="x" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="wb-cite-popover__row wb-cite-popover__row--bottom">
+        <p class="wb-cite-popover__title" id="wb-cite-title"></p>
+        <div class="wb-cite-popover__nav" id="wb-cite-nav" hidden>
+          <button
+            type="button"
+            class="wb-icon-btn wb-cite-popover__icon-btn"
+            id="wb-cite-prev"
+            aria-label="Previous source in group"
+          >
+            <i data-lucide="chevron-left" aria-hidden="true"></i>
+          </button>
+          <span class="wb-cite-popover__counter" id="wb-cite-counter" aria-live="polite">1/1</span>
+          <button
+            type="button"
+            class="wb-icon-btn wb-cite-popover__icon-btn"
+            id="wb-cite-next"
+            aria-label="Next source in group"
+          >
+            <i data-lucide="chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+    <div class="wb-cite-popover__body" id="wb-cite-body"></div>
+  </div>
+
+  <div
+    class="wb-source-preview"
+    id="wb-source-preview"
+    hidden
+    aria-hidden="true"
+    role="tooltip"
+  >
+    <header class="wb-source-preview__header">
+      <span class="wb-source-preview__icon" id="wb-source-preview-icon" aria-hidden="true">
+        <i data-lucide="file-text"></i>
+      </span>
+      <div class="wb-source-preview__heading">
+        <p class="wb-source-preview__title" id="wb-source-preview-title"></p>
+        <p class="wb-source-preview__sub" id="wb-source-preview-sub"></p>
+      </div>
+      <span class="wb-source-preview__page" id="wb-source-preview-page" hidden></span>
+    </header>
+    <div class="wb-source-preview__body" id="wb-source-preview-body"></div>
+  </div>
+
+  <div class="wb-demo-cursor" id="wb-demo-cursor" hidden aria-hidden="true">
+    <svg class="wb-demo-cursor__pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M5.5 3.5 18 12.2l-5.2 1.3 2.4 6.1-2.3.9-2.5-6.2L5.5 18.5V3.5Z"
+        fill="#111"
+        stroke="#fff"
+        stroke-width="1.25"
+        stroke-linejoin="round"
+      />
+    </svg>
+    <span class="wb-demo-cursor__caret" aria-hidden="true"></span>
+  </div>
+
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="../assets/js/write-builder-caret.js?v=55"></script>
+  <script src="../assets/js/write-builder-previews.js"></script>
+  <script src="../assets/js/write-builder-report.js?v=55"></script>
+  <script src="../assets/js/write-builder.js"></script>
+  <script src="../assets/js/write-builder-demo.js?v=55"></script>
+</body>
+</html>

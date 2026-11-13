@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="../../../assets/js/site-base.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="PwC AgentOS — landing home screen prototype" />
+  <title>Agent OS Builder • AgentOS</title>
+  <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("write-theme") || localStorage.getItem("aos-theme");
+        var theme =
+          stored === "light" || stored === "dark"
+            ? stored
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/agent-os-builder.css?v=22" />
+</head>
+<body class="aos-body">
+  <div class="aos-demo-camera-viewport" id="aos-demo-camera-viewport">
+    <div class="aos-demo-camera-stage" id="aos-demo-camera-stage">
+      <div class="aos-app" id="aos-app" data-agents-state="list" data-artefacts-state="list">
+        <header class="aos-header">
+          <div class="aos-header__brand">
+            <button type="button" class="aos-header__home" id="aos-header-home" aria-label="Go to Agent OS home">
+              <svg
+                class="aos-header__logo"
+                width="42"
+                height="16"
+                viewBox="0 0 42 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M5.30273 0.0195312V1.48047C7.27595 0.283751 7.95335 0.0810547 8.9502 0.0810547C11.2833 0.0810654 12.997 2.27145 12.9971 5.29297C12.9971 8.80076 10.7046 11.1533 7.07617 11.1533C6.67816 11.1533 5.97947 11.1341 5.28223 11.0527L5.30273 14.5801L7.05664 14.9863V16H0.180664V14.9863L1.75488 14.5801V2.37207H0V1.31836L4.20703 0.0195312H5.30273ZM37.7734 0C40.2256 0 41.9004 1.13573 41.9004 2.79883C41.9003 3.87328 41.1233 4.62383 39.9473 4.62402C39.3494 4.62402 38.8507 4.46173 38.2334 4.09668L38.2529 1.17676C36.4387 1.48139 35.502 2.83965 35.502 5.25293C35.502 7.66501 36.7378 9.28703 38.6309 9.28711C39.5077 9.28711 40.3253 8.98289 42 8.15137V10.0977C39.9663 11.0513 38.791 11.3359 37.1562 11.3359C35.3821 11.3359 34.1462 10.8493 33.1289 9.81445C32.0931 8.76071 31.5753 7.36153 31.5752 5.7998C31.5752 2.33276 34.0866 8.30318e-05 37.7734 0ZM29.6211 0C30.6979 3.09302e-05 31.4951 0.831604 31.4951 1.84473C31.4951 2.85984 30.917 3.71103 29.2822 5.7998L25.1758 11.1934H22.2061V4.4209L18.1602 11.1934H15.4492V2.4541L13.3555 2.23047V1.23633L17.1826 0.28418H18.6377V7.40137L22.8633 0.28418H25.415V8.53809L28.0869 4.90723V0.649414C28.3659 0.305085 28.9637 0 29.6211 0ZM6.53809 2.37207C6.23962 2.37207 5.94066 2.41375 5.32227 2.49512L5.30273 9.81445C5.5817 9.83529 5.72092 9.83496 5.90137 9.83496C8.07437 9.83485 9.25 8.4551 9.25 5.7998C9.24991 3.56932 8.2927 2.37209 6.53809 2.37207Z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span class="aos-header__name">AgentOS</span>
+            </button>
+          </div>
+          <div class="aos-header__actions">
+            <div class="aos-popover-wrap">
+              <button
+                type="button"
+                class="aos-btn aos-btn--secondary"
+                id="aos-share-btn"
+                aria-label="Share"
+                aria-haspopup="dialog"
+                aria-expanded="false"
+                aria-controls="aos-share-menu"
+              >
+                <i data-lucide="share-2" class="aos-btn__icon" aria-hidden="true"></i>
+                <span>Share</span>
+              </button>
+              <div class="aos-popover aos-share-popover" id="aos-share-menu" role="dialog" aria-label="Share workspace" hidden>
+                <p class="aos-popover__title">Share Agent OS</p>
+                <p>Anyone in the ACE workspace can view this landing session. Copy a link to share the current agent context.</p>
+                <button type="button" class="aos-btn aos-btn--primary" id="aos-share-copy">Copy link</button>
+              </div>
+            </div>
+            <div class="aos-popover-wrap aos-settings-wrap">
+              <button
+                type="button"
+                class="aos-btn aos-btn--secondary"
+                id="aos-settings-btn"
+                aria-label="Settings"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-controls="aos-settings-menu"
+              >
+                <i data-lucide="settings" class="aos-btn__icon" aria-hidden="true"></i>
+                <span>Settings</span>
+              </button>
+              <div class="aos-popover" id="aos-settings-menu" role="menu" aria-label="Settings" hidden>
+                <button type="button" class="aos-menu-item" id="aos-theme-toggle" role="menuitem">
+                  <span>Dark mode</span>
+                  <i data-lucide="moon" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="aos-menu-item" role="menuitem" disabled>
+                  <span>Demo</span>
+                  <i data-lucide="chevron-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="aos-avatar" aria-label="User avatar">
+              <img src="../../../assets/images/shared/profile_headshot.png" alt="Long Geng" />
+            </div>
+          </div>
+        </header>
+
+        <div class="aos-shell">
+          <aside class="aos-panel aos-agents" id="aos-agents" aria-label="Agents" data-panel="agents" data-panel-state="list">
+            <div class="aos-panel-stack">
+              <div class="aos-panel-view aos-panel-view--list is-visible" id="aos-agents-list-view" data-panel-view="list">
+                <div class="aos-panel__head">
+                  <h2 class="aos-panel__title">Agents</h2>
+                  <div class="aos-panel__tools">
+                    <button type="button" class="aos-icon-btn" id="aos-agent-search-btn" aria-label="Search agents" title="Search agents" data-tooltip="Search agents" aria-haspopup="dialog" aria-expanded="false" aria-controls="aos-search-modal" data-demo-target="search-agents">
+                      <i data-lucide="search" aria-hidden="true"></i>
+                    </button>
+                    <div class="aos-popover-wrap">
+                      <button
+                        type="button"
+                        class="aos-icon-btn"
+                        id="aos-agent-filter-btn"
+                        aria-label="Filter agents"
+                        title="Filter agents"
+                        data-tooltip="Filter agents"
+                        aria-haspopup="menu"
+                        aria-expanded="false"
+                        aria-controls="aos-agent-filter-menu"
+                      >
+                        <i data-lucide="list-filter" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      class="aos-icon-btn"
+                      data-collapse="agents"
+                      id="aos-agents-collapse"
+                      aria-expanded="true"
+                      aria-controls="aos-agents"
+                      aria-label="Collapse sidebar"
+                      title="Collapse sidebar"
+                      data-tooltip="Collapse sidebar"
+                      data-demo-target="sidebar-collapse"
+                    >
+                      <i data-lucide="panel-left-close" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="aos-panel__body">
+                  <button type="button" class="aos-btn aos-btn--new" id="aos-new-agent" data-demo-target="create-agent" title="New agent" data-tooltip="New agent">
+                    <i data-lucide="plus" class="aos-btn__icon" aria-hidden="true"></i>
+                    <span>New agent</span>
+                  </button>
+                  <div class="aos-agent-list" id="aos-agent-list" data-demo-target="agent-list"></div>
+                </div>
+              </div>
+
+              <div class="aos-panel-view aos-panel-view--detail" id="aos-agents-detail" data-panel-view="detail" data-demo-target="agent-detail" hidden>
+                <div class="aos-detail__head" data-demo-target="agent-detail-header">
+                  <button
+                    type="button"
+                    class="aos-icon-btn"
+                    id="aos-agent-detail-back"
+                    aria-label="Back to agents"
+                    title="Back to agents"
+                    data-tooltip="Back to agents"
+                  >
+                    <i data-lucide="chevron-left" aria-hidden="true"></i>
+                  </button>
+                  <div class="aos-detail__identity">
+                    <h2 class="aos-detail__name" id="aos-detail-title"></h2>
+                    <span class="aos-agent__dot" id="aos-detail-dot" data-tone="idle"></span>
+                  </div>
+                  <div class="aos-detail__tools">
+                    <button
+                      type="button"
+                      class="aos-icon-btn"
+                      id="aos-continue-in-chat"
+                      aria-label="Continue in chat"
+                      title="Continue in chat"
+                      data-tooltip="Continue in chat"
+                      data-demo-target="continue-in-chat"
+                    >
+                      <i data-lucide="square-arrow-out-up-right" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="aos-icon-btn"
+                      data-collapse="agents"
+                      id="aos-agents-collapse-detail"
+                      aria-expanded="true"
+                      aria-controls="aos-agents"
+                      aria-label="Collapse sidebar"
+                      title="Collapse sidebar"
+                      data-tooltip="Collapse sidebar"
+                    >
+                      <i data-lucide="panel-left-close" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="aos-detail__body" id="aos-detail-body"></div>
+              </div>
+            </div>
+          </aside>
+
+          <main class="aos-panel aos-chat" id="aos-chat" aria-label="Chat">
+            <div class="aos-chat__head">
+              <h2 class="aos-panel__title" id="aos-chat-title">Chat</h2>
+            </div>
+            <div class="aos-chat__stage" id="aos-chat-stage">
+              <section class="aos-hero" id="aos-home-hero" aria-labelledby="aos-greeting">
+                <h1 class="aos-hero__title" id="aos-greeting">Hello Long,</h1>
+                <p class="aos-hero__subtitle">
+                  I'm your AI Center of Excellence Agent.<br />
+                  How can I help you today?
+                </p>
+              </section>
+
+              <div class="aos-session aos-hidden" id="aos-session" hidden data-demo-target="chat-conversation">
+                <h1 class="aos-session__title" id="aos-session-title"></h1>
+                <p class="aos-session__meta" id="aos-session-meta"></p>
+                <div class="aos-thread" id="aos-thread"></div>
+              </div>
+
+              <div class="aos-chat__cluster" id="aos-chat-cluster">
+              <div class="aos-suggest-rail" id="aos-suggest-rail">
+              <div class="aos-suggest-row" id="aos-suggest-row">
+                <button type="button" class="aos-suggest" data-suggest="proposal" data-demo-target="quick-action-proposal">
+                  <span class="aos-suggest__badge">New</span>
+                  <span class="aos-suggest__head">
+                    <span class="aos-suggest__title">Proposal agent</span>
+                    <span class="aos-suggest__support">Draft a Risk Framework Assessment</span>
+                  </span>
+                  <span class="aos-suggest__preview aos-bento" aria-hidden="true">
+                    <span class="aos-mini"><span class="aos-mini__label">Scope</span></span>
+                    <span class="aos-mini"><span class="aos-mini__label">Risks</span></span>
+                    <span class="aos-mini"><span class="aos-mini__label">Impact</span></span>
+                    <span class="aos-mini"><span class="aos-mini__label">Control</span></span>
+                    <span class="aos-mini"><span class="aos-mini__label">Timing</span></span>
+                    <span class="aos-mini"><span class="aos-mini__label">Value</span></span>
+                    <span class="aos-mini"><span class="aos-mini__label">Benefit</span></span>
+                    <span class="aos-mini"><span class="aos-mini__label">Strategy</span></span>
+                    <span class="aos-mini"><span class="aos-mini__label">Priority</span></span>
+                  </span>
+                  <span class="aos-suggest__preview-fade" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="aos-suggest" data-suggest="meetings" data-demo-target="quick-action-meetings">
+                  <span class="aos-suggest__head">
+                    <span class="aos-suggest__title">Prep for my meetings</span>
+                    <span class="aos-suggest__support">Next meeting in 52 minutes</span>
+                  </span>
+                  <span class="aos-suggest__preview aos-strips" aria-hidden="true">
+                    <span class="aos-mini aos-mini--wide" data-tone="active"><span class="aos-mini__bar"></span><span class="aos-mini__label">Tax Advice AI</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="info"><span class="aos-mini__bar"></span><span class="aos-mini__label">ACE | Daily Standup</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="warning"><span class="aos-mini__bar"></span><span class="aos-mini__label">Bluescope risk review</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="info"><span class="aos-mini__bar"></span><span class="aos-mini__label">ACE Weekly Check-in</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="idle"><span class="aos-mini__bar"></span><span class="aos-mini__label">Client review</span></span>
+                  </span>
+                  <span class="aos-suggest__preview-fade" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="aos-suggest" data-suggest="focus" data-demo-target="quick-action-focus">
+                  <span class="aos-suggest__head">
+                    <span class="aos-suggest__title">Focus before Tax Advice AI</span>
+                    <span class="aos-suggest__support">Due in 52 minutes · 1:30 PM</span>
+                  </span>
+                  <span class="aos-suggest__preview aos-strips" aria-hidden="true">
+                    <span class="aos-mini aos-mini--wide" data-tone="active"><span class="aos-mini__bar"></span><span class="aos-mini__label">Review agenda</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="warning"><span class="aos-mini__bar"></span><span class="aos-mini__label">Confirm with Xiaowen</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="idle"><span class="aos-mini__bar"></span><span class="aos-mini__label">Open Langfuse notes</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="info"><span class="aos-mini__bar"></span><span class="aos-mini__label">Draft confirmation note</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="idle"><span class="aos-mini__bar"></span><span class="aos-mini__label">Check Langfuse agenda</span></span>
+                  </span>
+                  <span class="aos-suggest__preview-fade" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="aos-suggest" data-suggest="emails" data-demo-target="quick-action-emails">
+                  <span class="aos-suggest__head">
+                    <span class="aos-suggest__title">Summarise my emails</span>
+                    <span class="aos-suggest__support">3 unread threads</span>
+                  </span>
+                  <span class="aos-suggest__preview aos-strips" aria-hidden="true">
+                    <span class="aos-mini aos-mini--wide" data-tone="active"><span class="aos-mini__bar"></span><span class="aos-mini__label">ACE weekly pack</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="warning"><span class="aos-mini__bar"></span><span class="aos-mini__label">Bluescope follow-up</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="info"><span class="aos-mini__bar"></span><span class="aos-mini__label">TOFA working notes</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="active"><span class="aos-mini__bar"></span><span class="aos-mini__label">Outlook — ACE weekly</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="idle"><span class="aos-mini__bar"></span><span class="aos-mini__label">Division 230 knowledge</span></span>
+                  </span>
+                  <span class="aos-suggest__preview-fade" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="aos-suggest" data-suggest="conflict" data-demo-target="quick-action-conflict">
+                  <span class="aos-suggest__head">
+                    <span class="aos-suggest__title">Conflict check</span>
+                    <span class="aos-suggest__support">Flagged 2 potential conflicts</span>
+                  </span>
+                  <span class="aos-suggest__preview aos-strips" aria-hidden="true">
+                    <span class="aos-mini aos-mini--wide" data-tone="active"><span class="aos-mini__bar"></span><span class="aos-mini__label">New client intake</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="warning"><span class="aos-mini__bar"></span><span class="aos-mini__label">Independence review</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="warning"><span class="aos-mini__bar"></span><span class="aos-mini__label">Risk confirmation</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="error"><span class="aos-mini__bar"></span><span class="aos-mini__label">Flagged conflicts</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="info"><span class="aos-mini__bar"></span><span class="aos-mini__label">Client intake pack</span></span>
+                  </span>
+                  <span class="aos-suggest__preview-fade" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="aos-suggest" data-suggest="commercial" data-demo-target="quick-action-commercial">
+                  <span class="aos-suggest__head">
+                    <span class="aos-suggest__title">Commercial model</span>
+                    <span class="aos-suggest__support">Financial assumptions ready</span>
+                  </span>
+                  <span class="aos-suggest__preview aos-strips" aria-hidden="true">
+                    <span class="aos-mini aos-mini--wide" data-tone="active"><span class="aos-mini__bar"></span><span class="aos-mini__label">Fee phasing</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="active"><span class="aos-mini__bar"></span><span class="aos-mini__label">Contingency range</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="info"><span class="aos-mini__bar"></span><span class="aos-mini__label">Sensitivity cases</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="info"><span class="aos-mini__bar"></span><span class="aos-mini__label">Commercial assumptions</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="idle"><span class="aos-mini__bar"></span><span class="aos-mini__label">Proposal fee model</span></span>
+                  </span>
+                  <span class="aos-suggest__preview-fade" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="aos-suggest" data-suggest="wbs" data-demo-target="quick-action-wbs">
+                  <span class="aos-suggest__head">
+                    <span class="aos-suggest__title">Work breakdown</span>
+                    <span class="aos-suggest__support">Drafting structure</span>
+                  </span>
+                  <span class="aos-suggest__preview aos-strips" aria-hidden="true">
+                    <span class="aos-mini aos-mini--wide" data-tone="active"><span class="aos-mini__bar"></span><span class="aos-mini__label">Workstreams</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="warning"><span class="aos-mini__bar"></span><span class="aos-mini__label">Owners</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="info"><span class="aos-mini__bar"></span><span class="aos-mini__label">Proposal scope</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="active"><span class="aos-mini__bar"></span><span class="aos-mini__label">Draft structure</span></span>
+                    <span class="aos-mini aos-mini--wide" data-tone="idle"><span class="aos-mini__bar"></span><span class="aos-mini__label">Alignment notes</span></span>
+                  </span>
+                  <span class="aos-suggest__preview-fade" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="aos-suggest-fade aos-suggest-fade--start" aria-hidden="true"></div>
+              <div class="aos-suggest-fade aos-suggest-fade--end" aria-hidden="true"></div>
+              </div>
+
+              <div class="aos-composer-dock">
+                <div class="aos-composer" id="aos-composer" data-demo-target="main-composer">
+                  <div class="aos-composer-quote" id="aos-composer-quote" hidden data-demo-target="composer-quote">
+                    <div class="aos-composer-quote__body">
+                      <i data-lucide="corner-down-right" class="aos-composer-quote__icon" aria-hidden="true"></i>
+                      <div class="aos-composer-quote__content">
+                        <div class="aos-composer-quote__clip">
+                          <p class="aos-composer-quote__text" id="aos-composer-quote-text" data-demo-target="artifact-selected-text"></p>
+                          <div class="aos-composer-quote__fade" aria-hidden="true"></div>
+                        </div>
+                        <button type="button" class="aos-composer-quote__more" id="aos-composer-quote-more" hidden aria-expanded="false">Show more</button>
+                      </div>
+                      <button type="button" class="aos-icon-btn aos-composer-quote__remove" id="aos-composer-quote-remove" aria-label="Remove quoted excerpt" title="Remove quote" data-tooltip="Remove quote">
+                        <i data-lucide="x" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="aos-composer__context" id="aos-composer-context">
+                    <button type="button" class="aos-context-chip" id="aos-add-context" data-demo-target="context" aria-haspopup="menu" aria-expanded="false" aria-controls="aos-context-menu" aria-label="Add context" title="Add context" data-tooltip="Add context">
+                      <i data-lucide="plus" aria-hidden="true"></i>
+                      <span>Add context</span>
+                    </button>
+                    <div class="aos-composer__chips" id="aos-composer-chips"></div>
+                  </div>
+                  <div
+                    id="aos-composer-input"
+                    class="aos-composer__input"
+                    contenteditable="true"
+                    role="textbox"
+                    aria-multiline="true"
+                    aria-label="Ask Agent OS"
+                    data-placeholder="Ask me to draft, summarize, or prepare anything…"
+                    data-demo-target="follow-up-composer"
+                  ></div>
+                  <div class="aos-composer__toolbar">
+                    <div class="aos-composer__tools">
+                      <div class="aos-composer-agent" id="aos-composer-agent" hidden>
+                        <span class="aos-agent__dot" id="aos-composer-agent-dot" data-tone="idle"></span>
+                        <span id="aos-composer-agent-label"></span>
+                      </div>
+                      <button type="button" class="aos-btn aos-btn--ghost aos-model-btn" id="aos-model-btn" data-demo-target="model-switcher" aria-haspopup="menu" aria-expanded="false" aria-controls="aos-model-menu">
+                        <span id="aos-model-label">GPT</span>
+                        <i data-lucide="chevron-down" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div class="aos-composer__tools">
+                      <button type="button" class="aos-icon-btn" id="aos-attach-btn" aria-label="Attach files" title="Attach files" data-tooltip="Attach files">
+                        <i data-lucide="paperclip" aria-hidden="true"></i>
+                      </button>
+                      <button type="button" class="aos-icon-btn aos-send" id="aos-send" disabled aria-label="Send (disabled)">
+                        <i data-lucide="arrow-up" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </main>
+
+          <aside class="aos-panel aos-artefacts" id="aos-artefacts" aria-label="Artefacts" data-panel="artifacts" data-panel-state="list" data-demo-target="artifacts">
+            <div class="aos-panel-stack">
+              <div class="aos-panel-view aos-panel-view--list is-visible" id="aos-artefacts-list-view" data-panel-view="list">
+                <div class="aos-panel__head">
+                  <h2 class="aos-panel__title">Artefacts</h2>
+                  <div class="aos-panel__tools">
+                    <button
+                      type="button"
+                      class="aos-icon-btn"
+                      data-collapse="artefacts"
+                      id="aos-artefacts-collapse"
+                      aria-label="Collapse artefacts"
+                      title="Collapse artefacts"
+                      data-tooltip="Collapse artefacts"
+                    >
+                      <i data-lucide="panel-right-close" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="aos-panel__body">
+                  <div class="aos-artefact-toolbar">
+                    <div class="aos-popover-wrap">
+                      <button type="button" class="aos-btn aos-btn--ghost aos-sort-btn" id="aos-artefact-sort" aria-haspopup="menu" aria-expanded="false" aria-controls="aos-artefact-sort-menu">
+                        <span id="aos-artefact-sort-label">Recently opened</span>
+                        <i data-lucide="chevron-down" aria-hidden="true"></i>
+                      </button>
+                      <div class="aos-popover aos-popover--left" id="aos-artefact-sort-menu" role="menu" hidden>
+                        <button type="button" class="aos-menu-item is-selected" data-artefact-sort="recent" role="menuitemradio" aria-checked="true">Recently opened</button>
+                        <button type="button" class="aos-menu-item" data-artefact-sort="shared" role="menuitemradio" aria-checked="false">Shared with me</button>
+                        <button type="button" class="aos-menu-item" data-artefact-sort="mine" role="menuitemradio" aria-checked="false">Created by me</button>
+                      </div>
+                    </div>
+                    <div class="aos-panel__tools">
+                      <button type="button" class="aos-icon-btn" id="aos-artefact-search-btn" aria-label="Search artefacts" title="Search artefacts" data-tooltip="Search artefacts" aria-haspopup="dialog" aria-expanded="false" aria-controls="aos-search-modal" data-demo-target="search-artifacts">
+                        <i data-lucide="search" aria-hidden="true"></i>
+                      </button>
+                      <div class="aos-popover-wrap">
+                        <button type="button" class="aos-icon-btn" id="aos-artefact-filter-btn" aria-label="Filter artefacts" title="Filter artefacts" data-tooltip="Filter artefacts" aria-haspopup="menu" aria-expanded="false" aria-controls="aos-artefact-filter-menu">
+                          <i data-lucide="list-filter" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="aos-chips" role="group" aria-label="Artefact categories">
+                    <button type="button" class="aos-chip" data-artefact-filter="text">
+                      <i data-lucide="file-text" aria-hidden="true"></i>
+                      <span>Text &amp; Analysis</span>
+                    </button>
+                    <button type="button" class="aos-chip" data-artefact-filter="charts">
+                      <i data-lucide="chart-column" aria-hidden="true"></i>
+                      <span>Charts &amp; Visuals</span>
+                    </button>
+                    <button type="button" class="aos-chip" data-artefact-filter="presentations">
+                      <i data-lucide="presentation" aria-hidden="true"></i>
+                      <span>Presentations</span>
+                    </button>
+                    <button type="button" class="aos-chip" data-artefact-filter="data">
+                      <i data-lucide="database" aria-hidden="true"></i>
+                      <span>Data &amp; Models</span>
+                    </button>
+                  </div>
+                  <div class="aos-artefact-list" id="aos-artefact-list" data-demo-target="artifacts"></div>
+                </div>
+                <button
+                  type="button"
+                  class="aos-float-btn"
+                  id="aos-compliance-btn"
+                  aria-label="Review compliance"
+                  title="Review compliance"
+                  data-tooltip="Review compliance"
+                  data-demo-target="compliance"
+                  aria-haspopup="dialog"
+                  aria-expanded="false"
+                  aria-controls="aos-compliance-menu"
+                >
+                  <i data-lucide="shield-check" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              <div class="aos-panel-view aos-panel-view--detail" id="aos-artefacts-detail" data-panel-view="detail" data-demo-target="artifact-detail" hidden>
+                <div class="aos-detail__head" data-demo-target="artifact-detail-header">
+                  <button
+                    type="button"
+                    class="aos-icon-btn"
+                    id="aos-artefact-detail-back"
+                    aria-label="Back to artifacts"
+                    title="Back to artifacts"
+                    data-tooltip="Back to artifacts"
+                  >
+                    <i data-lucide="chevron-left" aria-hidden="true"></i>
+                  </button>
+                  <div class="aos-detail__identity">
+                    <span class="aos-artefact__icon aos-detail__type-icon" id="aos-artefact-detail-icon" aria-hidden="true">
+                      <i data-lucide="file-text"></i>
+                    </span>
+                    <h2 class="aos-detail__name" id="aos-artefact-detail-title"></h2>
+                  </div>
+                  <div class="aos-detail__tools">
+                    <button
+                      type="button"
+                      class="aos-icon-btn"
+                      id="aos-artefact-continue"
+                      aria-label="Continue in chat"
+                      title="Continue in chat"
+                      data-tooltip="Continue in chat"
+                      data-demo-target="artifact-continue-in-chat"
+                    >
+                      <i data-lucide="square-arrow-out-up-right" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="aos-icon-btn"
+                      data-collapse="artefacts"
+                      id="aos-artefacts-collapse-detail"
+                      aria-expanded="true"
+                      aria-controls="aos-artefacts"
+                      aria-label="Collapse sidebar"
+                      title="Collapse sidebar"
+                      data-tooltip="Collapse sidebar"
+                    >
+                      <i data-lucide="panel-right-close" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="aos-artefact-viewer-toolbar" id="aos-artefact-toolbar" data-demo-target="artifact-toolbar"></div>
+                <div class="aos-artefact-viewer" id="aos-artefact-viewer"></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="aos-popover aos-popover--fixed" id="aos-model-menu" role="menu" aria-label="Model" hidden data-prefer="top">
+    <button type="button" class="aos-menu-item is-selected" data-model="GPT" role="menuitemradio" aria-checked="true">
+      <span>GPT</span>
+      <i data-lucide="check" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="aos-menu-item" data-model="Claude" role="menuitemradio" aria-checked="false">
+      <span>Claude</span>
+    </button>
+    <button type="button" class="aos-menu-item" data-model="Internal" role="menuitemradio" aria-checked="false">
+      <span>PwC Internal</span>
+    </button>
+  </div>
+
+  <div class="aos-popover aos-popover--fixed" id="aos-context-menu" role="menu" aria-label="Add context" hidden>
+    <p class="aos-popover__title">Add context</p>
+    <button type="button" class="aos-menu-item" data-context="Teams transcript — ACE Weekly" role="menuitem">Teams transcript</button>
+    <button type="button" class="aos-menu-item" data-context="Outlook — ACE weekly pack" role="menuitem">Outlook thread</button>
+    <button type="button" class="aos-menu-item" data-context="Knowledge — Division 230" role="menuitem">Knowledge source</button>
+    <button type="button" class="aos-menu-item" data-context="File — Bluescope risk pack.pdf" role="menuitem">Workspace file</button>
+  </div>
+
+  <div class="aos-popover aos-popover--fixed aos-compliance-popover" id="aos-compliance-menu" role="dialog" aria-label="Compliance &amp; terms" hidden>
+    <p class="aos-popover__title">Compliance status</p>
+    <p class="aos-compliance-popover__status">All checks passed</p>
+    <button type="button" class="aos-menu-item" disabled>
+      <span>Data handling</span>
+      <span class="aos-compliance-popover__ok">Approved</span>
+    </button>
+    <button type="button" class="aos-menu-item" disabled>
+      <span>Approved tools</span>
+      <span class="aos-compliance-popover__ok">In use</span>
+    </button>
+    <button type="button" class="aos-menu-item" disabled>
+      <span>Usage terms</span>
+      <span class="aos-compliance-popover__ok">Accepted</span>
+    </button>
+  </div>
+
+  <div class="aos-popover aos-popover--fixed" id="aos-agent-filter-menu" role="menu" aria-label="Filter agents" hidden data-prefer="bottom">
+    <p class="aos-popover__title">Status</p>
+    <button type="button" class="aos-menu-item is-selected" data-agent-filter="all" role="menuitemradio" aria-checked="true">All</button>
+    <button type="button" class="aos-menu-item" data-agent-filter="completed" role="menuitemradio" aria-checked="false">Completed</button>
+    <button type="button" class="aos-menu-item" data-agent-filter="review" role="menuitemradio" aria-checked="false">Ready to review</button>
+    <button type="button" class="aos-menu-item" data-agent-filter="progress" role="menuitemradio" aria-checked="false">In progress</button>
+    <button type="button" class="aos-menu-item" data-agent-filter="draft" role="menuitemradio" aria-checked="false">Draft</button>
+    <button type="button" class="aos-menu-item" data-agent-filter="error" role="menuitemradio" aria-checked="false">Failed</button>
+  </div>
+
+  <div class="aos-popover aos-popover--fixed" id="aos-artefact-filter-menu" role="menu" aria-label="Filter artefacts" hidden data-prefer="bottom">
+    <button type="button" class="aos-menu-item is-selected" data-artefact-filter="all" role="menuitemradio">All types</button>
+    <button type="button" class="aos-menu-item" data-artefact-filter="text" role="menuitemradio">Text &amp; Analysis</button>
+    <button type="button" class="aos-menu-item" data-artefact-filter="charts" role="menuitemradio">Charts &amp; Visuals</button>
+    <button type="button" class="aos-menu-item" data-artefact-filter="presentations" role="menuitemradio">Presentations</button>
+    <button type="button" class="aos-menu-item" data-artefact-filter="data" role="menuitemradio">Data &amp; Models</button>
+  </div>
+
+  <div class="aos-search-modal" id="aos-search-modal" hidden data-demo-target="search-modal">
+    <div class="aos-search-modal__scrim" id="aos-search-modal-scrim" data-close-search></div>
+    <div class="aos-search-modal__panel" role="dialog" aria-modal="true" aria-labelledby="aos-search-modal-heading">
+      <label class="aos-search-modal__field">
+        <i data-lucide="search" aria-hidden="true"></i>
+        <input
+          type="search"
+          id="aos-search-modal-input"
+          class="aos-search-modal__input"
+          placeholder="Search agents"
+          autocomplete="off"
+          data-demo-target="search-input"
+        />
+      </label>
+      <p class="aos-search-modal__heading" id="aos-search-modal-heading">Recent agents</p>
+      <div class="aos-search-modal__results" id="aos-search-modal-results" role="listbox" aria-label="Search results"></div>
+    </div>
+  </div>
+
+  <div class="aos-modal" id="aos-new-agent-modal" hidden>
+    <div class="aos-modal__scrim" data-close-modal></div>
+    <div class="aos-modal__panel" role="dialog" aria-modal="true" aria-labelledby="aos-new-agent-title">
+      <h2 class="aos-modal__title" id="aos-new-agent-title">New agent</h2>
+      <p class="aos-modal__sub">Start a CoE agent from a starter, or leave it open-ended.</p>
+      <div class="aos-field">
+        <label for="aos-new-agent-name">Agent name</label>
+        <input id="aos-new-agent-name" type="text" placeholder="e.g. Proposal – Client risk review" autocomplete="off" />
+      </div>
+      <div class="aos-starter-grid" id="aos-starter-grid">
+        <button type="button" class="aos-starter is-selected" data-starter="proposal">
+          <strong>Proposal</strong>
+          <span>Storyline, risks, commercial model</span>
+        </button>
+        <button type="button" class="aos-starter" data-starter="meetings">
+          <strong>Meetings</strong>
+          <span>Agenda, briefing, follow-ups</span>
+        </button>
+        <button type="button" class="aos-starter" data-starter="emails">
+          <strong>Emails</strong>
+          <span>Summaries and next actions</span>
+        </button>
+        <button type="button" class="aos-starter" data-starter="custom">
+          <strong>Custom</strong>
+          <span>Blank CoE workspace</span>
+        </button>
+      </div>
+      <div class="aos-modal__actions">
+        <button type="button" class="aos-btn aos-btn--ghost" data-close-modal>Cancel</button>
+        <button type="button" class="aos-btn aos-btn--primary" id="aos-create-agent">Create agent</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="aos-artefact-fs" id="aos-artefact-fs" hidden data-demo-target="artifact-fullscreen">
+    <div class="aos-artefact-fs__bar">
+      <div class="aos-artefact-fs__identity">
+        <span class="aos-artefact__icon" id="aos-artefact-fs-icon" aria-hidden="true">
+          <i data-lucide="file-text"></i>
+        </span>
+        <h2 class="aos-artefact-fs__title" id="aos-artefact-fs-title"></h2>
+      </div>
+      <div class="aos-artefact-viewer-toolbar" id="aos-artefact-fs-toolbar" data-demo-target="artifact-toolbar"></div>
+      <button
+        type="button"
+        class="aos-icon-btn"
+        id="aos-artefact-fs-exit"
+        aria-label="Exit fullscreen"
+        title="Exit fullscreen"
+        data-tooltip="Exit fullscreen"
+      >
+        <i data-lucide="minimize-2" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="aos-artefact-viewer aos-artefact-viewer--fs" id="aos-artefact-fs-viewer"></div>
+  </div>
+
+  <div
+    id="aos-text-selection-bar"
+    class="aos-selbar"
+    role="toolbar"
+    aria-label="Selection actions"
+    hidden
+    data-demo-target="artifact-selection-actions"
+  >
+    <button type="button" class="aos-selbar__btn" data-text-action="ask" data-demo-target="artifact-ask-agent">
+      <i data-lucide="sparkles" aria-hidden="true"></i>
+      <span>Ask Agent</span>
+    </button>
+    <button type="button" class="aos-selbar__btn" data-text-action="comment" data-demo-target="artifact-comment">
+      <i data-lucide="message-square-plus" aria-hidden="true"></i>
+      <span>Comment</span>
+    </button>
+    <span class="aos-selbar__sep" aria-hidden="true"></span>
+    <button type="button" class="aos-selbar__fmt" data-text-action="bold" aria-label="Bold" title="Bold" data-demo-target="artifact-format-bold">B</button>
+    <button type="button" class="aos-selbar__fmt" data-text-action="italic" aria-label="Italic" title="Italic"><span>I</span></button>
+    <button type="button" class="aos-selbar__fmt" data-text-action="underline" aria-label="Underline" title="Underline">U</button>
+  </div>
+
+  <div id="aos-text-comment-composer" class="aos-comment-pop aos-comment-pop--composer" role="dialog" aria-label="Add comment" hidden></div>
+  <div id="aos-text-comment-thread" class="aos-comment-pop aos-comment-pop--thread" role="dialog" aria-label="Comment thread" hidden></div>
+
+  <div class="aos-toast" id="aos-toast" hidden role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="../assets/js/agent-os-builder.js?v=20"></script>
+</body>
+</html>

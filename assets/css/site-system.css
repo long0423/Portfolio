@@ -1,0 +1,108 @@
+/* Shared site system — ChatGPT-inspired neutrals, avatar, Lucide icons */
+
+:root {
+  --background-primary: #ffffff;
+  --background-secondary: #f9f9f9;
+  --background-tertiary: #f4f4f4;
+
+  --text-primary: #0d0d0d;
+  --text-secondary: #5d5d5d;
+  --text-tertiary: #8f8f8f;
+
+  --border-default: rgba(0, 0, 0, 0.1);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+
+  --interactive-hover: rgba(0, 0, 0, 0.05);
+  --interactive-active: rgba(0, 0, 0, 0.08);
+
+  --radius-small: 8px;
+  --radius-medium: 12px;
+  --radius-large: 16px;
+  --radius-composer: 24px;
+  --radius-full: 9999px;
+
+  --avatar-bg: #0d0d0d;
+  --avatar-fg: #ffffff;
+
+  --icon-size: 18px;
+  --icon-size-sm: 16px;
+  --icon-stroke: 1.75;
+}
+
+/* —— Avatar (black / white initials) —— */
+.site-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--avatar-bg);
+  color: var(--avatar-fg);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  user-select: none;
+  box-shadow: none;
+  border: none;
+}
+
+.site-avatar--sm {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+
+.site-avatar--md {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+.site-avatar--lg {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+}
+
+/* —— Lucide icon helpers —— */
+.site-icon,
+[data-lucide] {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  stroke-width: var(--icon-stroke);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.site-icon--sm,
+.site-icon.site-icon--sm {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+
+/* Next-project CTA buttons on case studies */
+.site-next-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  color: #0d0d0d;
+}
+
+.site-next-btn.bg-transparent,
+.site-next-btn.text-light {
+  color: #ffffff;
+}
+
+.site-next-btn [data-lucide],
+.site-next-btn .site-icon,
+.site-next-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.75;
+  color: currentColor;
+  margin: 0 !important;
+}

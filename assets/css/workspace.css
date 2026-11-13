@@ -1,0 +1,414 @@
+/* Persistent AI workspace shell — panels, library, resume, transitions */
+
+:root {
+  --ws-panel-bg: var(--background-primary);
+  --ws-surface: #ffffff;
+  --ws-border: rgba(0, 0, 0, 0.08);
+  --ws-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+/* Workspace main fills remaining shell width */
+#la-workspace.workspace {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--ws-panel-bg);
+}
+
+.ws-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms var(--la-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+    transform 200ms var(--la-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  background: var(--ws-panel-bg);
+  overflow: hidden;
+}
+
+.ws-panel[hidden] {
+  display: none !important;
+}
+
+.ws-panel.is-visible {
+  display: flex;
+}
+
+.ws-panel--leave {
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+}
+
+.ws-panel--enter {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-panel {
+    transition: none;
+  }
+}
+
+/* Chat panel: full-width scroll (scrollbar on workspace edge), content stays centered */
+#ws-panel-chat {
+  overflow-x: hidden;
+  overflow-y: auto;
+  align-items: center;
+}
+
+#ws-panel-chat .la-stage {
+  width: min(100%, var(--la-main-max, 760px));
+  max-width: var(--la-main-max, 760px);
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+/* New chat empty state — vertically center in the right workspace */
+.la-shell:not(.is-conversation) #ws-panel-chat {
+  justify-content: center;
+}
+
+.la-shell:not(.is-conversation) #ws-panel-chat .la-stage {
+  height: auto;
+  min-height: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.la-shell.is-conversation #ws-panel-chat {
+  justify-content: flex-start;
+}
+
+.la-shell.is-conversation #ws-panel-chat .la-stage {
+  height: auto;
+  min-height: 100%;
+  width: min(100%, var(--la-main-max, 760px));
+  display: flex;
+  flex-direction: column;
+}
+
+.la-shell.is-conversation #ws-panel-chat .la-conversation {
+  flex: 1 0 auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+.la-shell.is-conversation #ws-panel-chat .la-thread {
+  flex: 1 0 auto;
+  overflow: visible;
+}
+
+.la-shell.is-conversation #ws-panel-chat .la-composer-wrap--conversation {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    var(--background-primary, #fff) 28%
+  );
+  padding-top: 12px;
+  padding-bottom: 8px;
+}
+
+.la-shell.is-workspace-frame .la-main,
+.la-shell.is-workspace-utility .la-main {
+  overflow: hidden;
+}
+
+body.la-workspace-scroll-lock {
+  overflow: hidden;
+}
+
+/* Frame workspace (case studies / approach) — scroll like Library utility panel */
+#ws-panel-frame {
+  overflow: auto;
+  background: var(--ws-panel-bg, var(--background-primary));
+}
+
+.ws-frame {
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: transparent;
+}
+
+/* Approach iframe: fill panel; inner page scrolls like Library */
+.la-shell.is-workspace-frame #ws-panel-frame .ws-frame[title="Approach"] {
+  height: 100%;
+  background: var(--ws-panel-bg, var(--background-primary));
+}
+
+/* Utility panels */
+#ws-panel-library,
+#ws-panel-contact {
+  overflow: auto;
+}
+
+.ws-utility {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+  box-sizing: border-box;
+}
+
+.ws-utility-header {
+  margin-bottom: 28px;
+}
+
+.ws-utility-header--detail {
+  margin-bottom: 20px;
+}
+
+.ws-utility-title {
+  margin: 0 0 10px;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.ws-utility-lead {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-secondary, #6b6b6b);
+}
+
+.ws-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text-secondary, #6b6b6b);
+}
+
+.ws-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ws-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* Library tiles share Contact row card style (.sp-contact-list / .sp-contact-row) */
+.ws-library-row {
+  text-decoration: none;
+  color: inherit;
+}
+
+.ws-library-row > .sp-contact-value {
+  flex: 1;
+  min-width: 0;
+}
+
+.ws-library-row__chevron {
+  margin-left: auto;
+  width: 16px;
+  height: 16px;
+  color: var(--text-tertiary, #8a8a8a);
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.ws-detail__lead {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+.ws-detail__list {
+  margin: 0 0 24px;
+  padding-left: 1.2em;
+  color: var(--text-primary);
+}
+
+.ws-detail__list li + li {
+  margin-top: 8px;
+}
+
+.ws-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.ws-related {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ws-border);
+}
+
+.ws-related__label {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary, #6b6b6b);
+}
+
+.ws-related__tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#ws-panel-contact .sp-meta {
+  margin-top: 20px;
+}
+
+/* Resume artifact */
+.ws-resume {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: 20px 20px 24px;
+  background: var(--background-secondary, #f5f5f5);
+}
+
+.ws-resume__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto 16px;
+  flex-shrink: 0;
+}
+
+.ws-resume__toolbar .ws-utility-title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.ws-resume__surface {
+  flex: 1;
+  min-height: 0;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--ws-surface);
+  border: 1px solid var(--ws-border);
+  border-radius: 14px;
+  box-shadow: var(--ws-shadow);
+  overflow: hidden;
+}
+
+.ws-resume__frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #fff;
+}
+
+/* Primary nav: New chat → Approach → Library → Resume, then Projects */
+.la-sidebar > .la-nav--primary {
+  margin-top: 4px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--la-sidebar-item-stack-gap, 2px);
+}
+
+.la-sidebar > .la-work {
+  margin-top: 0;
+}
+
+/* Expanded: Projects is a section label; trigger is for collapsed flyout only */
+.la-projects-trigger {
+  display: none;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+body.la-sidebar-collapsed .la-projects-trigger {
+  display: flex;
+}
+
+body.la-sidebar-collapsed .la-work {
+  display: none;
+}
+
+/* Embed mode rules also live in embed-boot.js for iframe documents */
+
+.la-sidebar__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+}
+
+.la-sidebar__footer .la-nav__link {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+/* Keep Contact active pill identical to other sidebar nav items */
+.la-sidebar__footer .la-nav__link.is-active,
+.la-sidebar__footer .la-nav__link[aria-current="page"] {
+  background: var(--interactive-active);
+  font-weight: 500;
+  color: var(--la-sidebar-item-color, var(--text-primary));
+}
+
+.la-sidebar__footer .la-nav__link:hover {
+  background: var(--interactive-hover);
+}
+
+.la-sidebar__footer .la-nav__link.is-active:hover,
+.la-sidebar__footer .la-nav__link[aria-current="page"]:hover {
+  background: var(--interactive-active);
+}
+
+/* Collapsed: keep Projects flyout trigger — use Projects label area via first project section */
+body.la-sidebar-collapsed .la-work__label {
+  /* keep for expanded; collapsed CSS already hides labels */
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  #la-workspace.workspace {
+    min-height: calc(100vh - 56px);
+    min-height: calc(100dvh - 56px);
+  }
+
+  .ws-utility {
+    padding: 28px 16px 48px;
+  }
+
+  .ws-resume {
+    padding: 12px;
+  }
+}

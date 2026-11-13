@@ -1,0 +1,205 @@
+/* Pathfinder-only layout adjustments. Shared media styles live in case-study-media.css. */
+
+body.pf-case {
+  background: #ffffff;
+}
+
+body.pf-case .cs-shot-btn,
+body.pf-case .cs-demo-trigger {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  line-height: 0;
+  overflow: hidden;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body.pf-case .cs-shot-btn img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+body.pf-case button.cs-shot-btn:hover,
+body.pf-case button.cs-shot-btn:hover img,
+body.pf-case button.cs-shot-btn:active,
+body.pf-case button.cs-shot-btn:active img,
+body.pf-case button.cs-demo-trigger:hover,
+body.pf-case button.cs-demo-trigger:hover img,
+body.pf-case button.cs-demo-trigger:active,
+body.pf-case button.cs-demo-trigger:active img {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  box-shadow: none;
+  background: transparent;
+  border-color: transparent;
+  border-radius: 16px;
+}
+
+/* Pointer focus must not leave Bootstrap's blue ring. Keyboard focus stays visible. */
+body.pf-case button.cs-shot-btn:focus,
+body.pf-case button.cs-demo-trigger:focus,
+body.pf-case button.image-modal-close:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+body.pf-case button.cs-shot-btn:focus-visible,
+body.pf-case button.cs-demo-trigger:focus-visible {
+  outline: 2px solid #252525;
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+body.pf-case button.image-modal-close:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+body.pf-case .cs-demo-trigger:hover .cs-demo-trigger__play,
+body.pf-case .cs-demo-trigger:focus .cs-demo-trigger__play {
+  transform: none;
+  background: rgba(17, 17, 17, 0.72);
+}
+
+body.pf-case .cs-caption {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #6b6b6b;
+}
+
+/* style.css sets figure { height:100%; overflow:hidden } and figure:hover { box-shadow }.
+   That shadow is the hover effect, and height:100% lets the stage captions overflow into the next section. */
+body.pf-case figure,
+body.pf-case figure:hover {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  box-shadow: none;
+  transition: none;
+  cursor: default;
+}
+
+body.pf-case .pf-anchor a {
+  letter-spacing: 0.2px;
+}
+
+body.pf-case .pf-anchor a:hover {
+  color: #999 !important;
+  text-decoration: none;
+}
+
+body.pf-case .pf-anchor a:focus-visible {
+  outline: 2px solid #252525;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+body.pf-case .pf-top {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #252525;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+}
+
+body.pf-case .pf-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+body.pf-case .pf-top:focus-visible {
+  outline: 2px solid #252525;
+  outline-offset: 3px;
+}
+
+body.pf-case .takeaway-avatar {
+  display: block;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 12%;
+  border: 1px solid #d7d7d7;
+  background: #f0f0f0;
+}
+
+body.pf-case #opportunity {
+  margin-top: 32px;
+}
+
+@media (min-width: 901px) {
+  body.pf-case #opportunity {
+    margin-top: 56px;
+  }
+}
+
+body.pf-case .pf-stage h5 {
+  font-size: 20px !important;
+  font-weight: 500;
+  margin: 20px 0 8px;
+}
+
+body.pf-case .pf-stage p {
+  color: #6b6b6b;
+}
+
+body.pf-case [id] {
+  scroll-margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+  body.pf-case .cs-split {
+    flex-direction: column !important;
+  }
+
+  body.pf-case .cs-split > .cs-copy,
+  body.pf-case .cs-split > .cs-media {
+    width: 100% !important;
+  }
+
+  body.pf-case .pf-intro {
+    max-width: 100% !important;
+  }
+
+  body.pf-case .pf-anchor .d-flex {
+    flex-wrap: wrap;
+  }
+
+  body.pf-case .pf-anchor a {
+    border-right: 0 !important;
+    padding: 8px 14px 8px 0 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="982" height="722" viewBox="-12 -9 517 381">
+<defs>
+  <linearGradient id="backLeft" x1="0" y1="0" x2="0.35" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0" stop-color="#FFAE29"/>
+    <stop offset="0.34" stop-color="#FA7610"/>
+    <stop offset="0.72" stop-color="#EA4508"/>
+    <stop offset="1" stop-color="#C33108"/>
+  </linearGradient>
+  <linearGradient id="foldBack" x1="0.2" y1="0" x2="0.75" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0" stop-color="#FC891C"/>
+    <stop offset="0.28" stop-color="#ED5B0C"/>
+    <stop offset="0.75" stop-color="#CD330A"/>
+    <stop offset="1" stop-color="#AE2412"/>
+  </linearGradient>
+  <linearGradient id="frontCenter" x1="0.58" y1="0" x2="0.44" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0" stop-color="#FFD465"/>
+    <stop offset="0.24" stop-color="#FFB733"/>
+    <stop offset="0.65" stop-color="#FF8A00"/>
+    <stop offset="1" stop-color="#FF6100"/>
+  </linearGradient>
+  <linearGradient id="frontRight" x1="0.63" y1="0" x2="0.39" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0" stop-color="#FFD261"/>
+    <stop offset="0.17" stop-color="#FFC247"/>
+    <stop offset="0.54" stop-color="#FF9C20"/>
+    <stop offset="0.83" stop-color="#FF7200"/>
+    <stop offset="1" stop-color="#FF5A00"/>
+  </linearGradient>
+</defs>
+<!-- Four original ribbon folds inspired by the user-supplied folded flowing graphic -->
+<path d="M 0,0 L 102,0 C 122,50 137,107 137,171 L 137,225 L 47,225 C 49,135 26,54 0,0 Z" fill="url(#backLeft)"/>
+<path d="M 299,0 C 316,56 328,119 327,182 L 326,190 L 224,317 C 239,236 236,169 222,113 C 257,67 281,20 299,0 Z" fill="url(#foldBack)"/>
+<path d="M 47,225 C 124,160 168,85 202,0 L 299,0 C 270,109 213,210 136,271 Z" fill="url(#frontCenter)"/>
+<path d="M 224,317 C 306,219 363,114 394,0 L 491,0 C 467,142 405,269 311,361 Z" fill="url(#frontRight)"/>
+</svg>

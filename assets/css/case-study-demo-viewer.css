@@ -1,0 +1,398 @@
+/* Reusable case-study cinematic demo viewer */
+
+.cs-demo-trigger {
+  appearance: none;
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 16px;
+  overflow: hidden;
+  line-height: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.cs-demo-trigger:focus {
+  outline: none;
+}
+
+.cs-demo-trigger:focus-visible {
+  outline: 2px solid #252525;
+  outline-offset: 4px;
+}
+
+.cs-demo-trigger__image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+.cs-demo-trigger__play {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, 0.72);
+  color: rgba(255, 255, 255, 0.92);
+  pointer-events: none;
+  transform: scale(1);
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.cs-demo-trigger__play [data-lucide],
+.cs-demo-trigger__play svg {
+  width: 16px;
+  height: 16px;
+  stroke: rgba(255, 255, 255, 0.92);
+  fill: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.92);
+  margin-left: 1px;
+}
+
+.cs-demo-trigger:hover .cs-demo-trigger__play,
+.cs-demo-trigger:focus-visible .cs-demo-trigger__play {
+  background: rgba(17, 17, 17, 0.86);
+  transform: scale(1.03);
+}
+
+.cs-demo-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 10100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 200ms ease, visibility 200ms ease;
+}
+
+.cs-demo-viewer.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.cs-demo-viewer.is-closing {
+  opacity: 0;
+  visibility: visible;
+  pointer-events: none;
+  transition: opacity 160ms ease, visibility 160ms ease;
+}
+
+.cs-demo-viewer__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.52);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.cs-demo-viewer__dialog {
+  --cs-demo-ratio: 3298 / 1922;
+  --cs-demo-ratio-num: 1.715921;
+  position: relative;
+  z-index: 1;
+  width: min(1440px, 88vw, calc(82vh * var(--cs-demo-ratio-num)));
+  height: auto;
+  max-width: 88vw;
+  max-height: 82vh;
+  aspect-ratio: var(--cs-demo-ratio);
+  opacity: 0;
+  transform: scale(0.985);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.cs-demo-viewer.is-open .cs-demo-viewer__dialog {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cs-demo-viewer.is-closing .cs-demo-viewer__dialog {
+  opacity: 0;
+  transform: scale(0.985);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.cs-demo-viewer__stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cs-demo-viewer__stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  transition: background 160ms ease;
+}
+
+.cs-demo-viewer.is-ended .cs-demo-viewer__stage::after {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.cs-demo-viewer__poster,
+.cs-demo-viewer__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: transparent;
+}
+
+.cs-demo-viewer__video {
+  opacity: 0;
+  transform: scale(1.012);
+  transform-origin: center center;
+  transition: opacity 180ms ease;
+}
+
+.cs-demo-viewer__poster {
+  transform: scale(1.012);
+  transform-origin: center center;
+}
+
+.cs-demo-viewer__video.is-ready {
+  opacity: 1;
+}
+
+.cs-demo-viewer__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-top-color: rgba(255, 255, 255, 0.78);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  animation: cs-demo-spin 700ms linear infinite;
+  transition: opacity 160ms ease;
+}
+
+.cs-demo-viewer.is-loading .cs-demo-viewer__spinner {
+  opacity: 1;
+}
+
+.cs-demo-viewer__close {
+  position: fixed;
+  top: max(22px, env(safe-area-inset-top, 0px));
+  right: max(22px, env(safe-area-inset-right, 0px));
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+
+.cs-demo-viewer__close:hover,
+.cs-demo-viewer__close:focus-visible {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.cs-demo-viewer__close:focus {
+  outline: none;
+}
+
+.cs-demo-viewer__close:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.55);
+  outline-offset: 3px;
+}
+
+.cs-demo-viewer__close [data-lucide],
+.cs-demo-viewer__close svg {
+  width: 16px;
+  height: 16px;
+  stroke: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.cs-demo-viewer__overlay-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, 0.72);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.cs-demo-viewer.is-paused:not(.is-ended) .cs-demo-viewer__play,
+.cs-demo-viewer.is-ended .cs-demo-viewer__replay {
+  display: inline-flex;
+}
+
+.cs-demo-viewer__overlay-btn:hover,
+.cs-demo-viewer__overlay-btn:focus-visible {
+  background: rgba(17, 17, 17, 0.86);
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+.cs-demo-viewer__overlay-btn:focus {
+  outline: none;
+}
+
+.cs-demo-viewer__overlay-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.55);
+  outline-offset: 3px;
+}
+
+.cs-demo-viewer__overlay-btn [data-lucide],
+.cs-demo-viewer__overlay-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: rgba(255, 255, 255, 0.92);
+  fill: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.cs-demo-viewer__play [data-lucide],
+.cs-demo-viewer__play svg {
+  margin-left: 1px;
+}
+
+.cs-demo-viewer__replay [data-lucide],
+.cs-demo-viewer__replay svg {
+  fill: none;
+}
+
+.cs-demo-viewer__overlay-btn span {
+  display: none;
+}
+
+.cs-demo-viewer__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}
+
+.cs-demo-viewer__progress-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.62);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+@keyframes cs-demo-spin {
+  to { transform: rotate(360deg); }
+}
+
+html.cs-demo-scroll-lock,
+html.cs-demo-scroll-lock body {
+  overflow: hidden !important;
+}
+
+@media (max-width: 1024px) {
+  .cs-demo-viewer__dialog {
+    width: min(1440px, 94vw, calc(82vh * var(--cs-demo-ratio-num)));
+    max-width: 94vw;
+  }
+}
+
+@media (max-width: 640px) {
+  .cs-demo-trigger__play {
+    right: 16px;
+    bottom: 16px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .cs-demo-viewer__dialog {
+    width: min(1440px, 94vw, calc(80vh * var(--cs-demo-ratio-num)));
+    max-width: 94vw;
+    max-height: 80vh;
+  }
+
+  .cs-demo-viewer__close {
+    top: max(16px, env(safe-area-inset-top, 0px));
+    right: max(16px, env(safe-area-inset-right, 0px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-demo-trigger__play,
+  .cs-demo-viewer,
+  .cs-demo-viewer__dialog,
+  .cs-demo-viewer__video,
+  .cs-demo-viewer__spinner,
+  .cs-demo-viewer__close,
+  .cs-demo-viewer__overlay-btn,
+  .cs-demo-viewer__stage::after {
+    transition: none !important;
+  }
+
+  .cs-demo-trigger:hover .cs-demo-trigger__play,
+  .cs-demo-trigger:focus-visible .cs-demo-trigger__play {
+    transform: none;
+  }
+
+  .cs-demo-viewer__overlay-btn:hover,
+  .cs-demo-viewer__overlay-btn:focus-visible {
+    transform: translate(-50%, -50%);
+  }
+
+  .cs-demo-viewer__dialog,
+  .cs-demo-viewer.is-open .cs-demo-viewer__dialog,
+  .cs-demo-viewer.is-closing .cs-demo-viewer__dialog,
+  .cs-demo-viewer__poster,
+  .cs-demo-viewer__video {
+    transform: none;
+  }
+
+  .cs-demo-viewer__spinner {
+    animation: none;
+    opacity: 0.85;
+  }
+}

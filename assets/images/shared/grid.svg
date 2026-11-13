@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1158px" height="526px" viewBox="0 0 1158 526" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 38</title>
+    <defs>
+        <path d="M16,0 L1046,0 C1054.83656,-1.623249e-15 1062,7.163444 1062,16 L1062,406 L1062,406 L0,406 L0,16 C-1.082166e-15,7.163444 7.163444,1.082166e-15 16,0 Z" id="path-1"></path>
+    </defs>
+    <g id="👋-Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="M&amp;A-Path" transform="translate(-221, -7017)">
+            <g id="Group-123" transform="translate(221, 5628)">
+                <g id="Group-41" transform="translate(0, 1341)">
+                    <g id="Group-38" transform="translate(0, 48)">
+                        <rect id="Rectangle-Copy-8" fill="#EFEAE5" x="0" y="0" width="1158" height="526" rx="28"></rect>
+                        <text id="We-use-a-12-column-l" font-family="HelveticaNeue, Helvetica Neue" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="-0.4" fill="#474747">
+                            <tspan x="286.716" y="63">We use a 12-column layout for the right mian section. The layout margins are 24px and </tspan>
+                            <tspan x="383.956" y="87">gutter is 16px. Side navigation has a fixed width of 280px.</tspan>
+                        </text>
+                        <g id="Group-25" transform="translate(48, 120)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="Rectangle" fill="#FFFFFF" xlink:href="#path-1"></use>
+                            <g id="Grid/Small-desktop/Collapsed-nav" mask="url(#mask-2)" fill="#415385">
+                                <g transform="translate(184, 0)">
+                                    <rect id="Margin" fill-opacity="0.48" x="854.350168" y="0" width="23.6498316" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="783.644562" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="801.381936" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="659.978114" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="642.240741" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="730.683721" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="712.946347" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="589.272508" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="571.535135" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="518.574293" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="500.836919" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="447.868687" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="430.131313" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="377.163081" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="359.425707" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="306.464865" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="288.727492" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="235.759259" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="218.021886" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="165.053653" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="147.316279" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="94.3554377" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Gutter" fill-opacity="0.24" x="76.618064" y="0" width="17.7373737" height="406"></rect>
+                                    <rect id="Column" fill-opacity="0.12" x="23.6498316" y="0" width="52.9682323" height="406"></rect>
+                                    <rect id="Margin" fill-opacity="0.48" x="0" y="0" width="23.6498316" height="406"></rect>
+                                </g>
+                            </g>
+                            <rect id="Rectangle" fill-opacity="0.120001093" fill="#415385" mask="url(#mask-2)" x="184" y="38" width="878" height="50"></rect>
+                            <g id="Group-40" mask="url(#mask-2)">
+                                <g transform="translate(174, 62.5)">
+                                    <line x1="11" y1="0.5" x2="35" y2="0.5" id="Line-2" stroke="#415385" stroke-linecap="square" stroke-dasharray="2"></line>
+                                    <g id="Tooltip/1-Single-line" stroke="none" fill-rule="evenodd" transform="translate(0, 13.5)">
+                                        <path d="M5.1277704,3 L40.8722296,3 C42.6552671,3 43.3018396,3.18565122 43.9536914,3.53426541 C44.6055433,3.88287959 45.1171204,4.39445674 45.4657346,5.04630859 C45.8143488,5.69816044 46,6.34473292 46,8.1277704 L46,29.8722296 C46,31.6552671 45.8143488,32.3018396 45.4657346,32.9536914 C45.1171204,33.6055433 44.6055433,34.1171204 43.9536914,34.4657346 C43.3018396,34.8143488 42.6552671,35 40.8722296,35 L5.1277704,35 C3.34473292,35 2.69816044,34.8143488 2.04630859,34.4657346 C1.39445674,34.1171204 0.882879593,33.6055433 0.534265408,32.9536914 C0.185651222,32.3018396 4.01235366e-17,31.6552671 -6.90560205e-17,29.8722296 L1.38112041e-16,8.1277704 C-8.02470732e-17,6.34473292 0.185651222,5.69816044 0.534265408,5.04630859 C0.882879593,4.39445674 1.39445674,3.88287959 2.04630859,3.53426541 C2.69816044,3.18565122 3.34473292,3 5.1277704,3 Z" id="Container" fill-opacity="0.72" fill="#000000"></path>
+                                        <polygon id="Triangle" fill-opacity="0.72" fill="#000000" points="23 0 27 3 19 3"></polygon>
+                                        <text id="Text" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="16" letter-spacing="-0.4" fill="#FFFFFF">
+                                            <tspan x="8" y="24">24px</tspan>
+                                        </text>
+                                    </g>
+                                </g>
+                            </g>
+                            <g id="Group-40" mask="url(#mask-2)">
+                                <g transform="translate(741, 62.5)">
+                                    <line x1="15" y1="0.5" x2="32" y2="0.5" id="Line-2" stroke="#415385" stroke-linecap="square" stroke-dasharray="2"></line>
+                                    <g id="Tooltip/1-Single-line" stroke="none" fill-rule="evenodd" transform="translate(0, 13.5)">
+                                        <path d="M5.1277704,3 L40.8722296,3 C42.6552671,3 43.3018396,3.18565122 43.9536914,3.53426541 C44.6055433,3.88287959 45.1171204,4.39445674 45.4657346,5.04630859 C45.8143488,5.69816044 46,6.34473292 46,8.1277704 L46,29.8722296 C46,31.6552671 45.8143488,32.3018396 45.4657346,32.9536914 C45.1171204,33.6055433 44.6055433,34.1171204 43.9536914,34.4657346 C43.3018396,34.8143488 42.6552671,35 40.8722296,35 L5.1277704,35 C3.34473292,35 2.69816044,34.8143488 2.04630859,34.4657346 C1.39445674,34.1171204 0.882879593,33.6055433 0.534265408,32.9536914 C0.185651222,32.3018396 4.01235366e-17,31.6552671 -6.90560205e-17,29.8722296 L1.38112041e-16,8.1277704 C-8.02470732e-17,6.34473292 0.185651222,5.69816044 0.534265408,5.04630859 C0.882879593,4.39445674 1.39445674,3.88287959 2.04630859,3.53426541 C2.69816044,3.18565122 3.34473292,3 5.1277704,3 Z" id="Container" fill-opacity="0.72" fill="#000000"></path>
+                                        <polygon id="Triangle" fill-opacity="0.72" fill="#000000" points="23 0 27 3 19 3"></polygon>
+                                        <text id="Text" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="16" letter-spacing="-0.4" fill="#FFFFFF">
+                                            <tspan x="8" y="24">16px</tspan>
+                                        </text>
+                                    </g>
+                                </g>
+                            </g>
+                            <g id="Group-40" mask="url(#mask-2)">
+                                <g transform="translate(845, 62.5)">
+                                    <line x1="1.03675697e-15" y1="0.5" x2="52" y2="0.5" id="Line-2" stroke="#415385" stroke-linecap="square" stroke-dasharray="2"></line>
+                                    <g id="Tooltip/1-Single-line" stroke="none" fill-rule="evenodd" transform="translate(3, 13.5)">
+                                        <path d="M5.1277704,3 L40.8722296,3 C42.6552671,3 43.3018396,3.18565122 43.9536914,3.53426541 C44.6055433,3.88287959 45.1171204,4.39445674 45.4657346,5.04630859 C45.8143488,5.69816044 46,6.34473292 46,8.1277704 L46,29.8722296 C46,31.6552671 45.8143488,32.3018396 45.4657346,32.9536914 C45.1171204,33.6055433 44.6055433,34.1171204 43.9536914,34.4657346 C43.3018396,34.8143488 42.6552671,35 40.8722296,35 L5.1277704,35 C3.34473292,35 2.69816044,34.8143488 2.04630859,34.4657346 C1.39445674,34.1171204 0.882879593,33.6055433 0.534265408,32.9536914 C0.185651222,32.3018396 4.01235366e-17,31.6552671 -6.90560205e-17,29.8722296 L1.38112041e-16,8.1277704 C-8.02470732e-17,6.34473292 0.185651222,5.69816044 0.534265408,5.04630859 C0.882879593,4.39445674 1.39445674,3.88287959 2.04630859,3.53426541 C2.69816044,3.18565122 3.34473292,3 5.1277704,3 Z" id="Container" fill-opacity="0.72" fill="#000000"></path>
+                                        <polygon id="Triangle" fill-opacity="0.72" fill="#000000" points="23 0 27 3 19 3"></polygon>
+                                        <text id="Text" font-family="HelveticaNeue, Helvetica Neue" font-size="14" font-weight="normal" line-spacing="16" letter-spacing="-0.4" fill="#FFFFFF">
+                                            <tspan x="8" y="24">52px</tspan>
+                                        </text>
+                                    </g>
+                                </g>
+                            </g>
+                            <g id="Group-39" mask="url(#mask-2)">
+                                <g transform="translate(0.5, 315)">
+                                    <line x1="1.25160299e-15" y1="10.5" x2="501" y2="10.5" id="Line-2" stroke="#415385" stroke-width="1" stroke-linecap="square" stroke-dasharray="6"></line>
+                                    <line x1="560" y1="10" x2="1061" y2="10" id="Line-2" stroke="#415385" stroke-width="1" stroke-linecap="square" stroke-dasharray="6"></line>
+                                    <text id="1440px" stroke="none" font-family="HelveticaNeue, Helvetica Neue" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="505" y="15" fill="#415385">1440px</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-39-Copy" mask="url(#mask-2)">
+                                <g transform="translate(184, 231)">
+                                    <line x1="1.03675697e-15" y1="10.5" x2="409" y2="10.5" id="Line-2" stroke="#415385" stroke-width="1" stroke-linecap="square" stroke-dasharray="6"></line>
+                                    <line x1="468" y1="10.5" x2="877" y2="10.5" id="Line-2" stroke="#415385" stroke-width="1" stroke-linecap="square" stroke-dasharray="6"></line>
+                                    <text id="1160px" stroke="none" font-family="HelveticaNeue, Helvetica Neue" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="413" y="15" fill="#415385">1160px</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                            <g id="Group-39-Copy" mask="url(#mask-2)">
+                                <g transform="translate(0, 147)">
+                                    <line x1="2.17997797e-16" y1="10.5" x2="62" y2="10.5" id="Line-2" stroke="#415385" stroke-width="1" stroke-linecap="square" stroke-dasharray="6"></line>
+                                    <line x1="121" y1="10.5" x2="183" y2="10.5" id="Line-2" stroke="#415385" stroke-width="1" stroke-linecap="square" stroke-dasharray="6"></line>
+                                    <text id="280px" stroke="none" font-family="HelveticaNeue, Helvetica Neue" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="-0.4">
+                                        <tspan x="70" y="15" fill="#415385">280px</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

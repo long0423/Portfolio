@@ -1,0 +1,13 @@
+node_modules/
+npm-debug.log
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+shareable-export/
+_archive/
+_local-archive/
+scripts/_inventory.json
+docs/_path-map.json
+scripts/_copied.json

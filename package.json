@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Portfolio website with live reload",
+  "scripts": {
+    "start": "live-server --port=8080 --open=index.html --watch=.",
+    "dev": "live-server --port=8080 --open=index.html --watch=."
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
