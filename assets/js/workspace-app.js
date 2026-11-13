@@ -217,8 +217,32 @@
     return "#/";
   }
 
+  function isProjectGated(slug) {
+    return !!(window.PortfolioAccess && slug && window.PortfolioAccess.isGated(slug));
+  }
+
+  function holdGatedProject(slug, trigger) {
+    if (!window.PortfolioAccess) return;
+    window.PortfolioAccess.open({ slug: slug, trigger: trigger || null });
+  }
+
+  function goHash(hash, trigger) {
+    const raw = String(hash || "");
+    const slug = window.PortfolioAccess ? window.PortfolioAccess.slugFromHash(raw.charAt(0) === "#" ? raw : "#" + raw) : "";
+    if (isProjectGated(slug)) {
+      holdGatedProject(slug, trigger);
+      return;
+    }
+    const next = raw.charAt(0) === "#" ? raw : "#" + (raw.charAt(0) === "/" ? raw : "/" + raw);
+    window.location.hash = next === "#/" ? "/" : next.replace(/^#/, "");
+  }
+
   function navigate(route, options) {
     options = options || {};
+    if (route && route.view === "project" && isProjectGated(route.project)) {
+      holdGatedProject(route.project, document.activeElement);
+      return;
+    }
     const next = hashFor(route);
     if (options.replace) {
       window.history.replaceState(route, "", next);
@@ -571,12 +595,18 @@
 
   function onHashChange() {
     const hash = window.location.hash || "#/";
-    if (hash === lastHash && !transitioning) {
-      applyRoute(parseHash());
+    const route = parseHash();
+    if (route.view === "project" && isProjectGated(route.project)) {
+      holdGatedProject(route.project, document.activeElement);
+      const revert = lastHash && lastHash.indexOf("#/project/") !== 0 ? lastHash : "#/";
+      if (hash !== revert) {
+        window.history.replaceState({}, "", window.location.pathname + window.location.search + revert);
+      }
+      lastHash = revert;
       return;
     }
     lastHash = hash;
-    applyRoute(parseHash());
+    applyRoute(route);
   }
 
   function closeDrawer() {
@@ -678,6 +708,12 @@
         }
         if (el.getAttribute("data-ws-home") === "1") {
           startNewChat();
+          return;
+        }
+        const gated = window.PortfolioAccess && window.PortfolioAccess.slugFromHash(href);
+        if (isProjectGated(gated)) {
+          e.stopPropagation();
+          holdGatedProject(gated, el);
           return;
         }
         window.location.hash = href.replace(/^#/, "") ? href : "/";
@@ -899,7 +935,7 @@
           }, 40);
           return;
         }
-        window.location.hash = hash.charAt(0) === "/" ? hash : "/" + hash;
+        goHash(hash.charAt(0) === "/" ? hash : "/" + hash);
       }
     });
   }
@@ -940,6 +976,17 @@
     refreshIcons();
 
     // Keep internal navigation inside the shell (no full reload / new tab)
+    document.addEventListener("auxclick", function (e) {
+      if (e.button !== 1) return;
+      const a = e.target.closest("a");
+      if (!a) return;
+      const href = a.getAttribute("href") || "";
+      const slug = window.PortfolioAccess && window.PortfolioAccess.slugFromHash(href);
+      if (isProjectGated(slug)) {
+        e.preventDefault();
+        holdGatedProject(slug, a);
+      }
+    });
     document.addEventListener("click", function (e) {
       const a = e.target.closest("a");
       if (!a || a.target === "_blank") return;
@@ -951,7 +998,8 @@
       // Pure hash routes
       if (href.indexOf("#/") === 0 || href === "#/") {
         e.preventDefault();
-        window.location.hash = href === "#/" ? "/" : href.slice(1);
+        if (href === "#/") window.location.hash = "/";
+        else goHash(href, a);
         return;
       }
 
@@ -959,7 +1007,7 @@
       const meHash = href.match(/^(?:\.\/)?Me\.html(#\/.*)$/i);
       if (meHash) {
         e.preventDefault();
-        window.location.hash = meHash[1].slice(1);
+        goHash(meHash[1], a);
         return;
       }
 
@@ -977,7 +1025,7 @@
         if (entry) {
           e.preventDefault();
           const section = anchor && /^[a-z0-9-]+$/i.test(anchor) ? "/" + anchor : "";
-          window.location.hash = "/project/" + entry + section;
+          goHash("/project/" + entry + section, a);
         } else if (/pages\/approach/i.test(href) || /^Approach\.html/i.test(href)) {
           e.preventDefault();
           window.location.hash = "/approach";
@@ -998,7 +1046,18 @@
       window.history.replaceState({}, "", window.location.pathname + "#/");
     }
     lastHash = window.location.hash || "#/";
-    if (!migrated) applyRoute(parseHash(), { focusComposer: false });
+    if (!migrated) {
+      const initial = parseHash();
+      if (initial.view === "project" && isProjectGated(initial.project)) {
+        const safe = window.location.pathname + window.location.search + "#/";
+        window.history.replaceState({}, "", safe);
+        lastHash = "#/";
+        applyRoute(parseHash(), { focusComposer: false });
+        holdGatedProject(initial.project, null);
+      } else {
+        applyRoute(initial, { focusComposer: false });
+      }
+    }
   }
 
   window.WorkspaceApp = {

@@ -4,7 +4,9 @@
   "description": "Portfolio website with live reload",
   "scripts": {
     "start": "live-server --port=8080 --open=index.html --watch=.",
-    "dev": "live-server --port=8080 --open=index.html --watch=."
+    "dev": "live-server --port=8080 --open=index.html --watch=.",
+    "access:request": "node scripts/set-access-mode.mjs request",
+    "access:public": "node scripts/set-access-mode.mjs public"
   },
   "devDependencies": {
     "live-server": "^1.2.2"

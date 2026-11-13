@@ -1,14 +1,12 @@
 /**
  * Embed / redirect boot for standalone portfolio pages.
- * - ?embed=1 OR running inside Me.html iframe → hide shell chrome
+ * - Running inside the portfolio iframe → hide shell chrome
  * - Direct top-level visit → redirect into Me.html hash route
  */
 (function () {
   "use strict";
 
-  var params = new URLSearchParams(window.location.search);
   var inIframe = window.parent && window.parent !== window;
-  var embed = params.get("embed") === "1" || inIframe;
   var pathName = window.location.pathname || "";
 
   function portfolioRoot() {
@@ -146,7 +144,7 @@
     );
   }
 
-  if (embed) {
+  if (inIframe) {
     enableEmbedMode();
     return;
   }

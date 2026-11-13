@@ -68,6 +68,168 @@
   font-size: 16px;
 }
 
+/* —— Project access request —— */
+body.pa-lock {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+}
+
+.pa-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(13, 13, 13, 0.4);
+}
+
+.pa-dialog {
+  position: fixed;
+  z-index: 81;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(440px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  margin: 0;
+  padding: 28px 28px 24px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-large);
+  background: var(--background-primary);
+  color: var(--text-primary);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.pa-backdrop,
+.pa-dialog {
+  animation: pa-in 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pa-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.pa-close:hover {
+  background: var(--interactive-hover);
+  color: var(--text-primary);
+}
+
+.pa-eyebrow {
+  margin: 0 36px 10px 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.pa-dialog h2 {
+  margin: 0 28px 10px 0;
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 560;
+  letter-spacing: -0.02em;
+}
+
+.pa-dialog p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.pa-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.pa-primary,
+.pa-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 550;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pa-primary {
+  border: 0;
+  background: var(--text-primary);
+  color: #fff;
+}
+
+.pa-secondary {
+  border: 1px solid var(--border-default);
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.pa-primary:hover {
+  opacity: 0.9;
+}
+
+.pa-secondary:hover {
+  background: var(--interactive-hover);
+}
+
+.pa-close:focus-visible,
+.pa-primary:focus-visible,
+.pa-secondary:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .pa-dialog {
+    padding: 24px 20px 20px;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+
+  .pa-actions {
+    flex-direction: column;
+  }
+
+  .pa-primary,
+  .pa-secondary {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-backdrop,
+  .pa-dialog {
+    animation: none;
+  }
+}
+
+@keyframes pa-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* —— Lucide icon helpers —— */
 .site-icon,
 [data-lucide] {
