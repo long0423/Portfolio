@@ -109,17 +109,25 @@ body.pa-lock {
 
 .pa-close {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 32px;
   height: 32px;
+  margin: 0;
+  padding: 0;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--radius-small);
   background: transparent;
-  color: var(--text-secondary);
-  font-size: 22px;
+  color: var(--text-tertiary);
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
   line-height: 1;
   cursor: pointer;
+  appearance: none;
 }
 
 .pa-close:hover {
@@ -127,34 +135,39 @@ body.pa-lock {
   color: var(--text-primary);
 }
 
-.pa-eyebrow {
-  margin: 0 36px 10px 0;
+.pa-dialog .pa-eyebrow {
+  margin: 0 28px 6px 0;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.08em;
+  line-height: 1.4;
   text-transform: uppercase;
   color: var(--text-tertiary);
 }
 
 .pa-dialog h2 {
-  margin: 0 28px 10px 0;
-  font-size: 22px;
-  line-height: 1.25;
-  font-weight: 560;
+  margin: 0 28px 14px 0;
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 500;
   letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
-.pa-dialog p {
+.pa-dialog #pa-body {
   margin: 0;
   color: var(--text-secondary);
   font-size: 15px;
+  font-weight: 400;
   line-height: 1.5;
 }
 
 .pa-actions {
   display: flex;
-  gap: 10px;
-  margin-top: 22px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
 }
 
 .pa-primary,
@@ -162,19 +175,39 @@ body.pa-lock {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 40px;
-  padding: 0 16px;
-  border-radius: 999px;
+  box-sizing: border-box;
+  height: 36px;
+  margin: 0;
+  padding: 0 14px;
+  border-radius: var(--radius-full);
+  font-family: inherit;
   font-size: 14px;
-  font-weight: 550;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
+  appearance: none;
 }
 
-.pa-primary {
+/*
+ * body.la-body a { color: inherit } outranks a single class.
+ * The dialog text colour is near-black, and so is this fill, so the
+ * label disappears unless the link colour is set with equal or higher specificity.
+ */
+body.la-body .pa-dialog a.pa-primary,
+body.la-body .pa-dialog a.pa-primary:hover,
+body.la-body .pa-dialog a.pa-primary:focus,
+body.la-body .pa-dialog a.pa-primary:active {
   border: 0;
   background: var(--text-primary);
   color: #fff;
+  text-decoration: none;
+}
+
+body.la-body .pa-dialog a.pa-primary:hover {
+  background: #2b2b2b;
 }
 
 .pa-secondary {
@@ -183,16 +216,12 @@ body.pa-lock {
   color: var(--text-primary);
 }
 
-.pa-primary:hover {
-  opacity: 0.9;
-}
-
 .pa-secondary:hover {
   background: var(--interactive-hover);
 }
 
 .pa-close:focus-visible,
-.pa-primary:focus-visible,
+body.la-body .pa-dialog a.pa-primary:focus-visible,
 .pa-secondary:focus-visible {
   outline: 2px solid var(--text-primary);
   outline-offset: 2px;
@@ -205,12 +234,7 @@ body.pa-lock {
   }
 
   .pa-actions {
-    flex-direction: column;
-  }
-
-  .pa-primary,
-  .pa-secondary {
-    width: 100%;
+    gap: 8px;
   }
 }
 
