@@ -17,6 +17,7 @@
 <link href="../../assets/css/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="../../assets/css/site-system.css" />
         <link rel="stylesheet" href="../../assets/css/landing-assistant.css" />
+        <link rel="stylesheet" href="../../assets/css/case-study-demo-viewer.css" />
 
         <!-- favicon -->
         <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
@@ -220,6 +221,66 @@
                 pointer-events: none;
                 user-select: none;
                 opacity: var(--sm-num-opacity, 0);
+            }
+            .aos-evo {
+                /* Collapses with Brand Identity's mt-4; gap = the page's usual 144px section break + 3rem (1.5rem below lg). */
+                margin-bottom: 6rem;
+            }
+            .aos-evo__intro {
+                max-width: 70%;
+            }
+            .aos-evo__compare {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 32px;
+                margin-top: 40px;
+            }
+            .aos-evo__compare .cs-demo-trigger::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                border-radius: 16px;
+                pointer-events: none;
+            }
+            .aos-evo__label {
+                margin: 24px 0 8px;
+                font-size: 12px;
+                font-weight: 500;
+                letter-spacing: 0.6px;
+                text-transform: uppercase;
+                color: #8b8b8b;
+            }
+            .takeaway-avatar {
+                display: block;
+                flex-shrink: 0;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                object-fit: cover;
+                object-position: center 12%;
+                border: 1px solid #d7d7d7;
+                background: #f0f0f0;
+            }
+            @media (max-width: 991.98px) {
+                .aos-evo {
+                    margin-bottom: 4.5rem;
+                }
+            }
+            @media (max-width: 767.98px) {
+                .aos-evo {
+                    padding-left: 16px;
+                    padding-right: 16px;
+                }
+                .aos-evo__intro {
+                    max-width: none;
+                }
+                .aos-evo__compare {
+                    grid-template-columns: 1fr;
+                    gap: 40px;
+                    margin-top: 32px;
+                }
             }
             @media (max-width: 1024px) {
                 .staggered-menu-panel {
@@ -554,6 +615,38 @@
                 <img src="./assets/images/User Journey - Annotated Overview.png" class="" style="width: 140%; margin-top: 20px;">
             </div>
         </div>
+
+        <!-- From Process Visibility to Outcome Clarity -->
+        <div id="execution-evolution" class="aos-evo mt-5 mx-auto py-5" style="max-width: 1156px;">
+            <div class="aos-evo__intro px-0 fade">
+                <h5 class="text-dark" style="font-weight: 500; font-size: 24px !important;">From Process Visibility to Outcome Clarity</h5>
+                <p class="text-left" style="font-size: 16px !important; color: #474747;">
+                    As agent workflows became more complex, I shifted the focus from exposing every action to delivering the outcome first, while keeping execution details available on demand.
+                </p>
+            </div>
+            <div class="aos-evo__compare">
+                <div class="fade">
+                    <button type="button" class="cs-demo-trigger" data-demo-src="./assets/videos/execution-before-demo.mp4" data-demo-poster="./assets/images/execution-before-poster.webp" data-demo-title="Before (concept reconstruction): process-first visibility" title="Play demo" aria-label="Play Before demo, a concept reconstruction: process-first visibility">
+                        <img src="./assets/images/execution-before-poster.webp" class="cs-demo-trigger__image" alt="Reconstructed Agent OS chat mid-run, with separate activity sections and live status for the Proposal agent and two sub-agents" width="2000" height="1166" loading="lazy" decoding="async">
+                        <span class="cs-demo-trigger__play" aria-hidden="true">
+                            <i data-lucide="play"></i>
+                        </span>
+                    </button>
+                    <div class="aos-evo__label">Before · Concept reconstruction</div>
+                    <h5 class="text-dark mb-0" style="font-weight: 500; font-size: 20px !important;">Process-first visibility</h5>
+                </div>
+                <div class="fade">
+                    <button type="button" class="cs-demo-trigger" data-demo-src="./assets/videos/execution-after-demo.mp4" data-demo-poster="./assets/images/execution-after-poster.webp" data-demo-title="After: outcome-first clarity" title="Play demo" aria-label="Play After demo: outcome-first clarity">
+                        <img src="./assets/images/execution-after-poster.webp" class="cs-demo-trigger__image" alt="Agent OS chat after the run, with a one-line activity summary above the final answer" width="2000" height="1166" loading="lazy" decoding="async">
+                        <span class="cs-demo-trigger__play" aria-hidden="true">
+                            <i data-lucide="play"></i>
+                        </span>
+                    </button>
+                    <div class="aos-evo__label">After</div>
+                    <h5 class="text-dark mb-0" style="font-weight: 500; font-size: 20px !important;">Outcome-first clarity</h5>
+                </div>
+            </div>
+        </div>
         
         <div class="mt-4 mx-auto py-5" style="max-width: 1156px; gap: 64px;">
             <div class=px-0" style="max-width: 70% !important;">
@@ -614,61 +707,23 @@
         </div>
 
         <!-- Takeaways -->
-        <div class="my-5 mx-auto py-5" style="background-color: #fafafa;">
+        <div id="takeaways" class="my-5 mx-auto py-5" style="background-color: #fafafa;">
             <div class="mr-auto" style="max-width: 800px; margin: 0 auto; text-align: left;">
                 <p class="lead text-left text-dark mb-4" style="font-size: 24px !important; font-weight: 500;">Key takeaways from the journey</p>
                 <div class="fade" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 48px;">
-                    <p class="text-left" style="font-size: 24px !important; font-weight: 400; color: #474747;">1. Building the right thing > building the thing right</p>
+                    <p class="text-left" style="font-size: 24px !important; font-weight: 400; color: #474747;">Designing for clarity as agents grow more capable</p>
                     <div style="display: flex; flex-direction: column; gap: 12px; background-color: #ffffff; border-radius: 16px; padding: 32px; border: 1px solid #0000001a; box-shadow: rgba(0, 0, 0, 0.02) 0px 4px 8px 0px, rgba(0, 0, 0, 0.03) 0px 6px 12px 0px;">
                         <div style="display: flex; flex-direction: row; gap: 20px; align-items: left; margin-bottom: 20px;">
-                            <span class="site-avatar site-avatar--lg" aria-label="Long Geng">L</span>
+                            <img src="../../assets/images/shared/profile_headshot.png" class="takeaway-avatar" alt="Long Geng" width="48" height="48" />
                             <div>
                                 <p style="font-weight: 500; font-size: 16px !important; margin-bottom: 4px;">Long Geng</p>
-                                <a href="https://www.linkedin.com/in/longgeng/" target="_blank" style="font-size: 16px !important; color: #8b8b8b; text-decoration: none; font-weight: 400;">PwC Australia</a>
+                                <a href="https://www.linkedin.com/in/longgeng/" target="_blank" style="font-size: 16px !important; color: #8b8b8b; text-decoration: none; font-weight: 400;">PwC AI CoE</a>
                             </div>
                         </div>
                         
                         <div style="display: flex; flex-direction: column; gap: 12px; align-items: left;">
                             <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
-                                This project reminded me that the true value of design doesn’t come from polishing every pixel or perfecting a screen in isolation. It comes from stepping back and making sure we are solving the right problem in the first place. That shift in mindset set the foundation for everything that followed.
-                            </p>
-                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
-                                Throughout the journey, I saw how quickly ideas could evolve once we aligned on what really mattered — the user needs, the workflow constraints, and the broader business outcomes that PwC cares about. Whenever we paused to question assumptions or revisit the brief, the product gained clarity, and our decisions became far more intentional.
-                            </p>
-                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
-                                As the team formed a clearer shared understanding, momentum naturally accelerated. We weren’t just designing faster; we were designing with purpose. That alignment across design, engineering, and product leadership created a sense of confidence that moved the entire project forward in a meaningful way.
-                            </p>
-                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
-                                What stood out most was how validation prevented us from perfecting solutions that didn’t matter. Early feedback loops — even when they challenged our assumptions — helped us refine direction before refining details. It was a reminder that direction is more important than speed, especially when building something foundational like AgentOS.
-                            </p>
-                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">In the end, this project reinforced a principle that will guide my work long after this case ends: building the thing right is valuable, but building the right thing is what truly creates impact. When we design with clarity, alignment, and purpose, the craft becomes more than execution — it becomes a way to shape products that actually matter.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="fade" style="display: flex; flex-direction: column; gap: 12px;">
-                    <p class="text-left" style="font-size: 24px !important; font-weight: 400; color: #474747;">2. Here’s what I learned designing a novel, AI-first experience:
-                    </p>
-                    <div style="display: flex; flex-direction: column; gap: 12px; background-color: #ffffff; border-radius: 16px; padding: 32px; border: 1px solid #0000001a; box-shadow: rgba(0, 0, 0, 0.02) 0px 4px 8px 0px, rgba(0, 0, 0, 0.03) 0px 6px 12px 0px;">
-                        <div style="display: flex; flex-direction: row; gap: 20px; align-items: left; margin-bottom: 20px;">
-                            <span class="site-avatar site-avatar--lg" aria-label="Long Geng">L</span>
-                            <div>
-                                <p style="font-weight: 500; font-size: 16px !important; margin-bottom: 4px;">Long Geng</p>
-                                <a href="https://www.linkedin.com/in/longgeng/" target="_blank" style="font-size: 16px !important; color: #8b8b8b; text-decoration: none; font-weight: 400;">PwC Australia</a>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 12px; align-items: left;">
-                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
-                                <b style="font-weight: 500;">UIs will become more dynamic:</b> <br>
-                                AI has unlocked unprecedented possibilities within a single tool. With AgentOS, we aimed to create a seamless experience that supports the entire user journey: Reading → Chat → Creation. Designing for this complexity requires rethinking traditional UI paradigms. The result? A dynamic, adaptive interface that intuitively adjusts to your needs, ensuring fluidity and focus throughout your workflow.
-                            </p>
-                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
-                                <b style="font-weight: 500;">UIs will become more contextually aware:</b> <br>
-                                As AI expands possibilities, the challenge is managing them without overwhelming users. Context-aware interfaces help by proactively suggesting actions to reduce cognitive load. In AgentOS’s case, some users may come to create an audio overview, while others come to chat with their sources. Anticipating these needs and surfacing the right tools/actions at the right moment streamlines workflows and minimizes friction.
-                            </p>
-                            <p style="font-size: 18px !important; color: #474747; font-weight: 400;">
-                                <b style="font-weight: 500;">We are in a transition period:</b> <br>
-                                Right now, Chat remains the most intuitive and digestible way for users to engage with AI, acting as a familiar anchor that bridges the gap between traditional interfaces and the emerging possibilities of AI-first design. The adaptive UX ensures users can safely rely on chat when they need, while exploring new experiences like the new Audio Overview Interactive Mode. Speaking of… Starting today, you can join the conversation and interact directly with the hosts 🙂.
+                                AgentOS taught me that clarity comes from hierarchy, not from hiding complexity. The three-panel workspace gave agents, conversation and artefacts each a clear place, and the execution work applied the same thinking to what agents do over time. The most important shift wasn’t removing execution details — it was deciding when they should be visible. By keeping progress understandable, outcomes prominent and deeper activity available on demand, I developed a design principle that can extend beyond AgentOS to other agent-driven experiences.
                             </p>
                         </div>
                     </div>
@@ -704,6 +759,7 @@
         <script type="text/javascript" src="../../assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="../../assets/js/script.js"></script>
         <script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../../assets/js/case-study-demo-viewer.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
         <script type="text/javascript">
             // Image modal functionality

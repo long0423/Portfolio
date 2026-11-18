@@ -792,6 +792,16 @@
   let toastTimer = null;
   let threadFollowBottom = true;
   const RUNTIME_SESSIONS = {};
+  let chatDelegate = null;
+
+  function releaseChatDelegate(reason) {
+    if (!chatDelegate) return;
+    const delegate = chatDelegate;
+    chatDelegate = null;
+    if (state.chatSessionType === "demo") state.chatSessionType = null;
+    if (els.session) els.session.classList.remove("aos-session--demo");
+    if (typeof delegate.onRelease === "function") delegate.onRelease(reason || "takeover");
+  }
 
   function currentConversation() {
     return state.activeConversationId ? state.conversations[state.activeConversationId] || null : null;
@@ -966,6 +976,9 @@
   function composerPlaceholder() {
     const conv = currentConversation();
     if (state.chatSessionType === "agent" && state.activeMainChatSessionId) {
+      return FOLLOW_UP_PLACEHOLDER;
+    }
+    if (state.chatSessionType === "demo" && els.thread && els.thread.children.length) {
       return FOLLOW_UP_PLACEHOLDER;
     }
     if (state.mainChatMode === "conversation" && conv && conv.messages && conv.messages.length) {
@@ -1258,6 +1271,7 @@
   }
 
   function enterArtifactConversation(artifact, quoteText) {
+    releaseChatDelegate("artifact");
     const conversation = ensureArtifactConversation(artifact);
     if (quoteText && !conversation.initialSelection) conversation.initialSelection = quoteText;
     ensureArtefactContextChip(artifact);
@@ -1633,6 +1647,7 @@
   }
 
   function showHome() {
+    releaseChatDelegate("home");
     state.selectedAgentId = null;
     state.chatAgentId = null;
     state.selectedSuggest = null;
@@ -1656,6 +1671,7 @@
 
   function openSession(agent, userPrompt, options) {
     options = options || {};
+    releaseChatDelegate("session");
     state.selectedAgentId = agent.id;
     state.chatAgentId = agent.id;
     state.activeMainChatSessionId = agent.id;
@@ -1965,23 +1981,88 @@
     });
   }
 
+  const TRACE_STATUS_ICONS = {
+    pending: "circle-dashed",
+    active: "loader-circle",
+    done: "circle-check",
+  };
+
+  function lucideIcon(name, className) {
+    const icon = document.createElement("i");
+    icon.setAttribute("data-lucide", name);
+    if (className) icon.className = className;
+    icon.setAttribute("aria-hidden", "true");
+    return icon;
+  }
+
+  function setTraceEventStatus(li, status) {
+    if (!li) return;
+    li.classList.remove("is-pending", "is-active", "is-done");
+    if (!status) return;
+    li.classList.add("is-" + status);
+    li.dataset.status = status;
+    const current = li.querySelector(".aos-trace__status");
+    const next = lucideIcon(TRACE_STATUS_ICONS[status] || "circle", "aos-trace__status");
+    if (current) current.replaceWith(next);
+    else li.insertBefore(next, li.firstChild);
+  }
+
+  function renderTraceEvent(event) {
+    const li = createEl("li", "aos-trace__event");
+    if (event.id) li.dataset.eventId = event.id;
+    if (event.tone) li.classList.add("is-" + event.tone);
+    if (event.status) {
+      li.appendChild(lucideIcon(TRACE_STATUS_ICONS[event.status] || "circle", "aos-trace__status"));
+      li.classList.add("is-" + event.status);
+      li.dataset.status = event.status;
+    } else {
+      li.appendChild(lucideIcon(event.icon || "search"));
+    }
+    const copy = createEl("div", "aos-trace__event-copy");
+    const title = createEl("div");
+    title.textContent = event.label;
+    copy.appendChild(title);
+    if (event.detail) {
+      const nested = createEl("p", "aos-trace__nested");
+      nested.textContent = event.detail;
+      copy.appendChild(nested);
+    }
+    li.appendChild(copy);
+    if (event.duration) {
+      const meta = createEl("span", "aos-trace__event-meta");
+      meta.textContent = event.duration;
+      li.appendChild(meta);
+    }
+    return li;
+  }
+
   function renderDisclosure(block) {
-    const wrap = createEl("div", "aos-trace");
+    const wrap = createEl("div", "aos-trace" + (block.variant ? " aos-trace--" + block.variant : ""));
+    if (block.className) wrap.className += " " + block.className;
     if (block.demo) wrap.setAttribute("data-demo-target", block.demo);
+    if (block.id) wrap.dataset.traceId = block.id;
     const toggle = createEl("button", "aos-trace__toggle");
     toggle.type = "button";
     toggle.setAttribute("aria-expanded", "false");
+    if (block.disabled) toggle.disabled = true;
+    if (block.icon) toggle.appendChild(lucideIcon(block.icon, "aos-trace__icon"));
     const label = createEl("span", "aos-trace__label");
     label.textContent = block.label;
-    const chev = document.createElement("i");
-    chev.setAttribute("data-lucide", "chevron-right");
-    chev.className = "aos-trace__chevron";
-    chev.setAttribute("aria-hidden", "true");
     toggle.appendChild(label);
-    toggle.appendChild(chev);
+    if (block.meta) {
+      const meta = createEl("span", "aos-trace__meta");
+      meta.textContent = block.meta;
+      toggle.appendChild(meta);
+    }
+    toggle.appendChild(lucideIcon("chevron-right", "aos-trace__chevron"));
     const body = createEl("div", "aos-trace__body");
     body.setAttribute("aria-hidden", "true");
     const inner = createEl("div", "aos-trace__inner");
+    if (block.title) {
+      const heading = createEl("p", "aos-trace__title");
+      heading.textContent = block.title;
+      inner.appendChild(heading);
+    }
     if (block.paragraphs) {
       block.paragraphs.forEach(function (text) {
         const p = createEl("p", "aos-trace__copy");
@@ -2001,33 +2082,24 @@
     if (block.events) {
       const list = createEl("ul", "aos-trace__list");
       block.events.forEach(function (event) {
-        const li = createEl("li", "aos-trace__event");
-        const icon = document.createElement("i");
-        icon.setAttribute("data-lucide", event.icon || "search");
-        icon.setAttribute("aria-hidden", "true");
-        const copy = createEl("div", "aos-trace__event-copy");
-        const title = createEl("div");
-        title.textContent = event.label;
-        copy.appendChild(title);
-        if (event.detail) {
-          const nested = createEl("p", "aos-trace__nested");
-          nested.textContent = event.detail;
-          copy.appendChild(nested);
-        }
-        li.appendChild(icon);
-        li.appendChild(copy);
-        if (event.duration) {
-          const meta = createEl("span", "aos-trace__event-meta");
-          meta.textContent = event.duration;
-          li.appendChild(meta);
-        }
-        list.appendChild(li);
+        list.appendChild(renderTraceEvent(event));
       });
       inner.appendChild(list);
+    }
+    if (block.children) {
+      block.children.forEach(function (child) {
+        inner.appendChild(renderDisclosure(child));
+      });
     }
     body.appendChild(inner);
     wrap.appendChild(toggle);
     wrap.appendChild(body);
+    if (block.open) {
+      wrap.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      body.setAttribute("aria-hidden", "false");
+      toggle.querySelector(".aos-trace__chevron").setAttribute("data-lucide", "chevron-down");
+    }
     return wrap;
   }
 
@@ -2083,8 +2155,16 @@
       return renderDisclosure(block);
     }
     if (block.type === "final") {
-      const section = createEl("section", "aos-detail-primary aos-detail-final");
+      const section = createEl(
+        "section",
+        "aos-detail-primary aos-detail-final" + (block.lead ? " aos-detail-final--rich" : "") + (block.plain ? " aos-detail-final--plain" : "")
+      );
       if (block.demo) section.setAttribute("data-demo-target", block.demo);
+      if (block.lead) {
+        const lead = createEl("p", "aos-detail-final__lead");
+        lead.textContent = block.lead;
+        section.appendChild(lead);
+      }
       if (block.text) {
         const p = document.createElement("p");
         p.textContent = block.text;
@@ -2169,6 +2249,7 @@
   }
 
   function renderTransferredSession(agent) {
+    releaseChatDelegate("agent");
     const session = sessionForAgent(agent);
     state.selectedAgentId = agent.id;
     state.chatAgentId = agent.id;
@@ -3685,6 +3766,14 @@
   function sendPrompt() {
     const text = composerText();
     if (!text) return;
+    if (chatDelegate && typeof chatDelegate.onSend === "function") {
+      if (chatDelegate.onSend(text) !== false) {
+        els.composerInput.textContent = "";
+        syncSend();
+        syncComposerPlaceholder();
+      }
+      return;
+    }
     const quoteText = pendingQuoteText();
     if (state.chatSessionType === "artifact") {
       const conversation = currentConversation();
@@ -4254,6 +4343,89 @@
       ) {
         applyArtefactPanelState({ animate: false });
       }
+    },
+    chat: {
+      els: {
+        app: app,
+        thread: els.thread,
+        session: els.session,
+        composer: document.getElementById("aos-composer"),
+        composerInput: els.composerInput,
+        sendBtn: els.sendBtn,
+        settingsBtn: document.getElementById("aos-settings-btn"),
+      },
+      createEl: createEl,
+      refreshIcons: refreshIcons,
+      renderFlowBlock: renderFlowBlock,
+      renderDisclosure: renderDisclosure,
+      renderTraceEvent: renderTraceEvent,
+      setTraceExpanded: setTraceExpanded,
+      setTraceEventStatus: setTraceEventStatus,
+      lucideIcon: lucideIcon,
+      closePopovers: closePopovers,
+      beginSession: function (delegate, options) {
+        options = options || {};
+        releaseChatDelegate("replaced");
+        clearPendingQuotedSelection();
+        chatDelegate = delegate || null;
+        state.chatSessionType = "demo";
+        state.activeMainChatSessionId = options.id || "demo";
+        state.activeConversationId = options.id || "demo";
+        state.selectedAgentId = options.agentId || null;
+        state.chatAgentId = options.agentId || null;
+        if (els.thread) els.thread.innerHTML = "";
+        if (els.session) {
+          els.session.classList.remove("aos-session--artifact", "aos-session--agent", "is-handoff");
+          els.session.classList.add("aos-session--demo");
+          els.session.setAttribute("data-demo-target", "chat-conversation");
+        }
+        if (els.sessionTitle) els.sessionTitle.textContent = options.title || "";
+        if (els.sessionMeta) els.sessionMeta.textContent = "";
+        applyMainChatMode("conversation");
+        threadFollowBottom = true;
+        renderAgents();
+      },
+      detachSession: function () {
+        chatDelegate = null;
+      },
+      goHome: function () {
+        showHome();
+      },
+      getContextItems: function () {
+        return state.contextItems.slice();
+      },
+      setContextItems: function (items) {
+        state.contextItems = (items || []).slice();
+        renderContext();
+        syncComposerPlaceholder();
+      },
+      upsertAgent: function (agent) {
+        const existing = findAgent(agent.id);
+        if (existing) Object.assign(existing, agent);
+        else agents.unshift(Object.assign({}, agent));
+        renderAgents();
+      },
+      removeAgent: function (id) {
+        const before = agents.length;
+        agents = agents.filter(function (agent) {
+          return agent.id !== id;
+        });
+        if (agents.length !== before) renderAgents();
+      },
+      setComposerText: function (text) {
+        if (!els.composerInput) return;
+        els.composerInput.textContent = text || "";
+        syncSend();
+      },
+      setComposerLocked: function (locked) {
+        if (!els.composerInput) return;
+        els.composerInput.setAttribute("contenteditable", locked ? "false" : "true");
+        if (app) app.classList.toggle("is-demo-locked", !!locked);
+      },
+      syncComposer: function () {
+        syncSend();
+        syncComposerPlaceholder();
+      },
     },
   };
 

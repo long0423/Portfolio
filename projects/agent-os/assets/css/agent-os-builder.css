@@ -2537,7 +2537,7 @@ html[data-theme="dark"] .aos-btn--primary:hover {
     opacity 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.aos-trace.is-open .aos-trace__body {
+.aos-trace.is-open > .aos-trace__body {
   grid-template-rows: 1fr;
   opacity: 1;
 }
@@ -2748,7 +2748,9 @@ html[data-theme="dark"] .aos-btn--primary:hover {
 }
 
 .aos-session--artifact .aos-session__title,
-.aos-session--artifact .aos-session__meta {
+.aos-session--artifact .aos-session__meta,
+.aos-session--demo .aos-session__title,
+.aos-session--demo .aos-session__meta {
   display: none;
 }
 
@@ -3330,5 +3332,560 @@ html[data-theme="dark"] .aos-toast {
     width: var(--control-sm);
     padding: 0;
     border-radius: var(--radius-sm);
+  }
+}
+
+/* —— Activity disclosure: optional status, icon, meta and title —— */
+.aos-trace__icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.aos-trace__meta {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--wb-text-light);
+  opacity: 0.78;
+}
+
+.aos-trace__icon + .aos-trace__label,
+.aos-trace__label:has(+ .aos-trace__meta) {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.aos-trace__title {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.2px;
+  color: var(--wb-text-body);
+}
+
+.aos-trace__event .aos-trace__status {
+  color: var(--wb-text-light);
+}
+
+.aos-trace__event.is-pending {
+  opacity: 0.6;
+}
+
+.aos-trace__event.is-active {
+  color: var(--wb-text-heading);
+}
+
+.aos-trace__event.is-active .aos-trace__status {
+  color: var(--wb-text-body);
+  animation: aos-spin 0.9s linear infinite;
+}
+
+.aos-trace__event.is-done .aos-trace__status {
+  color: var(--status-active);
+}
+
+@keyframes aos-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* —— Settings → Demo submenu —— */
+.aos-menu-item--submenu.is-open {
+  background: var(--wb-hover);
+}
+
+.aos-settings-submenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: auto;
+  width: max-content;
+  min-width: 204px;
+  max-width: min(240px, calc(100vw - 24px));
+  z-index: 81;
+}
+
+.aos-settings-submenu::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -8px;
+  width: 8px;
+}
+
+.aos-settings-submenu.is-right::after {
+  right: auto;
+  left: -8px;
+}
+
+.aos-menu-item--demo {
+  color: var(--wb-text-body);
+}
+
+.aos-menu-sep {
+  display: block;
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--wb-neutral-03);
+}
+
+/* —— Agent execution demo —— */
+.aos-demo-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10050;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0);
+  transition: opacity 160ms ease;
+  will-change: transform;
+}
+
+.aos-demo-cursor[hidden] {
+  display: none !important;
+}
+
+.aos-demo-cursor.is-visible {
+  opacity: 1;
+}
+
+.aos-demo-cursor.is-typing {
+  opacity: 0;
+}
+
+.aos-demo-cursor__pointer {
+  display: block;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+  transform-origin: 5px 3px;
+  transition: transform 90ms ease;
+}
+
+.aos-demo-cursor.is-clicking .aos-demo-cursor__pointer {
+  transform: scale(0.88);
+}
+
+.aos-app.is-demo-locked .aos-composer__input {
+  cursor: default;
+}
+
+.aos-composer__input.is-demo-typing:empty::before {
+  content: none;
+}
+
+.aos-composer__input.is-demo-typing::after {
+  content: "";
+  display: inline-block;
+  width: 1.5px;
+  height: 18px;
+  margin-left: 1px;
+  vertical-align: -3px;
+  background: var(--wb-text-heading);
+}
+
+.aos-demo-enter {
+  animation: aos-demo-enter 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes aos-demo-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.aos-app.aos-demo-instant *,
+.aos-app.aos-demo-instant *::before,
+.aos-app.aos-demo-instant *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
+.aos-exec .aos-trace {
+  margin: 0;
+}
+
+.aos-assistant-turn .aos-detail-final--rich {
+  margin-top: var(--space-3);
+  font-weight: 400;
+}
+
+.aos-detail-final__lead {
+  margin: 0 0 var(--space-2);
+  font-weight: 500;
+  color: var(--wb-text-heading);
+}
+
+.aos-detail-final--rich .aos-detail-final__list {
+  max-width: 42rem;
+  margin: var(--space-2) 0 var(--space-3);
+}
+
+.aos-assistant-turn .aos-detail-final--plain {
+  margin-top: var(--space-2);
+  font-weight: 400;
+}
+
+.aos-detail-final--plain .aos-detail-final__list {
+  max-width: 42rem;
+}
+
+/* Before — process-first reconstruction: primary agent and each sub-agent write their own live log. */
+.aos-exec--before {
+  gap: var(--space-2);
+}
+
+.aos-exec-agents {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-2);
+  align-items: start;
+}
+
+.aos-exec-agent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px 12px 12px;
+  border: 1px solid var(--wb-neutral-03);
+  border-radius: var(--radius-sm);
+  background: var(--wb-surface);
+}
+
+.aos-exec-agent__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.aos-exec-agent__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--wb-neutral-02);
+  color: var(--wb-text-body);
+}
+
+.aos-exec-agent__icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.aos-exec-agent__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--wb-text-heading);
+}
+
+.aos-exec-agent__status {
+  flex-shrink: 0;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--wb-neutral-02);
+  color: var(--wb-text-light);
+  font-size: 11px;
+  line-height: 16px;
+  white-space: nowrap;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.aos-exec-agent[data-status="running"] .aos-exec-agent__status {
+  background: color-mix(in srgb, var(--status-active) 14%, transparent);
+  color: var(--status-active);
+}
+
+.aos-exec-agent[data-status="waiting"] .aos-exec-agent__status {
+  background: color-mix(in srgb, var(--status-warning) 16%, transparent);
+  color: var(--status-warning);
+}
+
+.aos-exec-agent[data-status="done"] .aos-exec-agent__status {
+  color: var(--wb-text-body);
+}
+
+.aos-exec-agent__role {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--wb-text-light);
+}
+
+.aos-exec-agent__count {
+  flex-shrink: 0;
+  font-size: 11px;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
+  color: var(--wb-text-light);
+}
+
+/* Each agent writes into a bounded execution surface: history accumulates and scrolls inside it. */
+.aos-exec-logwrap {
+  position: relative;
+  margin: 0 -6px 0 -2px;
+}
+
+.aos-exec-logwrap::before,
+.aos-exec-logwrap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 10px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.aos-exec-logwrap::before {
+  top: 0;
+  height: 26px;
+  background: linear-gradient(to bottom, var(--wb-surface), transparent);
+}
+
+.aos-exec-logwrap::after {
+  bottom: 0;
+  height: 18px;
+  background: linear-gradient(to top, var(--wb-surface), transparent);
+}
+
+.aos-exec-logwrap.is-clipped-top::before,
+.aos-exec-logwrap.is-clipped-bottom::after {
+  opacity: 1;
+}
+
+.aos-exec-log {
+  max-height: 252px;
+  padding: 2px 8px 2px 2px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.aos-exec-agent--primary .aos-exec-log {
+  max-height: 146px;
+}
+
+.aos-demo-camera-stage.is-camera-moving {
+  will-change: transform;
+}
+
+.aos-exec-log::-webkit-scrollbar {
+  width: 6px;
+}
+
+.aos-exec-log::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background: var(--border-strong);
+}
+
+.aos-exec-log::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.aos-exec-agent__events {
+  gap: 8px;
+}
+
+.aos-exec-agent__events:empty {
+  display: none;
+}
+
+.aos-exec-agent__events .aos-trace__event {
+  font-size: 12.5px;
+}
+
+.aos-exec-entry__label {
+  font-size: 12.5px;
+  line-height: 17px;
+  color: var(--wb-text-heading);
+}
+
+.aos-trace__event.is-pending .aos-exec-entry__label {
+  color: var(--wb-text-light);
+}
+
+.aos-exec-log .aos-exec-log__code {
+  margin: 2px 0 0;
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 15px;
+  letter-spacing: 0;
+  color: var(--wb-text-light);
+  opacity: 1;
+  overflow-wrap: anywhere;
+}
+
+.aos-exec-log .aos-exec-entry__label + .aos-exec-log__code {
+  color: var(--wb-text-body);
+}
+
+.aos-exec-log .aos-exec-log__code--status {
+  color: var(--status-active);
+}
+
+.aos-exec-log .aos-exec-entry.is-gap .aos-exec-log__code--status {
+  color: var(--status-warning);
+}
+
+.aos-exec-log .aos-exec-log__code--live {
+  color: var(--wb-text-body);
+}
+
+.aos-trace__event.is-gap > svg:first-child,
+.aos-trace__event.is-gap > [data-lucide]:first-child {
+  color: var(--status-warning);
+}
+
+.aos-trace__event:not([data-status]) > svg:first-child {
+  color: var(--wb-text-light);
+}
+
+/* After — outcome-first: one live status line, the result first, per-agent activity on demand. */
+.aos-exec--after {
+  gap: var(--space-2);
+}
+
+.aos-trace--run > .aos-trace__toggle {
+  gap: 6px;
+}
+
+.aos-trace--run > .aos-trace__toggle:disabled {
+  cursor: default;
+}
+
+.aos-trace--run.is-running > .aos-trace__toggle .aos-trace__chevron {
+  display: none;
+}
+
+/* Active status: a restrained light sweep across the text; it stops when the run completes. */
+.aos-trace--run.is-running > .aos-trace__toggle .aos-trace__label {
+  background: linear-gradient(
+    100deg,
+    var(--wb-text-light) 0%,
+    var(--wb-text-light) 40%,
+    var(--wb-text-heading) 50%,
+    var(--wb-text-light) 60%,
+    var(--wb-text-light) 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: aos-run-shimmer 1.6s cubic-bezier(0.4, 0, 0.3, 1) infinite;
+}
+
+.aos-trace__label.is-swapping {
+  animation: aos-label-swap 260ms ease both;
+}
+
+.aos-trace--run.is-running > .aos-trace__toggle .aos-trace__label.is-swapping {
+  animation:
+    aos-label-swap 260ms ease both,
+    aos-run-shimmer 1.6s cubic-bezier(0.4, 0, 0.3, 1) infinite;
+}
+
+@keyframes aos-run-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@keyframes aos-label-swap {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.aos-trace--run > .aos-trace__body > .aos-trace__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 4px;
+}
+
+.aos-trace--run.is-open > .aos-trace__toggle {
+  color: var(--wb-text-body);
+}
+
+.aos-trace--agent.is-open > .aos-trace__toggle .aos-trace__label {
+  color: var(--wb-text-heading);
+}
+
+.aos-trace--agent > .aos-trace__toggle {
+  gap: 6px;
+  color: var(--wb-text-body);
+}
+
+.aos-trace--agent > .aos-trace__toggle .aos-trace__icon {
+  color: var(--wb-text-light);
+}
+
+.aos-trace--agent > .aos-trace__toggle .aos-trace__label {
+  font-weight: 500;
+}
+
+.aos-trace--agent > .aos-trace__body > .aos-trace__inner {
+  padding: 0 0 0 19px;
+}
+
+.aos-trace--agent > .aos-trace__body > .aos-trace__inner > .aos-trace__list {
+  padding: 4px 0 6px;
+}
+
+.aos-exec--after .aos-detail-final--rich {
+  margin-top: var(--space-3);
+}
+
+.aos-exec--after .aos-detail-final__lead {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aos-demo-enter,
+  .aos-trace__label.is-swapping,
+  .aos-trace--run.is-running > .aos-trace__toggle .aos-trace__label,
+  .aos-trace--run.is-running > .aos-trace__toggle .aos-trace__icon,
+  .aos-trace__event.is-active .aos-trace__status {
+    animation: none;
+  }
+
+  .aos-trace--run.is-running > .aos-trace__toggle .aos-trace__label {
+    background: none;
+    color: var(--wb-text-body);
+  }
+
+  .aos-demo-cursor,
+  .aos-exec-agent__status {
+    transition: none;
   }
 }
