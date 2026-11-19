@@ -46,6 +46,32 @@
     pathfinder: "Regulatory Pathfinder",
   };
 
+  const LAB_PROJECTS = PK && typeof PK.getLabProjects === "function" ? PK.getLabProjects() : [];
+  LAB_PROJECTS.forEach(function (p) {
+    PROJECT_ROUTES[p.slug] = {
+      id: p.id,
+      file: p.file,
+      label: p.name,
+      frameTitle: p.name + (p.concept ? " concept overview" : " case study"),
+    };
+    PROJECT_ID_TO_SLUG[p.id] = p.slug;
+    NAV_LABELS[p.id] = p.displayTitle || p.name;
+  });
+
+  function labName(p) {
+    return p.displayTitle || p.name;
+  }
+
+  function labsLibraryHtml() {
+    if (!LAB_PROJECTS.length || !PK.projectCardHtml) return "";
+    return (
+      '<p class="ws-detail__lead">Products, tools and experiments built outside the brief. Watch Face Layout Studio is built and tested. The other three are explorations and concepts, not released products.</p>' +
+      '<div class="la-project-cards">' +
+      LAB_PROJECTS.map(PK.projectCardHtml).join("") +
+      "</div>"
+    );
+  }
+
   const LIBRARY_SECTIONS = [
     {
       id: "about",
@@ -141,6 +167,19 @@
       ],
     },
   ];
+
+  if (LAB_PROJECTS.length) {
+    LIBRARY_SECTIONS.push({
+      id: "independent-labs",
+      title: "Independent Labs",
+      icon: "flask-conical",
+      html: labsLibraryHtml(),
+      related: [
+        { label: "Tell me about " + labName(LAB_PROJECTS[0]), prompt: "Tell me about " + labName(LAB_PROJECTS[0]) },
+        { label: "What are Long\u2019s independent labs?", prompt: "What are Long\u2019s independent labs?" },
+      ],
+    });
+  }
 
   const workspaceState = {
     activeView: "chat",
@@ -270,6 +309,7 @@
 
     if (route.view === "project" && route.project) {
       const meta = PROJECT_ROUTES[route.project];
+      if (meta && !olderNavOpen && isOlderNavProject(meta.id)) setOlderNavOpen(true);
       const link = document.querySelector('.la-work__item a[data-project-id="' + (meta && meta.id) + '"]');
       if (link) {
         link.classList.add("is-active");
@@ -564,7 +604,8 @@
     if (route.view === "project" && route.project && PROJECT_ROUTES[route.project]) {
       const meta = PROJECT_ROUTES[route.project];
       const section = route.section && /^[a-z0-9-]+$/i.test(route.section) ? "#" + route.section : "";
-      showFrameWorkspace(meta.file + "?embed=1" + section, meta.label + " case study", {
+      const join = meta.file.indexOf("?") === -1 ? "?" : "&";
+      showFrameWorkspace(meta.file + join + "embed=1" + section, meta.frameTitle || meta.label + " case study", {
         collapseSidebar: true,
       });
       return;
@@ -660,6 +701,7 @@
   }
 
   function projectNavLabel(p, compact) {
+    if (p.displayTitle) return p.displayTitle;
     if (compact && (p.shortTitle || (p.shortName && p.name && p.shortName !== p.name))) {
       return p.shortTitle || p.shortName;
     }
@@ -669,29 +711,112 @@
   function renderProjectsNav() {
     const workList = document.getElementById("la-work-list");
     if (!workList || !PK) return;
-    workList.innerHTML = PK.getAllProjects()
-      .map(function (p) {
-        const slug = PROJECT_ID_TO_SLUG[p.id];
-        const label = escapeHtml(projectNavLabel(p, false));
-        const content = p.isRecentlyUpdated
-          ? '<span class="la-work__item-label">' +
-            label +
-            '<span class="la-work__update-dot" aria-hidden="true"></span>' +
-            '<span class="la-sr-only">Recently updated</span></span>'
-          : label;
-        return (
-          '<li class="la-work__item"><a href="#/project/' +
-          slug +
-          '" data-ws-nav="#/project/' +
-          slug +
-          '" data-project-id="' +
-          p.id +
-          '">' +
-          content +
-          "</a></li>"
-        );
-      })
-      .join("");
+    const item = function (p) {
+      const slug = PROJECT_ID_TO_SLUG[p.id];
+      const label = escapeHtml(projectNavLabel(p, false));
+      const content = p.isRecentlyUpdated
+        ? '<span class="la-work__item-label">' +
+          label +
+          '<span class="la-work__update-dot" aria-hidden="true"></span>' +
+          '<span class="la-sr-only">Recently updated</span></span>'
+        : label;
+      return (
+        '<li class="la-work__item"><a href="#/project/' +
+        slug +
+        '" data-ws-nav="#/project/' +
+        slug +
+        '" data-project-id="' +
+        p.id +
+        '">' +
+        content +
+        "</a></li>"
+      );
+    };
+    workList.innerHTML = projectsNavHtml(item, "sidebar");
+  }
+
+  /*
+   * Projects navigation shared by the sidebar and the collapsed-sidebar flyout:
+   * key professional projects, then an "Earlier Work" group (registry entries
+   * flagged navOlder) revealed by a Show more / Show less control that sits
+   * after it, then the Independent Labs group. Disclosure state lives for the
+   * browser session so in-app navigation keeps the user's choice.
+   */
+  const OLDER_NAV_KEY = "laProjectsOlderOpen";
+  const OLDER_NAV_CHEVRON =
+    '<svg class="la-work__more-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>';
+  let olderNavOpen = false;
+  try {
+    olderNavOpen = sessionStorage.getItem(OLDER_NAV_KEY) === "1";
+  } catch (e) {}
+
+  function isOlderNavProject(id) {
+    const p = PK && typeof PK.getProjectById === "function" ? PK.getProjectById(id) : null;
+    return !!(p && p.navOlder);
+  }
+
+  function projectsNavHtml(item, scope) {
+    const professional = PK.getAllProjects();
+    const key = professional.filter(function (p) {
+      return !p.navOlder;
+    });
+    const older = professional.filter(function (p) {
+      return p.navOlder;
+    });
+    const listId = "la-work-older-" + scope;
+    let html = key.map(item).join("");
+    if (older.length) {
+      html +=
+        '<li class="la-work__older" role="none"><ul class="la-work__older-list" id="' +
+        listId +
+        '" aria-labelledby="' +
+        listId +
+        '-label"' +
+        (olderNavOpen ? "" : " hidden") +
+        '><li class="la-work__subgroup" role="presentation"><span class="la-work__label" id="' +
+        listId +
+        '-label">Earlier Work</span></li>' +
+        older.map(item).join("") +
+        '</ul></li><li class="la-work__more" role="none"><button type="button" class="la-work__more-btn" data-projects-older-toggle aria-expanded="' +
+        olderNavOpen +
+        '" aria-controls="' +
+        listId +
+        '"><span class="la-work__more-text">' +
+        (olderNavOpen ? "Show less" : "Show more") +
+        "</span>" +
+        OLDER_NAV_CHEVRON +
+        "</button></li>";
+    }
+    if (LAB_PROJECTS.length) {
+      html +=
+        '<li class="la-work__group" role="presentation"><span class="la-work__label">Independent Labs</span></li>' +
+        LAB_PROJECTS.map(item).join("");
+    }
+    return html;
+  }
+
+  function setOlderNavOpen(open) {
+    olderNavOpen = !!open;
+    try {
+      sessionStorage.setItem(OLDER_NAV_KEY, olderNavOpen ? "1" : "0");
+    } catch (e) {}
+    document.querySelectorAll("[data-projects-older-toggle]").forEach(function (btn) {
+      btn.setAttribute("aria-expanded", String(olderNavOpen));
+      const text = btn.querySelector(".la-work__more-text");
+      if (text) text.textContent = olderNavOpen ? "Show less" : "Show more";
+      const list = document.getElementById(btn.getAttribute("aria-controls"));
+      if (list) list.hidden = !olderNavOpen;
+    });
+    if (flyoutOpen) positionFlyout();
+  }
+
+  function bindOlderNavToggle() {
+    document.addEventListener("click", function (e) {
+      const btn = e.target.closest && e.target.closest("[data-projects-older-toggle]");
+      if (!btn) return;
+      e.preventDefault();
+      setOlderNavOpen(!olderNavOpen);
+    });
   }
 
   function bindWorkspaceNav(root) {
@@ -795,29 +920,28 @@
       workspaceState.activeProject && PROJECT_ROUTES[workspaceState.activeProject]
         ? PROJECT_ROUTES[workspaceState.activeProject].id
         : null;
-    list.innerHTML = PK.getAllProjects()
-      .map(function (p) {
-        const slug = PROJECT_ID_TO_SLUG[p.id];
-        const label = escapeHtml(projectNavLabel(p, true));
-        const active = activeId && p.id === activeId;
-        const update = p.isRecentlyUpdated
-          ? '<span class="la-work__item-label">' +
-            label +
-            '<span class="la-work__update-dot" aria-hidden="true"></span></span>'
-          : label;
-        return (
-          '<li><a class="la-work-flyout__item' +
-          (active ? " is-active" : "") +
-          '" role="menuitem" href="#/project/' +
-          slug +
-          '"' +
-          (active ? ' aria-current="page"' : "") +
-          ">" +
-          update +
-          "</a></li>"
-        );
-      })
-      .join("");
+    const item = function (p) {
+      const slug = PROJECT_ID_TO_SLUG[p.id];
+      const label = escapeHtml(projectNavLabel(p, true));
+      const active = activeId && p.id === activeId;
+      const update = p.isRecentlyUpdated
+        ? '<span class="la-work__item-label">' +
+          label +
+          '<span class="la-work__update-dot" aria-hidden="true"></span></span>'
+        : label;
+      return (
+        '<li><a class="la-work-flyout__item' +
+        (active ? " is-active" : "") +
+        '" role="menuitem" href="#/project/' +
+        slug +
+        '"' +
+        (active ? ' aria-current="page"' : "") +
+        ">" +
+        update +
+        "</a></li>"
+      );
+    };
+    list.innerHTML = projectsNavHtml(item, "flyout");
   }
 
   function positionFlyout() {
@@ -971,6 +1095,7 @@
 
     restorePersistedChrome();
     renderProjectsNav();
+    bindOlderNavToggle();
     bindWorkspaceNav(document);
     bindShellChrome();
     refreshIcons();

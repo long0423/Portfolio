@@ -322,6 +322,47 @@ body.la-body a {
   flex-direction: column;
   gap: var(--la-sidebar-item-stack-gap);
   overflow-y: auto;
+  /* Edge shadows appear only while items are scrolled out of view above or below */
+  background:
+    linear-gradient(var(--background-secondary) 30%, transparent) center top / 100% 28px no-repeat local,
+    linear-gradient(transparent, var(--background-secondary) 70%) center bottom / 100% 28px no-repeat local,
+    radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.1), transparent) center top / 100% 10px no-repeat scroll,
+    radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.1), transparent) center bottom / 100% 10px no-repeat scroll;
+}
+
+/* Secondary group inside the Projects list (Independent Labs) */
+.la-work__group {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.la-work__group .la-work__label {
+  display: block;
+  margin: 0;
+}
+
+/* "Earlier Work" inside Projects: the section-label type, lighter and closer than a section */
+.la-work__subgroup {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.la-work__subgroup .la-work__label {
+  display: block;
+  margin: 0;
+  font-weight: 400;
+}
+
+.la-work-flyout__list > .la-work__group,
+.la-work-flyout .la-work__older-list > .la-work__subgroup {
+  margin-top: 6px;
+}
+
+.la-work-flyout .la-work__subgroup .la-work__label {
+  margin: 0;
+  font-weight: 400;
 }
 
 .la-work__item a {
@@ -375,6 +416,88 @@ body.la-body a {
   background: #3b82f6;
 }
 
+/* "Show more" / "Show less" disclosure for the Earlier Work group */
+.la-work__more,
+.la-work__older {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.la-work__more-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  min-height: var(--la-sidebar-item-h);
+  margin: 0;
+  padding: 0 var(--la-sidebar-item-pad-x);
+  border: 0;
+  border-radius: var(--radius-medium);
+  background: transparent;
+  font: inherit;
+  font-size: var(--la-sidebar-item-font-size);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  text-align: left;
+  cursor: pointer;
+  transition: background 150ms var(--la-ease), color 150ms var(--la-ease);
+}
+
+.la-work__more-btn:hover {
+  background: var(--interactive-hover);
+  color: var(--text-primary);
+}
+
+.la-work__more-btn:focus {
+  outline: none;
+}
+
+.la-work__more-btn:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.la-work__more-icon {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+}
+
+.la-work__more-btn[aria-expanded="true"] .la-work__more-icon {
+  transform: rotate(180deg);
+}
+
+.la-work__older-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--la-sidebar-item-stack-gap);
+}
+
+.la-work__older-list[hidden] {
+  display: none;
+}
+
+.la-work-flyout .la-work__more-btn {
+  min-height: 38px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.la-work-flyout .la-work__older-list {
+  gap: 2px;
+}
+
+.la-work-flyout .la-work__older-list > li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .la-sr-only {
   position: absolute;
   width: 1px;
@@ -401,35 +524,25 @@ body.la-body a {
   height: 18px;
 }
 
-/* Collapsed sidebar (desktop) */
+/* Collapsed sidebar (desktop): only the width changes and labels hide. Padding,
+   the 48px brand row and every icon's left anchor match the expanded state. */
 body.la-sidebar-collapsed .la-sidebar {
   width: 68px;
-  padding: 12px 8px;
-  align-items: center;
   overflow-x: hidden;
 }
 
 body.la-sidebar-collapsed .la-sidebar__top {
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 4px;
   width: 100%;
+  margin-bottom: 4px;
 }
 
 body.la-sidebar-collapsed .la-sidebar-profile {
   flex: none;
-  width: 36px;
-  height: 36px;
-  padding: 2px;
-  justify-content: center;
-  gap: 0;
-}
-
-body.la-sidebar-collapsed .la-sidebar-profile__logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
+  width: 48px;
 }
 
 body.la-sidebar-collapsed .la-sidebar-profile__content {
@@ -438,6 +551,7 @@ body.la-sidebar-collapsed .la-sidebar-profile__content {
 
 body.la-sidebar-collapsed .la-sidebar__collapse {
   flex: none;
+  margin-left: 4px;
 }
 
 body.la-sidebar-collapsed .la-nav__link span,
@@ -449,9 +563,8 @@ body.la-sidebar-collapsed .la-sidebar__footer span {
 }
 
 body.la-sidebar-collapsed .la-nav--primary {
-  margin-top: 4px;
   margin-bottom: 8px;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 }
 
@@ -460,22 +573,9 @@ body.la-sidebar-collapsed .la-chat__new {
   margin-top: 0;
 }
 
-body.la-sidebar-collapsed .la-chat__new {
-  justify-content: center;
-  width: 40px;
-  padding: 0;
-}
-
-body.la-sidebar-collapsed .la-nav__link {
-  justify-content: center;
-  padding: 0;
-  width: 40px;
-}
-
+body.la-sidebar-collapsed .la-nav__link,
 body.la-sidebar-collapsed .la-sidebar__footer a {
-  justify-content: center;
   width: 40px;
-  padding: 0;
 }
 
 /* Mobile chrome */
@@ -930,6 +1030,12 @@ body.la-drawer-open .la-backdrop {
   height: 16px;
   color: var(--text-tertiary);
   flex-shrink: 0;
+}
+
+/* Independent Labs reuses the selected work section, rail and tiles above. */
+.la-labs[hidden],
+.la-shell.is-conversation .la-labs {
+  display: none;
 }
 
 /* ========== Approach widget inside conversation ========== */
@@ -1698,6 +1804,12 @@ body.la-drawer-open .la-backdrop {
   .la-project-tile {
     width: 220px;
   }
+
+  /* Narrower tiles: a little more room so product names stay on one line */
+  .la-project-tile__footer {
+    gap: 6px;
+    padding-inline: 12px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1906,7 +2018,7 @@ body.la-case-study-page .la-sidebar .la-sidebar__collapse:focus-visible {
   position: fixed;
   z-index: 10040;
   width: 240px;
-  max-height: min(70vh, 420px);
+  max-height: min(80vh, 580px);
   display: flex;
   flex-direction: column;
   padding: 6px;
@@ -1942,8 +2054,9 @@ body.la-case-study-page .la-sidebar .la-sidebar__collapse:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
-  max-height: inherit;
 }
 
 .la-work-flyout__list > li {

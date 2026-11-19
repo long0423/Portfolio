@@ -75,16 +75,20 @@
   box-sizing: border-box;
 }
 
-/* New chat empty state — vertically center in the right workspace */
+/*
+ * New chat home — the whole landing group (greeting to Independent Labs) is centred
+ * vertically with auto margins: centred when it fits, top-aligned and scrollable when
+ * it does not, so the start of the page is never pushed above the viewport.
+ */
 .la-shell:not(.is-conversation) #ws-panel-chat {
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .la-shell:not(.is-conversation) #ws-panel-chat .la-stage {
   height: auto;
   min-height: 0;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
   padding-top: 32px;
   padding-bottom: 32px;
 }

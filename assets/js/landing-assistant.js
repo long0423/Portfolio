@@ -40,6 +40,9 @@
   const chatSuggestionsWrap = document.getElementById("la-chat-suggestions-wrap");
   const featured = document.getElementById("la-featured-grid");
   const featuredWrap = document.getElementById("la-featured-wrap");
+  const labsSection = document.getElementById("la-labs");
+  const labsGrid = document.getElementById("la-labs-grid");
+  const labsWrap = document.getElementById("la-labs-wrap");
   const workList = document.getElementById("la-work-list");
   const hscrollInstances = [];
   const menuBtn = document.getElementById("la-menu-btn");
@@ -160,6 +163,35 @@
       </a>`
       )
       .join("");
+    refreshIcons();
+    window.requestAnimationFrame(updateAllHScrollFades);
+  }
+
+  /**
+   * Independent Labs: the same tiles and rail as selected work, so labs never outrank
+   * professional work. Cards show the short displayTitle; the accessible name keeps the
+   * full project name and type.
+   */
+  function renderLabs() {
+    if (!labsSection || !labsGrid || typeof PK.getLabProjects !== "function") return;
+    const labs = PK.getLabProjects();
+    if (!labs.length) return;
+    const kind = (p) => (p.concept ? "concept overview" : "case study");
+    labsGrid.innerHTML = labs
+      .map(
+        (p) => `
+      <a class="la-project-tile" href="${projectHashHref(p)}" aria-label="${escapeAttr(p.name)}, ${kind(p)}">
+        <span class="la-project-tile__media">
+          <img src="${p.thumb}" alt="" width="1600" height="1000" loading="lazy" />
+        </span>
+        <span class="la-project-tile__footer">
+          <span class="la-project-tile__name">${escapeHtml(p.displayTitle || p.name)}</span>
+          <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+        </span>
+      </a>`
+      )
+      .join("");
+    labsSection.hidden = false;
     refreshIcons();
     window.requestAnimationFrame(updateAllHScrollFades);
   }
@@ -1074,6 +1106,7 @@
     loadPersistedChat();
     renderSuggestions();
     renderFeatured();
+    renderLabs();
     renderWorkNav();
     bindComposer(input, sendBtn, form, { mode: "home" });
     bindComposer(inputConv, sendBtnConv, formConv, { mode: "followup" });
@@ -1101,9 +1134,17 @@
       "has-work-overflow-right",
       ".la-project-tile"
     );
+    const labsScroll = bindHScrollFade(
+      labsWrap,
+      labsGrid,
+      "has-work-overflow-left",
+      "has-work-overflow-right",
+      ".la-project-tile"
+    );
     if (promptScroll) hscrollInstances.push(promptScroll);
     if (chatPromptScroll) hscrollInstances.push(chatPromptScroll);
     if (workScroll) hscrollInstances.push(workScroll);
+    if (labsScroll) hscrollInstances.push(labsScroll);
     window.addEventListener("resize", updateAllHScrollFades);
 
     bindDynamicPrompts(document);

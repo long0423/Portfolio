@@ -65,7 +65,7 @@ window.GlobalSidebar = (function () {
       dcb: "Digital Customer Blueprint",
       pathfinder: "Regulatory Pathfinder",
     };
-    const label = escapeHtml(NAV_LABELS[p.id] || p.name || p.shortName);
+    const label = escapeHtml(p.displayTitle || NAV_LABELS[p.id] || p.name || p.shortName);
     const active = activeProjectId && p.id === activeProjectId;
     const update = p.isRecentlyUpdated
       ? '<span class="la-work__item-label">' +
@@ -77,12 +77,25 @@ window.GlobalSidebar = (function () {
     return "<li class=\"la-work__item\"><a href=\"" + shellHref(p.href) + "\"" + attrs + ">" + update + "</a></li>";
   }
 
+  function getLabProjects() {
+    const PK = window.PortfolioKnowledge;
+    return PK && typeof PK.getLabProjects === "function" ? PK.getLabProjects() : [];
+  }
+
+  function labsGroupHtml(itemFn) {
+    const labs = getLabProjects();
+    if (!labs.length) return "";
+    return (
+      '<li class="la-work__group" role="presentation"><span class="la-work__label">Independent Labs</span></li>' +
+      labs.map(itemFn).join("")
+    );
+  }
+
   function renderWorkListHtml(activeProjectId) {
-    return getProjects()
-      .map(function (p) {
-        return workItemMarkup(p, activeProjectId);
-      })
-      .join("");
+    const item = function (p) {
+      return workItemMarkup(p, activeProjectId);
+    };
+    return getProjects().map(item).join("") + labsGroupHtml(item);
   }
 
   function mobileBarHtml() {
@@ -287,39 +300,39 @@ window.GlobalSidebar = (function () {
   function populateFlyout() {
     const list = document.getElementById("la-work-flyout-list");
     if (!list) return;
-    list.innerHTML = getProjects()
-      .map(function (p) {
-        const label = escapeHtml(
-          p.shortTitle ||
-            (p.shortName && p.name && p.shortName !== p.name
-              ? p.shortName
-              : null) ||
-            p.shortName ||
-            p.name
-        );
-        const active = options.activeProjectId && p.id === options.activeProjectId;
-        const update = p.isRecentlyUpdated
-          ? '<span class="la-work__item-label">' +
-            label +
-            '<span class="la-work__update-dot" aria-hidden="true"></span>' +
-            '<span class="la-sr-only">Recently updated</span></span>'
-          : label;
-        const cls =
-          "la-work-flyout__item" + (active ? " is-active" : "");
-        const current = active ? ' aria-current="page"' : "";
-        return (
-          "<li><a class=\"" +
-          cls +
-          '" role="menuitem" href="' +
-          shellHref(p.href) +
-          '"' +
-          current +
-          ">" +
-          update +
-          "</a></li>"
-        );
-      })
-      .join("");
+    const item = function (p) {
+      const label = escapeHtml(
+        p.displayTitle ||
+        p.shortTitle ||
+          (p.shortName && p.name && p.shortName !== p.name
+            ? p.shortName
+            : null) ||
+          p.shortName ||
+          p.name
+      );
+      const active = options.activeProjectId && p.id === options.activeProjectId;
+      const update = p.isRecentlyUpdated
+        ? '<span class="la-work__item-label">' +
+          label +
+          '<span class="la-work__update-dot" aria-hidden="true"></span>' +
+          '<span class="la-sr-only">Recently updated</span></span>'
+        : label;
+      const cls =
+        "la-work-flyout__item" + (active ? " is-active" : "");
+      const current = active ? ' aria-current="page"' : "";
+      return (
+        "<li><a class=\"" +
+        cls +
+        '" role="menuitem" href="' +
+        shellHref(p.href) +
+        '"' +
+        current +
+        ">" +
+        update +
+        "</a></li>"
+      );
+    };
+    list.innerHTML = getProjects().map(item).join("") + labsGroupHtml(item);
   }
 
   function positionFlyout() {

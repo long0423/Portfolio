@@ -159,6 +159,7 @@ window.PortfolioKnowledge = (function () {
         "Best for complex professional workflows and structured decision support.",
       featured: true,
       isAiNative: false,
+      navOlder: true,
     },
     {
       id: "pulse",
@@ -173,6 +174,7 @@ window.PortfolioKnowledge = (function () {
         "Best for engagement insights, data visualisation, and actionable reporting.",
       featured: true,
       isAiNative: false,
+      navOlder: true,
     },
     {
       id: "dcb",
@@ -187,8 +189,118 @@ window.PortfolioKnowledge = (function () {
         "Best for service design, journey mapping, and large information structures.",
       featured: true,
       isAiNative: false,
+      navOlder: true,
+    },
+
+    /*
+     * Independent Labs: personal products and explorations outside professional work.
+     * group: "labs" keeps them out of every professional list (featured, recommendations,
+     * AI-native groupings and the professional Projects order). On the public site they use
+     * the same project access gate (project-access.js). Their detail pages (file) are not
+     * published, so no Lab may be switched to "public" access until its page is.
+     * displayTitle is the canonical product name for navigation, cards and Library;
+     * name stays the full descriptive title for headings, descriptions and accessible names.
+     */
+    {
+      id: "layout-studio",
+      group: "labs",
+      stage: "built",
+      slug: "layout-studio",
+      file: "projects/layout-studio/index.html",
+      name: "Watch Face Layout Studio",
+      shortName: "Layout Studio",
+      displayTitle: "Watchface Layout Studio",
+      category: "Design tool \u00b7 Wearable UI",
+      status: "v0.1.0",
+      href: "Me.html#/project/layout-studio",
+      thumb: "projects/layout-studio/assets/images/layout-studio-thumbnail.webp",
+      thumbAlt: "Layout Studio editor showing a round 454 by 454 watch face",
+      keywords: ["layout studio", "watch face", "watchface", "venu", "smartwatch", "wearable"],
+      blurb: "A local-first visual editor for designing and testing round smartwatch layouts.",
+      recommendReason: "A built and tested design tool for round watch-face layouts.",
+      ctaLabel: "Open case study",
+      featured: false,
+    },
+    {
+      id: "garmin-health-companion",
+      group: "labs",
+      stage: "exploration",
+      slug: "garmin-health-companion",
+      file: "projects/labs/index.html?id=garmin-health-companion",
+      name: "Garmin Health Companion",
+      shortName: "Health Companion",
+      displayTitle: "Garmin Health Companion",
+      category: "Health analytics \u00b7 AI",
+      status: "Exploration",
+      href: "Me.html#/project/garmin-health-companion",
+      thumb: "projects/labs/assets/images/garmin-health-companion.webp",
+      thumbAlt: "Concept illustration of health and training trends over twelve weeks",
+      keywords: ["garmin health", "health companion", "hrv", "recovery", "sleep trend"],
+      blurb: "Understanding training, recovery and wellbeing over time.",
+      ctaLabel: "Open concept overview",
+      featured: false,
+      concept: {
+        statusLabel: "Exploration \u00b7 private development",
+        statusNote:
+          "An early private prototype uses synthetic data only. Nothing is released, and no personal health records are shown here.",
+        disclaimer: "An independent personal project. It is not made, endorsed or supported by Garmin.",
+      },
+    },
+    {
+      id: "ai-design-review",
+      group: "labs",
+      stage: "concept",
+      slug: "ai-design-review",
+      file: "projects/labs/index.html?id=ai-design-review",
+      name: "AI Design Review Assistant",
+      shortName: "Design Review Assistant",
+      displayTitle: "AI Design Review",
+      category: "AI tools \u00b7 Design education",
+      status: "Concept",
+      href: "Me.html#/project/ai-design-review",
+      thumb: "projects/labs/assets/images/ai-design-review.webp",
+      thumbAlt: "Concept illustration of a resume page with numbered annotations and review notes",
+      keywords: ["design review assistant", "ai design review", "portfolio review", "resume review", "portfolio feedback"],
+      blurb: "Clearer, more actionable portfolio and resume feedback.",
+      ctaLabel: "Open concept overview",
+      featured: false,
+      concept: {
+        statusLabel: "Concept",
+        statusNote: "This is a concept. No working reviewer exists yet.",
+      },
+    },
+    {
+      id: "trainer-workspace",
+      group: "labs",
+      stage: "concept",
+      slug: "trainer-workspace",
+      file: "projects/labs/index.html?id=trainer-workspace",
+      name: "Personal Trainer Workspace",
+      shortName: "Trainer Workspace",
+      displayTitle: "Trainer Workspace",
+      category: "Fitness \u00b7 Coaching",
+      status: "Concept",
+      href: "Me.html#/project/trainer-workspace",
+      thumb: "projects/labs/assets/images/trainer-workspace.webp",
+      thumbAlt: "Concept illustration of a weekly coaching check-in with sessions, a progress trend and notes",
+      keywords: ["personal trainer", "trainer workspace", "coaching workspace", "coach and client"],
+      blurb: "A shared space for coaches and clients between sessions.",
+      ctaLabel: "Open concept overview",
+      featured: false,
+      concept: {
+        statusLabel: "Concept",
+        statusNote: "This is a concept. It does not include scheduling, payments or nutrition tracking.",
+      },
     },
   ];
+
+  function workProjects() {
+    return projects.filter((p) => p.group !== "labs");
+  }
+
+  function labProjects() {
+    return projects.filter((p) => p.group === "labs");
+  }
 
   const RECOMMEND_PROJECT_IDS = [
     "write",
@@ -381,6 +493,18 @@ window.PortfolioKnowledge = (function () {
       "show me long's selected",
       "show me long’s selected",
     ],
+    labs: [
+      "independent lab",
+      "independent labs",
+      "side project",
+      "side projects",
+      "personal project",
+      "personal projects",
+      "outside work",
+      "outside the brief",
+      "own projects",
+      "experiments",
+    ],
     projects: [
       "project",
       "projects",
@@ -410,6 +534,7 @@ window.PortfolioKnowledge = (function () {
 
   /** Priority order for keyword intents (after exact prompt / project match). */
   const intentPriority = [
+    "labs",
     "roleAndImpact",
     "aiTrust",
     "designSystem",
@@ -431,15 +556,15 @@ window.PortfolioKnowledge = (function () {
   }
 
   function getAiNativeProjects() {
-    return projects.filter((p) => p.isAiNative);
+    return workProjects().filter((p) => p.isAiNative);
   }
 
   function getAiNativeSystemProjects() {
-    return projects.filter((p) => p.isAiNativeSystem);
+    return workProjects().filter((p) => p.isAiNativeSystem);
   }
 
   function getAdditionalProjects() {
-    return projects.filter((p) => !p.isAiNative && !p.isAiNativeSystem);
+    return workProjects().filter((p) => !p.isAiNative && !p.isAiNativeSystem);
   }
 
   function linkList(ids) {
@@ -460,6 +585,7 @@ window.PortfolioKnowledge = (function () {
   }
 
   function projectLabelHtml(project) {
+    if (project.group === "labs") return `<span class="ai-native-label">${project.status}</span>`;
     if (project.isAiNative) return aiNativeLabelHtml();
     if (project.isAiNativeSystem) return aiNativeSystemLabelHtml();
     return "";
@@ -651,6 +777,13 @@ window.PortfolioKnowledge = (function () {
       buildHtml: buildAiNativeHtml,
       projectIds: [],
       groupedCards: false,
+    },
+    labs: {
+      title: "Independent Labs",
+      html: `
+        <p class="answer-lead">Independent Labs collects products, tools and experiments Long builds outside professional work. Watch Face Layout Studio is built and tested. The other three are early explorations and concepts, not released products.</p>
+      `,
+      projectIds: ["layout-studio", "garmin-health-companion", "ai-design-review", "trainer-workspace"],
     },
     projects: {
       title: "Selected work",
@@ -892,7 +1025,9 @@ window.PortfolioKnowledge = (function () {
 
   function projectCardHtml(project) {
     const label = projectLabelHtml(project);
-    const accessibleName = project.isAiNative
+    const accessibleName = project.group === "labs"
+      ? `${project.name} (${project.status})`
+      : project.isAiNative
       ? `${project.name} (AI native)`
       : project.isAiNativeSystem
       ? `${project.name} (AI-native system)`
@@ -901,7 +1036,7 @@ window.PortfolioKnowledge = (function () {
       <a class="la-project-card" href="${project.href}" aria-label="${accessibleName}">
         <img class="la-project-card__thumb" src="${project.thumb}" alt="" width="56" height="36" loading="lazy" />
         <span class="la-project-card__title-row">
-          <span class="la-project-card__name">${project.name}</span>
+          <span class="la-project-card__name">${project.displayTitle || project.name}</span>
           ${label}
         </span>
         <i data-lucide="arrow-up-right" aria-hidden="true"></i>
@@ -916,6 +1051,23 @@ window.PortfolioKnowledge = (function () {
         intent: "project",
         title: answer.title,
         html: answer.html,
+        showFollowUps: false,
+      };
+    }
+    if (project.group === "labs") {
+      const note = project.concept
+        ? project.concept.statusNote
+        : "Built and tested as a local, browser-based tool. It is a browser approximation, not a device-verified preview.";
+      return {
+        intent: "project",
+        title: project.name,
+        html: `
+        <p class="answer-lead"><strong>${project.name}</strong> — ${project.blurb}</p>
+        <p>An Independent Labs project. ${note}</p>
+        <div class="answer-links">
+          <a class="answer-link" href="${project.href}">${project.ctaLabel} <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+      `,
         showFollowUps: false,
       };
     }
@@ -961,11 +1113,20 @@ window.PortfolioKnowledge = (function () {
   }
 
   function getFeaturedProjects() {
-    return projects.filter((p) => p.featured);
+    return workProjects().filter((p) => p.featured);
   }
 
+  /** Professional projects only, in their established order. */
   function getAllProjects() {
-    return projects.slice();
+    return workProjects();
+  }
+
+  function getLabProjects() {
+    return labProjects();
+  }
+
+  function getProjectById(id) {
+    return projects.find((p) => p.id === id) || null;
   }
 
   return {
@@ -977,6 +1138,8 @@ window.PortfolioKnowledge = (function () {
     getResponse,
     getFeaturedProjects,
     getAllProjects,
+    getLabProjects,
+    getProjectById,
     getAiNativeProjects,
     getAiNativeSystemProjects,
     getAdditionalProjects,

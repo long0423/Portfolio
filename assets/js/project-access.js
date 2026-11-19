@@ -6,7 +6,8 @@
  * and in the Git repository. Switching defaultMode and republishing
  * changes what ordinary navigation does.
  *
- * defaultMode: "request" or "public"
+ * defaultMode: "request" or "public" (applies to the public site; local
+ * previews on localhost / 127.0.0.1 always open every project)
  * projectOverrides: { "<project id or route slug>": "request" | "public" }
  *
  *   npm run access:request
@@ -22,6 +23,15 @@
 
   window.PORTFOLIO_ACCESS = ACCESS;
 
+  /*
+   * Environment policy. The owner previews the site from a loopback origin, where
+   * every project opens directly. Any other origin (the public GitHub Pages site)
+   * uses ACCESS above. The hostname is the only input: no URL parameter, hash,
+   * storage flag or on-page control can switch it.
+   */
+  var LOCAL_PREVIEW_HOSTS = ["localhost", "127.0.0.1", "[::1]"];
+  var isLocalPreview = LOCAL_PREVIEW_HOSTS.indexOf(window.location.hostname) !== -1;
+
   var SLUG_TO_ID = {
     "tax-advice": "write",
     pathfinder: "pathfinder",
@@ -31,6 +41,11 @@
     "ma-path": "map",
     pulse: "pulse",
     dcb: "dcb",
+    // Independent Labs
+    "layout-studio": "layout-studio",
+    "garmin-health-companion": "garmin-health-companion",
+    "ai-design-review": "ai-design-review",
+    "trainer-workspace": "trainer-workspace",
   };
 
   var ID_TO_SLUG = {
@@ -42,6 +57,10 @@
     map: "ma-path",
     pulse: "pulse",
     dcb: "dcb",
+    "layout-studio": "layout-studio",
+    "garmin-health-companion": "garmin-health-companion",
+    "ai-design-review": "ai-design-review",
+    "trainer-workspace": "trainer-workspace",
   };
 
   var dialog = null;
@@ -71,7 +90,7 @@
   }
 
   function isGated(key) {
-    if (!key) return false;
+    if (!key || isLocalPreview) return false;
     var id = resolveId(key);
     if (!ID_TO_SLUG[id] && !SLUG_TO_ID[String(key)]) return false;
     return modeFor(key) !== "public";
@@ -80,6 +99,10 @@
   function displayName(key) {
     var id = resolveId(key);
     var knowledge = window.PortfolioKnowledge;
+    if (knowledge && typeof knowledge.getProjectById === "function") {
+      var project = knowledge.getProjectById(id);
+      if (project && project.name) return project.name;
+    }
     if (knowledge && typeof knowledge.getAllProjects === "function") {
       var match = knowledge.getAllProjects().filter(function (project) {
         return project.id === id;
@@ -239,6 +262,7 @@
   }
 
   window.PortfolioAccess = {
+    isLocalPreview: isLocalPreview,
     isGated: isGated,
     modeFor: modeFor,
     displayName: displayName,
