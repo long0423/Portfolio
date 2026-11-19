@@ -1,0 +1,312 @@
+/*
+ * Approach — 3D stage. Replaces the six abstract SVG previews with one WebGL
+ * stage (assets/js/approach-3d). Posters cover loading and the no-WebGL case.
+ */
+
+.approach-3d {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.62 / 1;
+  max-height: calc(100dvh - 300px);
+  min-height: 300px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.06));
+  border-radius: 16px;
+  background: #f3f1ee;
+  isolation: isolate;
+}
+
+.approach-3d__viewport,
+.approach-3d__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.approach-3d__viewport {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+.approach-3d.is-ready .approach-3d__viewport {
+  opacity: 1;
+}
+
+.approach-3d__posters img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Poster for the active stage while the 3D stage loads and fades in, and as the no-WebGL fallback */
+.approach-3d:not(.is-settled)[data-stage="1"] img[data-poster="1"],
+.approach-3d:not(.is-settled)[data-stage="2"] img[data-poster="2"],
+.approach-3d:not(.is-settled)[data-stage="3"] img[data-poster="3"],
+.approach-3d:not(.is-settled)[data-stage="4"] img[data-poster="4"],
+.approach-3d:not(.is-settled)[data-stage="5"] img[data-poster="5"],
+.approach-3d:not(.is-settled)[data-stage="6"] img[data-poster="6"] {
+  display: block;
+}
+
+.approach-3d.is-fallback .approach-3d__viewport {
+  display: none;
+}
+
+.approach-3d__replay {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--border-default, rgba(0, 0, 0, 0.1));
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-primary);
+  cursor: pointer;
+  opacity: 0;
+  transition: background 150ms ease, opacity 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.approach-3d.is-ready .approach-3d__replay {
+  opacity: 1;
+}
+
+.approach-3d__replay:hover {
+  background: #ffffff;
+}
+
+.approach-3d__replay:focus {
+  outline: none;
+}
+
+.approach-3d__replay:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.approach-3d.is-playing .approach-3d__replay svg {
+  opacity: 0.55;
+}
+
+.approach-3d.is-fallback .approach-3d__replay {
+  display: none;
+}
+
+/* Pre-rendered stage video (assets/js/approach-3d/stage-video.js) */
+.approach-3d__video {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--approach-video-bg, #fbf7f1);
+}
+
+.approach-3d.is-video .approach-3d__video {
+  display: block;
+}
+
+.approach-3d.is-video .approach-3d__viewport {
+  visibility: hidden;
+}
+
+.approach-3d.is-video .approach-3d__replay {
+  display: inline-flex;
+  opacity: 1;
+}
+
+/* CC BY 4.0 credits for the characters in the stage videos: a small disclosure in the corner
+   opposite Replay. It sits outside the role="img" stage so its links stay accessible. */
+.approach-3d__credits {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 4;
+  margin: 0;
+}
+
+.approach-3d__credits-toggle {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 11px;
+  border: 1px solid var(--border-default, rgba(0, 0, 0, 0.1));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--text-secondary, #5d5d5d);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.approach-3d__credits-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.approach-3d__credits-toggle:hover,
+.approach-3d__credits[open] .approach-3d__credits-toggle {
+  background: #ffffff;
+  color: var(--text-primary, #0d0d0d);
+}
+
+.approach-3d__credits-toggle:focus {
+  outline: none;
+}
+
+.approach-3d__credits-toggle:focus-visible {
+  outline: 2px solid var(--text-primary, #0d0d0d);
+  outline-offset: 2px;
+}
+
+.approach-3d__credits-panel {
+  position: absolute;
+  left: 0;
+  bottom: 36px;
+  width: min(340px, calc(100vw - 64px));
+  max-height: min(320px, 60vh);
+  overflow-y: auto;
+  padding: 12px 14px;
+  border: 1px solid var(--border-default, rgba(0, 0, 0, 0.1));
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(30, 24, 18, 0.12);
+  color: var(--text-secondary, #5d5d5d);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.approach-3d__credits-title {
+  margin: 0 0 6px;
+  color: var(--text-primary, #0d0d0d);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.approach-3d__credits-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.approach-3d__credits-list li + li {
+  margin-top: 8px;
+}
+
+.approach-3d__credits-list span {
+  display: block;
+  margin-top: 2px;
+}
+
+.approach-3d__credits-note {
+  margin: 10px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.06));
+}
+
+.approach-3d__credits a {
+  color: var(--text-primary, #0d0d0d);
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 0, 0, 0.22);
+  text-underline-offset: 2px;
+}
+
+.approach-3d__credits a:hover {
+  text-decoration-color: currentColor;
+}
+
+.approach-3d__credits a:focus-visible {
+  outline: 2px solid var(--text-primary, #0d0d0d);
+  outline-offset: 1px;
+  border-radius: 2px;
+}
+
+/* Stable copy block (assets/js/approach-scrolly.js): each slot is as tall as its longest stage
+   text at the current width, so switching stages never moves the animation below */
+.approach-copy-slot {
+  display: grid;
+}
+
+.approach-copy-slot > * {
+  grid-area: 1 / 1;
+  width: 100%;
+}
+
+.approach-copy-sizer {
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Workspace embed: a little more room for the stage than the old previews */
+html.la-embed .approach-workspace-embed .approach-page-shell,
+html.la-embed .approach-workspace-embed .approach-page-shell--embedded {
+  max-width: 880px;
+  padding-top: 40px;
+}
+
+html.la-embed .approach-workspace-embed .approach-page-intro .sp-lead {
+  max-width: 44em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .approach-3d__viewport,
+  .approach-3d__replay {
+    transition: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .approach-3d {
+    aspect-ratio: 1 / 1.02;
+    max-height: none;
+    min-height: 0;
+  }
+
+  .approach-3d__replay {
+    right: 10px;
+    bottom: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  /* The near-square phone frame shows the whole video rather than cropping the display */
+  .approach-3d__video,
+  .approach-3d__posters img {
+    object-fit: contain;
+    background: var(--approach-video-bg, #fbf7f1);
+  }
+
+  .approach-3d__credits {
+    left: 10px;
+    bottom: 10px;
+  }
+
+  .approach-3d__credits-toggle {
+    height: 32px;
+    padding: 0 12px;
+  }
+
+  .approach-3d__credits-panel {
+    bottom: 46px;
+  }
+}

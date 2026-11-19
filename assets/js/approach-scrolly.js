@@ -1,34 +1,42 @@
 /**
- * Approach page — full-shell sticky scrollytelling controller.
- * Native scroll only; maps scroll progress to steps 0–5.
+ * Approach page — stage controller.
+ * Embedded in the workspace it runs in click mode; as a standalone page it maps
+ * native scroll progress to stages 0–5. Every stage change is announced with an
+ * `approach:step` event, which drives the 3D stage (assets/js/approach-3d/main.js).
  */
 (function () {
   "use strict";
 
   var STEPS = [
     {
-      title: "Understand the workflow and decision points",
-      desc: "Map the real process, handoffs, and where judgement matters before designing screens.",
+      title: "Frame the opportunity",
+      desc: "I bring together goals, constraints and existing knowledge to frame the opportunity — giving AI enough context to start exploring meaningful solutions.",
+      scene: "Working from his laptop, the designer gathers requirements, customer feedback, goals and constraints on the wall display; they sort into columns and converge into one focused brief.",
     },
     {
-      title: "Define AI and human responsibilities",
-      desc: "Be explicit about what the system proposes and what people must approve, edit, or override.",
+      title: "Prototype first",
+      desc: "I use AI to make ideas tangible early, turning a focused brief into a working prototype that people can explore and question — learning through interaction, not static concepts.",
+      scene: "The brief docks into an AI workspace. A working support inbox assembles from components, and selecting a request opens it with an AI-drafted reply.",
     },
     {
-      title: "Design trust, evidence and recovery",
-      desc: "Surface status, sources, confidence, exceptions, and clear paths when the model is wrong.",
+      title: "Direct the experience",
+      desc: "I refine the experience through rapid critique and iteration — shaping flows, information architecture, interaction states, accessibility and visual consistency.",
+      scene: "The designer points out a buried reply action and a crowded navigation, then types his direction to the AI: the reply moves to the top, order details become light context and the actions become consistent.",
     },
     {
-      title: "Prototype high-risk interactions",
-      desc: "Validate the hardest interaction early — not the easiest happy path.",
+      title: "Challenge with evidence",
+      desc: "I put the prototype in front of real scenarios and people, using feedback and evidence to challenge assumptions before they become expensive decisions.",
+      scene: "A support lead reviews the prototype with the designer. Pointing to the Send button on the wall display, she raises that agents need to check a draft before it sends; he adds a review step from his laptop, and she confirms the revised Review & send flow.",
     },
     {
-      title: "Validate with users and delivery teams",
-      desc: "Pressure-test with PMs, engineers, SMEs, and the people who use the product.",
+      title: "Build with fidelity",
+      desc: "I work closely with engineering to translate validated interactions into reliable products, preserving the details, behaviours and consistency that define the intended experience.",
+      scene: "An engineer, seated at his workstation, reviews the implemented reply draft with the designer standing beside him. The designer points out one mismatch on the shared display, a plain Send where the design specifies Review & send; the engineer fixes it with keyboard and mouse, the preview updates and the implementation review passes.",
     },
     {
-      title: "Turn proven patterns into reusable systems",
-      desc: "Convert what works into shared components and behaviours across products.",
+      title: "Learn & evolve",
+      desc: "I keep learning from how the product is used, turning real outcomes and feedback into insights that continuously refine the experience and shape the next iteration.",
+      scene: "The live product's usage signals point to one opportunity. The designer points to it and selects the next iteration from his laptop, a tone control appears on the reply draft, and he turns back to prototype again.",
     },
   ];
 
@@ -53,11 +61,9 @@
     this.track = root.querySelector(".approach-scroll-track");
     this.titleEl = root.querySelector("[data-approach-title]");
     this.descEl = root.querySelector("[data-approach-desc]");
+    this.sceneEl = root.querySelector("[data-approach-3d]");
     this.buttons = Array.prototype.slice.call(
       root.querySelectorAll(".approach-rail__btn")
-    );
-    this.panels = Array.prototype.slice.call(
-      root.querySelectorAll(".approach-panel")
     );
     this.stepCount = STEPS.length;
     this.activeIndex = -1;
@@ -73,21 +79,6 @@
     );
   };
 
-  ApproachScrolly.prototype.previewRoot = function (panel) {
-    return panel ? panel.querySelector(".approach-preview") : null;
-  };
-
-  ApproachScrolly.prototype.activatePreview = function (panel, on) {
-    var preview = this.previewRoot(panel);
-    if (!preview) return;
-    preview.setAttribute("data-approach-active", on ? "true" : "false");
-    preview.dispatchEvent(
-      new CustomEvent(on ? "approach:activate" : "approach:deactivate", {
-        bubbles: false,
-      })
-    );
-  };
-
   ApproachScrolly.prototype.setStep = function (index, options) {
     options = options || {};
     index = Math.max(0, Math.min(this.stepCount - 1, index));
@@ -99,6 +90,10 @@
 
     if (this.titleEl) this.titleEl.textContent = step.title;
     if (this.descEl) this.descEl.textContent = step.desc;
+    if (this.sceneEl) {
+      this.sceneEl.setAttribute("aria-label", step.scene);
+      this.sceneEl.setAttribute("data-stage", String(index + 1));
+    }
 
     this.buttons.forEach(function (btn, i) {
       var active = i === index;
@@ -107,27 +102,9 @@
       else btn.removeAttribute("aria-current");
     });
 
-    var self = this;
-    this.panels.forEach(function (panel, i) {
-      var active = i === index;
-      panel.classList.toggle("is-active", active);
-      if (active) {
-        panel.hidden = false;
-        void panel.offsetWidth;
-        panel.classList.add("is-visible");
-        self.activatePreview(panel, true);
-      } else {
-        panel.classList.remove("is-visible");
-        self.activatePreview(panel, false);
-        if (prev === i || options.force) {
-          window.setTimeout(function () {
-            if (!panel.classList.contains("is-active")) panel.hidden = true;
-          }, 320);
-        } else if (!panel.classList.contains("is-active")) {
-          panel.hidden = true;
-        }
-      }
-    });
+    if (prev !== index) {
+      this.root.dispatchEvent(new CustomEvent("approach:step", { detail: { index: index } }));
+    }
   };
 
   ApproachScrolly.prototype.progressToIndex = function () {
@@ -189,8 +166,33 @@
     );
   };
 
+  // Reserve the height of the longest title and description at the current width so the stage
+  // below never moves between stages: invisible copies of every stage's text share one grid
+  // cell with the live element, which stays the only announced content.
+  ApproachScrolly.prototype.reserveCopySpace = function () {
+    [
+      [this.titleEl, "title"],
+      [this.descEl, "desc"],
+    ].forEach(function (pair) {
+      var el = pair[0];
+      if (!el || !el.parentNode || el.parentNode.classList.contains("approach-copy-slot")) return;
+      var slot = document.createElement("div");
+      slot.className = "approach-copy-slot";
+      el.parentNode.insertBefore(slot, el);
+      slot.appendChild(el);
+      STEPS.forEach(function (step) {
+        var sizer = document.createElement(el.tagName === "P" ? "p" : "div");
+        sizer.className = el.className + " approach-copy-sizer";
+        sizer.setAttribute("aria-hidden", "true");
+        sizer.textContent = step[pair[1]];
+        slot.appendChild(sizer);
+      });
+    });
+  };
+
   ApproachScrolly.prototype.bind = function () {
     var self = this;
+    this.reserveCopySpace();
 
     if (this.root._approachScrollyBound) {
       this.setStep(this.isClickMode() ? 0 : this.progressToIndex(), {
@@ -200,10 +202,21 @@
     }
     this.root._approachScrollyBound = true;
 
-    this.buttons.forEach(function (btn) {
+    this.buttons.forEach(function (btn, i) {
       btn.addEventListener("click", function () {
         var index = parseInt(btn.getAttribute("data-step"), 10);
         if (!isNaN(index)) self.scrollToStep(index);
+      });
+      btn.addEventListener("keydown", function (e) {
+        var next = null;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") next = Math.min(self.stepCount - 1, i + 1);
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = Math.max(0, i - 1);
+        else if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = self.stepCount - 1;
+        if (next === null) return;
+        e.preventDefault();
+        self.buttons[next].focus();
+        self.buttons[next].click();
       });
     });
 

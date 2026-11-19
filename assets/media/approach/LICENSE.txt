@@ -1,0 +1,63 @@
+Approach stage videos — sources and licences
+
+stage-01.mp4 … stage-06.mp4 (with images/approach/stage-0N-video.webp and
+stage-0N-video-end.webp, the first and final frames of each video)
+  Rendered locally in Blender 5.2 LTS (EEVEE) from one master scene: the same
+  studio (wall-mounted display, standing desk, engineer's workstation), lighting
+  and camera system in all six stages. Credits are shown on the
+  page through the "Credits" control in the corner of the animation.
+
+  Characters (both rigs: Creative Commons Attribution 4.0, CC BY 4.0,
+  https://creativecommons.org/licenses/by/4.0/). None of the characters are
+  CC0; the CC BY credits below are required.
+
+  1. The designer (all stages) — adapted from the "Snow" character rig by Blender Studio
+     Source: https://studio.blender.org/characters/snow/v4/
+     Required credit: Snow Rig (CC) Blender Foundation | studio.blender.org
+     Kept from Snow: skeleton and controls, skinning, facial rig and corrective
+     shapes, eyes, ears, hands, the body and garment base meshes, and the painted
+     skin detail.
+     Changed for this portfolio:
+       - Face proportions: narrower nose with a smaller tip, slightly lower bridge,
+         thinner and narrower lips, slimmer jaw and chin, straighter and slimmer
+         brows; a calmer default eyelid position in the animation.
+       - Skin: skin textures recoloured to a lighter warm tone; subsurface reduced.
+       - Hairstyle: Snow's top-knot hair replaced with a new layered short cut
+         (strand groom with a side-parted fringe and soft, layered sides that reach
+         the top of the ears).
+       - Build: fuller shoulders, upper arms, forearms and chest.
+       - Clothing: the scoop neckline reshaped into a crew neck with a new ribbed
+         collar, fitted black T-shirt, dark indigo trousers, white sneakers.
+       - New thin metal glasses.
+       - Posed and animated for these scenes.
+
+  2. The engineer (stage 05) — the "Snow" character rig by Blender Studio
+     Source: https://studio.blender.org/characters/snow/v4/
+     Required credit: Snow Rig (CC) Blender Foundation | studio.blender.org
+     Changed for this portfolio: clothing recoloured (sage T-shirt, stone
+     trousers); posed and animated for this scene, seated at a workstation. Face, hair and skin are
+     Snow's own, so he is a different person from the designer.
+
+  3. The support lead (stage 04) — adapted from the "Rain" character rig by Blender Studio
+     Source: https://studio.blender.org/characters/rain/v3/
+     Required credit: Rain Rig (CC) Blender Foundation | studio.blender.org
+     Changed for this portfolio: smaller head on the same body (adult
+     proportions), brown eyes, slate-blue top, rust neck scarf, charcoal
+     trousers, dark hairband, ponytail posed to hang; posed and animated for
+     this scene.
+
+  Wood textures (CC0 1.0, https://creativecommons.org/publicdomain/zero/1.0/; no
+  attribution required, credited here anyway):
+    - "Oak Veneer 01" by Jenelle van Heerden, Poly Haven
+      https://polyhaven.com/a/oak_veneer_01
+    - "Herringbone Parquet" by Jenelle van Heerden (processing) and Sergej
+      Majboroda (photography), Poly Haven — https://polyhaven.com/a/herringbone_parquet
+    Recoloured for the studio's floor, desk tops, console and slat wall.
+
+  Everything else (set, display, props, lighting, cameras, animation and the
+  on-screen product interface) was made for this portfolio. The product, "Relay",
+  and every name, message, feedback note and signal shown in it are invented; no
+  real data, research findings, client feedback or metrics appear.
+
+Editable sources (Blender files, scripts, board frames, renders) are kept outside
+the published site.
