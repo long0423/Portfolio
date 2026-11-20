@@ -13,7 +13,34 @@ window.PortfolioKnowledge = (function () {
     email: "michaelgeng0423@gmail.com",
     linkedin: "https://www.linkedin.com/in/long-geng/",
     resume: "assets/media/Resume-Long-Geng.pdf",
+    // Total experience counts calendar years from here (no start month is established)
+    careerStartYear: 2017,
   };
+
+  /** Years of professional experience at the given date (default: now). */
+  function experienceYears(now) {
+    return Math.max(0, (now || new Date()).getFullYear() - profile.careerStartYear);
+  }
+
+  /** "9+ years" in 2026, "10+ years" in 2027, … */
+  function experienceText(now) {
+    return `${experienceYears(now)}+ years`;
+  }
+
+  /** Experience text in a span that is refreshed if the page stays open into a new year. */
+  function experienceHtml() {
+    return `<span data-experience-years>${experienceText()}</span>`;
+  }
+
+  if (typeof document !== "undefined") {
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== "visible") return;
+      const text = experienceText();
+      document.querySelectorAll("[data-experience-years]").forEach((el) => {
+        if (el.textContent !== text) el.textContent = text;
+      });
+    });
+  }
 
   /** Canonical recommendation order: AI-native first, then additional product work. */
   const projects = [
@@ -795,8 +822,9 @@ window.PortfolioKnowledge = (function () {
     },
     experience: {
       title: "Background & experience",
-      html: `
-        <p class="answer-lead">Long is a Product &amp; UX Designer with 8+ years blending design and development, focused on enterprise AI products at PwC Australia.</p>
+      get html() {
+        return `
+        <p class="answer-lead">Long is a Product &amp; UX Designer with ${experienceHtml()} blending design and development, focused on enterprise AI products at PwC Australia.</p>
         <ul>
           <li><strong>Focus:</strong> Complex AI workflows across tax, deals, document intelligence, and agent operations.</li>
           <li><strong>Recent ownership:</strong> Led foundational design for AgentOS, the redesign of Tax Advice AI (Write), and the UX/UI of Regulatory Pathfinder.</li>
@@ -806,7 +834,8 @@ window.PortfolioKnowledge = (function () {
           <a class="la-action" href="assets/media/Resume-Long-Geng.pdf" target="_blank" rel="noopener">Open resume</a>
           <a class="la-action" href="Me.html" data-prompt="What was his role and impact on key projects?">Review project impact</a>
         </div>
-      `,
+      `;
+      },
       projectIds: [],
     },
     skills: {
@@ -1140,6 +1169,9 @@ window.PortfolioKnowledge = (function () {
     getAllProjects,
     getLabProjects,
     getProjectById,
+    experienceYears,
+    experienceText,
+    experienceHtml,
     getAiNativeProjects,
     getAiNativeSystemProjects,
     getAdditionalProjects,

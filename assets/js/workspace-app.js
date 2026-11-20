@@ -58,6 +58,10 @@
     NAV_LABELS[p.id] = p.displayTitle || p.name;
   });
 
+  function experienceHtml() {
+    return PK && PK.experienceHtml ? PK.experienceHtml() : "";
+  }
+
   function labName(p) {
     return p.displayTitle || p.name;
   }
@@ -77,13 +81,15 @@
       id: "about",
       title: "About",
       icon: "user-round",
-      html: `
-        <p class="ws-detail__lead">Long Geng is a Product &amp; UX Designer with 8+ years blending design and development, focused on enterprise AI products at PwC Australia.</p>
+      get html() {
+        return `
+        <p class="ws-detail__lead">Long Geng is a Product &amp; UX Designer with ${experienceHtml()} blending design and development, focused on enterprise AI products at PwC Australia.</p>
         <ul class="ws-detail__list">
           <li><strong>Focus:</strong> Complex AI workflows across tax, deals, document intelligence, and agent operations.</li>
           <li><strong>Working style:</strong> Close collaboration with PMs, engineers, and SMEs from concept through release.</li>
           <li><strong>Based in:</strong> Melbourne</li>
-        </ul>`,
+        </ul>`;
+      },
       related: [
         { label: "What makes Long a strong AI product designer?", prompt: "What makes Long a strong AI product designer?" },
         { label: "Tell me about Long’s background", prompt: "Tell me about Long." },
@@ -444,10 +450,22 @@
 
   function loadFrame(src, title) {
     if (!frameEl) return;
-    const current = frameEl.getAttribute("src") || "";
+    const current = frameEl.getAttribute("data-route-src") || frameEl.getAttribute("src") || "";
     frameEl.setAttribute("title", title || "Workspace content");
     if (current !== src) {
-      frameEl.setAttribute("src", src);
+      frameEl.setAttribute("data-route-src", src);
+      // Changing src would add the frame's own history entry, so Back would move the
+      // frame without changing the route. Replace the frame location instead.
+      let replaced = false;
+      if (current && frameEl.contentWindow) {
+        try {
+          frameEl.contentWindow.location.replace(new URL(src, window.location.href).href);
+          replaced = true;
+        } catch (e) {
+          /* fall back to src */
+        }
+      }
+      if (!replaced) frameEl.setAttribute("src", src);
     } else {
       try {
         if (frameEl.contentWindow) {
