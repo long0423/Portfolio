@@ -34,9 +34,9 @@
       scene: "An engineer, seated at his workstation, reviews the implemented reply draft with the designer standing beside him. The designer points out one mismatch on the shared display, a plain Send where the design specifies Review & send; the engineer fixes it with keyboard and mouse, the preview updates and the implementation review passes.",
     },
     {
-      title: "Learn & evolve",
-      desc: "I keep learning from how the product is used, turning real outcomes and feedback into insights that continuously refine the experience and shape the next iteration.",
-      scene: "The live product's usage signals point to one opportunity. The designer points to it and selects the next iteration from his laptop, a tone control appears on the reply draft, and he turns back to prototype again.",
+      title: "Iterate & ship",
+      desc: "With AI-assisted development, I turn feedback into focused UI and UX improvements, validate changes in code, and open pull requests for review.",
+      scene: "Support feedback shows agents can't tell whether a draft has been reviewed, and a small fix is agreed. The designer types the change for an AI assistant with his screen shared on the wall display, accepts a new review-state badge in the code, compares before and after in the preview, runs local checks and opens a pull request that waits for team review.",
     },
   ];
 
