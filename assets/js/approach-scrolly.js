@@ -30,8 +30,8 @@
     },
     {
       title: "Build with fidelity",
-      desc: "I work closely with engineering to translate validated interactions into reliable products, preserving the details, behaviours and consistency that define the intended experience.",
-      scene: "An engineer, seated at his workstation, reviews the implemented reply draft with the designer standing beside him. The designer points out one mismatch on the shared display, a plain Send where the design specifies Review & send; the engineer fixes it with keyboard and mouse, the preview updates and the implementation review passes.",
+      desc: "I extended our enterprise design system with AI-native patterns and distilled its principles into a reusable UX skill, helping developers build with AI while preserving design fidelity.",
+      scene: "The designer presents Relay UI, his AI-native design system of tokens, components and AI patterns, on the wall display and distils it into a reusable UX skill. Seated at his workstation with his screen shared, the engineer asks his AI coding assistant to build the reply draft; it applies the skill and uses the system's components. The designer points out a plain Send where the design specifies Review & send; the engineer fixes it and the build matches the design.",
     },
     {
       title: "Iterate & ship",
