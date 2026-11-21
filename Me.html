@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="./assets/css/workspace.css" />
 </head>
 <body class="la-body">
+  <!-- Restores a collapsed sidebar before first paint; the key must match SIDEBAR_COLLAPSE_KEY in workspace-app.js -->
+  <script>try { if (localStorage.getItem("laSidebarCollapsed") === "1") document.body.classList.add("la-sidebar-collapsed"); } catch (e) {}</script>
   <a class="la-skip" href="#la-workspace">Skip to main content</a>
 
   <div class="la-backdrop" id="la-backdrop" hidden aria-hidden="true"></div>

@@ -524,58 +524,188 @@ body.la-body a {
   height: 18px;
 }
 
-/* Collapsed sidebar (desktop): only the width changes and labels hide. Padding,
-   the 48px brand row and every icon's left anchor match the expanded state. */
-body.la-sidebar-collapsed .la-sidebar {
-  width: 68px;
-  overflow-x: hidden;
+/* Desktop sidebar, expanded and collapsed. Drawer mode (≤900px) does not use any of this.
+   Collapsed, every control spans the rail's content box and sits on one axis — the centre of
+   the rail — through explicit padding, so the width transition interpolates between fixed
+   values and icons only settle by a few pixels instead of jumping. */
+@media not all and (max-width: 900px) {
+  .la-sidebar {
+    --la-rail-w: 68px;
+    --la-rail-pad-x: 12px;
+    --la-sidebar-dur: 240ms;
+    --la-sidebar-ease: ease-out;
+    --la-sidebar-label-out: 90ms;
+    --la-sidebar-label-in: 140ms;
+    --la-sidebar-move: calc(var(--la-sidebar-dur) - var(--la-sidebar-label-out));
+    overflow-x: hidden;
+  }
+
+  .la-sidebar__top {
+    position: relative;
+    flex-shrink: 0;
+    align-items: flex-start;
+    height: 48px;
+  }
+
+  .la-sidebar-profile {
+    margin-right: calc(var(--la-sidebar-item-h) + 4px);
+  }
+
+  .la-sidebar__collapse {
+    position: absolute;
+    top: calc((48px - var(--la-sidebar-item-h)) / 2);
+    left: calc(100% - var(--la-sidebar-item-h));
+    width: var(--la-sidebar-item-h);
+    height: var(--la-sidebar-item-h);
+    border-radius: var(--radius-medium);
+    transition: background 150ms var(--la-ease);
+  }
+
+  .la-sidebar .la-nav__link {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  body.la-sidebar-collapsed .la-sidebar {
+    width: var(--la-rail-w);
+  }
+
+  body.la-sidebar-collapsed .la-sidebar__top {
+    height: calc(48px + 4px + var(--la-sidebar-item-h));
+    margin-bottom: 4px;
+  }
+
+  body.la-sidebar-collapsed .la-sidebar-profile {
+    margin-right: 0;
+    padding-left: calc((var(--la-rail-w) - 2 * var(--la-rail-pad-x) - 32px) / 2);
+  }
+
+  body.la-sidebar-collapsed .la-sidebar__collapse {
+    top: calc(48px + 4px);
+    left: 0;
+    width: 100%;
+  }
+
+  body.la-sidebar-collapsed .la-sidebar .la-nav__link {
+    padding-inline: calc((var(--la-rail-w) - 2 * var(--la-rail-pad-x) - 18px) / 2);
+  }
+
+  body.la-sidebar-collapsed .la-sidebar-profile__content,
+  body.la-sidebar-collapsed .la-sidebar .la-nav__link > span {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  body.la-sidebar-collapsed .la-work,
+  body.la-sidebar-collapsed .la-chat .la-work__label {
+    display: none;
+  }
+
+  body.la-sidebar-collapsed .la-nav--primary {
+    margin-bottom: 8px;
+  }
+
+  body.la-sidebar-collapsed .la-chat,
+  body.la-sidebar-collapsed .la-chat__new {
+    margin-top: 0;
+  }
+
+  /* Motion starts with the first toggle click, so a state restored on load does not animate.
+     Labels fade out quickly as the rail starts to narrow, and fade in once it has mostly widened. */
+  body.la-sidebar-motion .la-sidebar {
+    transition: width var(--la-sidebar-dur) var(--la-sidebar-ease);
+  }
+
+  body.la-sidebar-motion .la-sidebar__top {
+    transition: height var(--la-sidebar-dur) var(--la-sidebar-ease),
+      margin-bottom var(--la-sidebar-dur) var(--la-sidebar-ease);
+  }
+
+  /* The toggle keeps its right edge on the rail's edge throughout and must stay clear of the
+     profile text: collapsing, it waits for the text to fade out before it moves; expanding, it
+     moves faster than the rail widens, so it is already beside the text when the text fades in.
+     The profile keeps its space beside the toggle whenever the text is visible. */
+  body.la-sidebar-motion .la-sidebar-profile {
+    transition: background 150ms var(--la-ease),
+      padding-left var(--la-sidebar-dur) var(--la-sidebar-ease);
+  }
+
+  body.la-sidebar-motion.la-sidebar-collapsed .la-sidebar-profile {
+    transition: background 150ms var(--la-ease),
+      padding-left var(--la-sidebar-dur) var(--la-sidebar-ease),
+      margin-right var(--la-sidebar-move) var(--la-sidebar-ease) var(--la-sidebar-label-out);
+  }
+
+  body.la-sidebar-motion .la-sidebar__collapse {
+    transition: background 150ms var(--la-ease),
+      top var(--la-sidebar-move) var(--la-sidebar-ease),
+      left var(--la-sidebar-move) var(--la-sidebar-ease),
+      width var(--la-sidebar-move) var(--la-sidebar-ease);
+  }
+
+  body.la-sidebar-motion.la-sidebar-collapsed .la-sidebar__collapse {
+    transition: background 150ms var(--la-ease),
+      top var(--la-sidebar-move) var(--la-sidebar-ease) var(--la-sidebar-label-out),
+      left var(--la-sidebar-move) var(--la-sidebar-ease) var(--la-sidebar-label-out),
+      width var(--la-sidebar-move) var(--la-sidebar-ease) var(--la-sidebar-label-out);
+  }
+
+  body.la-sidebar-motion .la-sidebar .la-nav__link {
+    transition: background 150ms var(--la-ease),
+      padding var(--la-sidebar-dur) var(--la-sidebar-ease);
+  }
+
+  body.la-sidebar-motion .la-sidebar-profile__content,
+  body.la-sidebar-motion .la-sidebar .la-nav__link > span,
+  body.la-sidebar-motion .la-sidebar > .la-work {
+    transition: opacity var(--la-sidebar-label-in) linear var(--la-sidebar-label-out),
+      visibility 0s linear var(--la-sidebar-label-out);
+  }
+
+  body.la-sidebar-motion.la-sidebar-collapsed .la-sidebar-profile__content,
+  body.la-sidebar-motion.la-sidebar-collapsed .la-sidebar .la-nav__link > span {
+    transition: opacity var(--la-sidebar-label-out) linear,
+      visibility 0s linear var(--la-sidebar-label-out);
+  }
+
+  body.la-sidebar-motion .la-sidebar > .la-nav--primary {
+    transition: margin-bottom var(--la-sidebar-dur) var(--la-sidebar-ease);
+  }
+
+  /* The collapsed Projects trigger stays out of the layout until the project list has faded out
+     (a transition cannot hold display: none through a delay; a backwards-filled animation can),
+     so the trigger never pushes the list down mid-fade. */
+  body.la-sidebar-motion.la-sidebar-collapsed .la-sidebar > .la-work {
+    opacity: 0;
+    transition: opacity var(--la-sidebar-label-out) linear,
+      display var(--la-sidebar-label-out) allow-discrete;
+  }
+
+  body.la-sidebar-motion.la-sidebar-collapsed .la-projects-trigger {
+    animation: la-sidebar-reveal var(--la-sidebar-label-in) linear var(--la-sidebar-label-out) backwards;
+  }
+
+  @starting-style {
+    body.la-sidebar-motion .la-sidebar > .la-work {
+      opacity: 0;
+    }
+  }
+
+  /* The global reduced-motion rule shortens durations but not delays */
+  @media (prefers-reduced-motion: reduce) {
+    .la-sidebar {
+      --la-sidebar-dur: 0s;
+      --la-sidebar-label-out: 0s;
+      --la-sidebar-label-in: 0s;
+    }
+  }
 }
 
-body.la-sidebar-collapsed .la-sidebar__top {
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 4px;
-  width: 100%;
-  margin-bottom: 4px;
-}
-
-body.la-sidebar-collapsed .la-sidebar-profile {
-  flex: none;
-  width: 48px;
-}
-
-body.la-sidebar-collapsed .la-sidebar-profile__content {
-  display: none;
-}
-
-body.la-sidebar-collapsed .la-sidebar__collapse {
-  flex: none;
-  margin-left: 4px;
-}
-
-body.la-sidebar-collapsed .la-nav__link span,
-body.la-sidebar-collapsed .la-work,
-body.la-sidebar-collapsed .la-chat .la-work__label,
-body.la-sidebar-collapsed .la-chat__new span,
-body.la-sidebar-collapsed .la-sidebar__footer span {
-  display: none;
-}
-
-body.la-sidebar-collapsed .la-nav--primary {
-  margin-bottom: 8px;
-  align-items: flex-start;
-  width: 100%;
-}
-
-body.la-sidebar-collapsed .la-chat,
-body.la-sidebar-collapsed .la-chat__new {
-  margin-top: 0;
-}
-
-body.la-sidebar-collapsed .la-nav__link,
-body.la-sidebar-collapsed .la-sidebar__footer a {
-  width: 40px;
+@keyframes la-sidebar-reveal {
+  from {
+    display: none;
+    opacity: 0;
+  }
 }
 
 /* Mobile chrome */

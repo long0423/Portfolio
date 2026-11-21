@@ -1036,6 +1036,7 @@
     if (backdrop) backdrop.addEventListener("click", closeDrawer);
     if (collapseBtn) {
       collapseBtn.addEventListener("click", function () {
+        document.body.classList.add("la-sidebar-motion");
         document.body.classList.toggle("la-sidebar-collapsed");
         syncCollapseButton();
         closeFlyout();
