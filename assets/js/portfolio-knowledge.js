@@ -65,11 +65,11 @@ window.PortfolioKnowledge = (function () {
         "<strong>Delivery:</strong> Phased milestones, shaped by user and engineering feedback.",
       ],
       preview: {
-        kind: "identity",
+        kind: "product",
         category: "AI drafting and review \u00b7 Tax",
         summary: "An agent-enabled drafting workspace where tax teams draft advice, check sources and review AI output.",
-        image: "assets/images/shared/write.svg",
-        alt: "Write logo with a \u201cBuild for AI\u201d label",
+        image: "assets/images/previews/write-preview.webp",
+        alt: "Write drafting workspace: navigation for documents, knowledge and templates, a prompt composer with sources and prompts, and recommended workflows",
       },
     },
     {
@@ -103,11 +103,11 @@ window.PortfolioKnowledge = (function () {
       isRecentlyUpdated: true,
       isAiNative: true,
       preview: {
-        kind: "identity",
+        kind: "product",
         category: "AI-assisted regulatory assurance",
         summary: "AI suggestions, test-plan drafts and triage inside an assurance workspace, where a person still decides.",
-        image: "projects/pathfinder/assets/images/regulatory-pathfinder-thumbnail.svg",
-        alt: "Pathfinder logo with a \u201cBuild for AI\u201d label",
+        image: "assets/images/previews/pathfinder-preview.webp",
+        alt: "Regulatory Pathfinder workspace: tabs for regulations, artefacts, controls, tests and incidents above a control register with definition status and a Review AI suggestions action",
       },
     },
     {
@@ -141,11 +141,11 @@ window.PortfolioKnowledge = (function () {
         "<strong>Recent:</strong> An outcome-first view of multi-agent runs, shown in a working prototype demo beside a reconstruction of the earlier view.",
       ],
       preview: {
-        kind: "identity",
+        kind: "product",
         category: "Enterprise AI agent workspace",
         summary: "A workspace for agents, conversation and artefacts, with agent activity shown on demand.",
-        image: "assets/images/shared/agentOS.svg",
-        alt: "AgentOS logo with a \u201cBuild for AI\u201d label",
+        image: "assets/images/previews/agentos-preview.webp",
+        alt: "AgentOS workspace in three panels: agents with their status, a chat with suggested agent cards and a composer, and a studio of artefacts",
       },
     },
     {
@@ -165,11 +165,11 @@ window.PortfolioKnowledge = (function () {
       isAiNative: true,
       facts: ["<strong>Status:</strong> The full case study is in preparation."],
       preview: {
-        kind: "identity",
+        kind: "product",
         category: "Enterprise AI chat",
         summary: "An enterprise AI chat workspace with agent, prompt and chat-history navigation.",
-        image: "assets/images/shared/chatpwc_front_img.svg",
-        alt: "ChatPwC logo with a \u201cBuild for AI\u201d label",
+        image: "assets/images/previews/chatpwc-preview.webp",
+        alt: "ChatPwC chat workspace: a sidebar with new chat, agent builder, prompts and recent chats, beside a conversation and the message composer",
       },
     },
     {
@@ -207,11 +207,12 @@ window.PortfolioKnowledge = (function () {
         "<strong>Status:</strong> Case study in progress.",
       ],
       preview: {
-        kind: "identity",
+        kind: "illustration",
         category: "Platform \u00b7 AI-native design system",
         summary: "Shared AI-native patterns, from prompt composer to agent and recovery states, across several AI products.",
-        image: "projects/ai-design-system/assets/images/enterprise-ai-design-system-thumbnail.svg",
-        alt: "Design system wordmark with a \u201cBuild for AI\u201d label",
+        image: "assets/images/previews/ai-design-system-preview.webp",
+        alt: "Illustrative AI-native design system sample: semantic colours, type scale, buttons and form controls, a prompt composer with source files, agent activity steps, an access request and a reviewed answer with citations",
+        caption: "Illustrative design-system preview",
       },
     },
     {
@@ -269,8 +270,8 @@ window.PortfolioKnowledge = (function () {
         kind: "product",
         category: "Engagement surveys and insights",
         summary: "A redesign of a team survey platform for clearer results, survey management and insights.",
-        image: "assets/images/shared/pulse_front_img.svg",
-        alt: "Engagement Pulse dashboard with surveys, team scores and a results chart, beside a mobile survey question",
+        image: "assets/images/previews/pulse-preview.webp",
+        alt: "Engagement Pulse dashboard on a laptop with surveys, team scores and a results chart, beside a phone showing a survey question",
       },
     },
     {

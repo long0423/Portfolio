@@ -120,7 +120,7 @@
 
   /*
    * Only the reviewed, public-safe `preview` fields of a registry entry reach the dialog
-   * (image, alt text, kind, category, summary). A project without an approved image, or an
+   * (image, alt text, kind, category, summary, caption). A project without an approved image, or an
    * image that fails to load, gets the text-only layout.
    */
   function previewFor(key) {
@@ -134,7 +134,7 @@
       summary: preview.summary || "",
       image: preview.image || "",
       alt: preview.alt || "",
-      caption: isConcept ? "Concept illustration" : "",
+      caption: preview.caption || (isConcept ? "Concept illustration" : ""),
       note: isConcept ? "Concept overview available on request." : "Full case study available on request.",
       cta: isConcept ? "Request concept overview" : "Request full case study",
       group: isLab ? "Independent Lab" : project ? "Professional work" : "",
