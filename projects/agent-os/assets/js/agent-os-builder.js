@@ -29,23 +29,23 @@
     },
     {
       id: "ace-weekly",
-      title: "Meeting Summary – ACE Weekly Check-in",
+      title: "Meeting Summary – CoE Weekly Check-in",
       meta: "Summary created from Teams transcript · Ready to review",
       stamp: "12m",
       status: "review",
       date: "6 Oct",
       reply:
-        "I summarised the ACE Weekly Check-in from the Teams transcript. Decisions, owners, and open questions are ready for review.",
+        "I summarised the CoE Weekly Check-in from the Teams transcript. Decisions, owners, and open questions are ready for review.",
     },
     {
-      id: "bluescope-insights",
-      title: "Client Insights – Bluescope Manufacturing",
+      id: "aldervane-insights",
+      title: "Client Insights – Aldervane Manufacturing",
       meta: "Extracted 5 key insights · Draft saved",
       stamp: "1h",
       status: "draft",
       date: "2 Oct",
       reply:
-        "Draft insights from the Bluescope manufacturing pack are saved. Five themes are highlighted, including margin pressure and ESG reporting load.",
+        "Draft insights from the Aldervane manufacturing pack are saved. Five themes are highlighted, including margin pressure and ESG reporting load.",
     },
     {
       id: "tax-use-cases",
@@ -91,7 +91,7 @@
       stamp: "2h",
       status: "progress",
       date: "25 Sep",
-      reply: "The product description rewrite is in progress. Current draft is aligned to PwC tone and ACE positioning.",
+      reply: "The product description rewrite is in progress. Current draft is aligned to PwC tone and CoE positioning.",
     },
     {
       id: "engagement-pulse",
@@ -131,11 +131,11 @@
   const ARTEFACTS = [
     { id: "precedent-meta", title: "Precedent Meta Analysis", meta: "19 mins ago", category: "text", sort: "recent", owner: "mine", generatedByAgentId: "risk-framework" },
     { id: "wbs", title: "Work Breakdown Structure", meta: "52 mins ago", category: "text", sort: "recent", owner: "mine", generatedByAgentId: "wbs-draft" },
-    { id: "precedent-mfg", title: "Precedent Insights Manufacturing", meta: "4 hours ago", category: "text", sort: "recent", owner: "shared", generatedByAgentId: "bluescope-insights" },
+    { id: "precedent-mfg", title: "Precedent Insights Manufacturing", meta: "4 hours ago", category: "text", sort: "recent", owner: "shared", generatedByAgentId: "aldervane-insights" },
     { id: "storyline", title: "Storyline Structure", meta: "2 days ago", category: "presentations", sort: "recent", owner: "mine", generatedByAgentId: "risk-framework" },
-    { id: "case-studies", title: "Case Studies Bluescope", meta: "2 days ago", category: "presentations", sort: "recent", owner: "shared", generatedByAgentId: "bluescope-insights" },
-    { id: "risk-profile", title: "Risk Profile Bluescope 24/09/2025 V1", meta: "2 days ago", category: "charts", sort: "recent", owner: "mine", generatedByAgentId: "risk-framework" },
-    { id: "frameworks", title: "Client Frameworks Bluescope Standard 2025", meta: "4 days ago", category: "data", sort: "recent", owner: "shared", generatedByAgentId: "bluescope-insights" },
+    { id: "case-studies", title: "Case Studies Aldervane", meta: "2 days ago", category: "presentations", sort: "recent", owner: "shared", generatedByAgentId: "aldervane-insights" },
+    { id: "risk-profile", title: "Risk Profile Aldervane 24/09/2025 V1", meta: "2 days ago", category: "charts", sort: "recent", owner: "mine", generatedByAgentId: "risk-framework" },
+    { id: "frameworks", title: "Client Frameworks Aldervane Standard 2025", meta: "4 days ago", category: "data", sort: "recent", owner: "shared", generatedByAgentId: "aldervane-insights" },
     { id: "use-case-map", title: "Tax Division Use Case Map", meta: "1 day ago", category: "charts", sort: "recent", owner: "mine", generatedByAgentId: "tax-use-cases" },
     { id: "commercial-assumptions", title: "Commercial Model Assumptions", meta: "5 days ago", category: "data", sort: "recent", owner: "mine", generatedByAgentId: "commercial-model" },
   ];
@@ -149,7 +149,7 @@
       html:
         "<h1>Proposal Risk Framework Assessment</h1>" +
         "<h2>1. Executive Summary</h2>" +
-        "<p>This assessment consolidates precedent reviews across comparable industrial engagements and maps residual exposure against the proposed Bluescope risk framework for FY27 planning. The engagement is ready to take into the client workshop once residual High items have named owners.</p>" +
+        "<p>This assessment consolidates precedent reviews across comparable industrial engagements and maps residual exposure against the proposed Aldervane risk framework for FY27 planning. The engagement is ready to take into the client workshop once residual High items have named owners.</p>" +
         "<p>Inherent risk remains High in delivery and regulatory. Residual risk improves where stream owners are already named. Commercial exposure is driven by contingency phrasing rather than fee quantum, and should be treated as a wording risk rather than a pricing reset.</p>" +
         "<h2>2. Scope and Objectives</h2>" +
         "<p>The review covers governance, delivery, commercial, and regulatory risk. Findings are drawn from five completed proposal files, the current FY27 risk register extract, and interviews with the engagement partner and delivery lead.</p>" +
@@ -223,7 +223,7 @@
           "Plant-level data quality delaying group risk aggregation.",
           "Assurance findings repeating where ownership is shared across functions.",
         ] },
-        { type: "h2", text: "Implication for Bluescope" },
+        { type: "h2", text: "Implication for Aldervane" },
         { type: "p", text: "The current proposal should treat data readiness as a first-wave workstream rather than an implementation afterthought. Precedent files that skipped this step required a mid-engagement reset." },
       ],
     },
@@ -243,7 +243,7 @@
     "case-studies": {
       kind: "presentation",
       slides: [
-        { kicker: "Bluescope", title: "Case studies overview", bullets: ["Three manufacturing analogues", "Shared pattern: data, ownership, reporting load", "Used to pressure-test the current proposal"] },
+        { kicker: "Aldervane", title: "Case studies overview", bullets: ["Three manufacturing analogues", "Shared pattern: data, ownership, reporting load", "Used to pressure-test the current proposal"] },
         { kicker: "Case 01", title: "Industrial metals group", bullets: ["Reset the risk framework mid-year", "Named stream owners reduced residual High items by half", "Monthly steerco was replaced with fortnightly"] },
         { kicker: "Case 02", title: "Building products network", bullets: ["ESG reporting sat outside finance", "A shared control library cut duplicate evidence", "Plant data quality was the hidden critical path"] },
         { kicker: "Case 03", title: "Integrated manufacturer", bullets: ["Commercial annex reopened twice on contingency wording", "Sensitivity cases needed a single owner", "Handover pack became the lasting artefact"] },
@@ -253,7 +253,7 @@
     },
     "risk-profile": {
       kind: "chart",
-      title: "Risk exposure — Bluescope",
+      title: "Risk exposure — Aldervane",
       xLabel: "Risk domain",
       yLabel: "Score (1–5)",
       legendVisible: true,
@@ -342,11 +342,11 @@
     proposal:
       "Draft a client proposal using the Proposal agent. Cover executive summary, strategy, analysis, budget, timeline, scope, risks, benefits and resources.",
     meetings:
-      "Prep me for today's meetings: Tax Advice AI at 10:00, ACE Daily Standup at 11:30, and the Bluescope risk review at 15:00.",
+      "Prep me for today's meetings: Tax Advice AI at 10:00, CoE Daily Standup at 11:30, and the Aldervane risk review at 15:00.",
     focus:
-      "Help me focus before Tax Advice AI — Langfuse. Review the agenda and draft a confirmation note for Xiaowen.",
+      "Help me focus before Tax Advice AI — Langfuse. Review the agenda and draft a confirmation note for Jordan.",
     emails:
-      "Summarise my recent emails, starting with the ACE weekly pack, Bluescope follow-up, and TOFA working notes.",
+      "Summarise my recent emails, starting with the CoE weekly pack, Aldervane follow-up, and TOFA working notes.",
     conflict:
       "Run a conflict check for the new client intake and summarise the two potential conflicts for Risk confirmation.",
     commercial:
@@ -497,14 +497,14 @@
     },
     "ace-weekly": {
       prompt:
-        "Summarise the ACE Weekly Check-in and extract decisions, owners, and open questions I need before the next standup.",
+        "Summarise the CoE Weekly Check-in and extract decisions, owners, and open questions I need before the next standup.",
       result:
-        "The meeting confirmed two decisions and four open questions. Owners are assigned for the Langfuse follow-up and Bluescope risk review.",
-      resultDetail: "Xiaowen owns the Langfuse confirmation note. The Bluescope risk pack still needs a reviewer before Friday.",
+        "The meeting confirmed two decisions and four open questions. Owners are assigned for the Langfuse follow-up and Aldervane risk review.",
+      resultDetail: "Jordan owns the Langfuse confirmation note. The Aldervane risk pack still needs a reviewer before Friday.",
       flow: [
         {
           type: "user",
-          text: "Summarise the ACE Weekly Check-in and extract decisions, owners, and open questions I need before the next standup.",
+          text: "Summarise the CoE Weekly Check-in and extract decisions, owners, and open questions I need before the next standup.",
         },
         {
           type: "disclosure",
@@ -518,7 +518,7 @@
           label: "Thought briefly",
           paragraphs: [
             "I treated this as a standup brief: decisions, named owners, and unresolved questions only.",
-            "The note should be short enough to scan before the next ACE check-in.",
+            "The note should be short enough to scan before the next CoE check-in.",
           ],
         },
         {
@@ -530,7 +530,7 @@
           demo: "agent-activity-files",
           label: "Explored 3 files · 2 searches",
           events: [
-            { icon: "file-search", label: "Scanned ACE Weekly transcript", detail: "Decisions, owners and parking-lot items", duration: "8s" },
+            { icon: "file-search", label: "Scanned CoE Weekly transcript", detail: "Decisions, owners and parking-lot items", duration: "8s" },
             { icon: "search", label: "Matched owners to action items", duration: "4s" },
             { icon: "database", label: "Checked prior standup notes", duration: "3s" },
             { icon: "file-text", label: "Reviewed previous action log", duration: "2s" },
@@ -538,40 +538,40 @@
         },
         {
           type: "primary",
-          text: "Two decisions are confirmed. Four questions remain open, including the Bluescope reviewer and the Langfuse note.",
+          text: "Two decisions are confirmed. Four questions remain open, including the Aldervane reviewer and the Langfuse note.",
         },
         {
           type: "disclosure",
           demo: "agent-analysis",
           label: "Grouped 6 discussion threads",
-          items: ["Langfuse follow-up", "Bluescope risk pack", "Tax Advice AI agenda", "Resourcing", "Client comms", "Open actions"],
+          items: ["Langfuse follow-up", "Aldervane risk pack", "Tax Advice AI agenda", "Resourcing", "Client comms", "Open actions"],
         },
         {
           type: "primary",
-          text: "Xiaowen owns the Langfuse confirmation note. The Bluescope risk pack still needs a named reviewer before Friday.",
+          text: "Jordan owns the Langfuse confirmation note. The Aldervane risk pack still needs a named reviewer before Friday.",
         },
         {
           type: "final",
           demo: "agent-final-response",
           text: "Ready-to-review summary:",
           points: [
-            "Decisions: Langfuse note assigned to Xiaowen; ACE standup time unchanged",
-            "Open: Bluescope reviewer, Friday pack, Tax Advice AI confirmation, resourcing overlap",
+            "Decisions: Langfuse note assigned to Jordan; CoE standup time unchanged",
+            "Open: Aldervane reviewer, Friday pack, Tax Advice AI confirmation, resourcing overlap",
           ],
           close: "I can turn this into a standup brief or continue in chat to draft the confirmation note.",
         },
       ],
     },
-    "bluescope-insights": {
+    "aldervane-insights": {
       prompt:
-        "Extract the key Bluescope manufacturing insights and highlight margin, operations, and ESG themes for the client update.",
+        "Extract the key Aldervane manufacturing insights and highlight margin, operations, and ESG themes for the client update.",
       result:
         "Five draft insights are ready. The strongest themes are margin pressure in manufacturing and an increasing ESG reporting load.",
       resultDetail: "Operations commentary is still in draft. I can continue in chat to tighten the client-ready wording.",
       flow: [
         {
           type: "user",
-          text: "Extract the key Bluescope manufacturing insights and highlight margin, operations, and ESG themes for the client update.",
+          text: "Extract the key Aldervane manufacturing insights and highlight margin, operations, and ESG themes for the client update.",
         },
         {
           type: "disclosure",
@@ -596,7 +596,7 @@
           demo: "agent-activity-files",
           label: "Explored 4 files · 2 searches",
           events: [
-            { icon: "file-search", label: "Reviewed Bluescope manufacturing pack", duration: "7s" },
+            { icon: "file-search", label: "Reviewed Aldervane manufacturing pack", duration: "7s" },
             { icon: "search", label: "Compared prior client insights", duration: "5s" },
             { icon: "globe", label: "Checked latest ESG reporting notes", duration: "4s" },
             { icon: "file-text", label: "Reviewed Precedent Insights Manufacturing", duration: "3s" },
@@ -686,7 +686,7 @@
   const AGENT_DEMO_TARGETS = {
     "risk-framework": "agent-row-proposal",
     "ace-weekly": "agent-row-ace",
-    "bluescope-insights": "agent-row-bluescope",
+    "aldervane-insights": "agent-row-aldervane",
     "wbs-draft": "agent-row-wbs",
     "esg-proposal": "agent-row-esg",
   };
