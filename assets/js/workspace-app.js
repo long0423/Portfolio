@@ -69,7 +69,7 @@
   function labsLibraryHtml() {
     if (!LAB_PROJECTS.length || !PK.projectCardHtml) return "";
     return (
-      '<p class="ws-detail__lead">Products, tools and experiments built outside the brief. Watch Face Layout Studio is built and tested. The other three are explorations and concepts, not released products.</p>' +
+      '<p class="ws-detail__lead">Personal products and experiments outside professional work. Watch Face Layout Studio is built and tested (v0.1.0) in a private repository. Garmin Health Companion is a private exploration, and the other two are concepts. None is publicly released.</p>' +
       '<div class="la-project-cards">' +
       LAB_PROJECTS.map(PK.projectCardHtml).join("") +
       "</div>"
@@ -83,16 +83,17 @@
       icon: "user-round",
       get html() {
         return `
-        <p class="ws-detail__lead">Long Geng is a Product &amp; UX Designer with ${experienceHtml()} blending design and development, focused on enterprise AI products at PwC Australia.</p>
+        <p class="ws-detail__lead">Long Geng is an AI product designer with ${experienceHtml()} across product design and front-end development. He leads design for enterprise AI products at PwC Australia’s AI Centre of Excellence.</p>
         <ul class="ws-detail__list">
-          <li><strong>Focus:</strong> Complex AI workflows across tax, deals, document intelligence, and agent operations.</li>
-          <li><strong>Working style:</strong> Close collaboration with PMs, engineers, and SMEs from concept through release.</li>
+          <li><strong>Focus:</strong> AI products where people stay in control — tax advice drafting, regulatory assurance and agent workspaces.</li>
+          <li><strong>How he works:</strong> AI-first and prototype-first, increasingly hands-on in code, and close to engineering until the details ship.</li>
+          <li><strong>Outside work:</strong> Independent Labs — small products and concepts, including a watch-face layout tool he built.</li>
           <li><strong>Based in:</strong> Melbourne</li>
         </ul>`;
       },
       related: [
         { label: "What makes Long a strong AI product designer?", prompt: "What makes Long a strong AI product designer?" },
-        { label: "Tell me about Long’s background", prompt: "Tell me about Long." },
+        { label: "Tell me about Long’s background", prompt: "Tell me about Long’s background and experience." },
       ],
     },
     {
@@ -100,17 +101,17 @@
       title: "Experience",
       icon: "briefcase",
       html: `
-        <p class="ws-detail__lead">PwC Australia — AI Centre of Excellence</p>
+        <p class="ws-detail__lead">Product design and front-end development, most recently leading AI product design at PwC Australia.</p>
         <ul class="ws-detail__list">
-          <li><strong>AgentOS:</strong> Led design for the foundational experience, system identity, and visual language — including a 3-panel model for sources, chat, and creation.</li>
-          <li><strong>Tax Advice AI (Write):</strong> Led the redesign from a limited editor into an AI-agent-enabled drafting and review workspace.</li>
-          <li><strong>M&amp;A Path:</strong> UX/UI Design Lead unifying fragmented deal data and collaboration flows for Deals teams.</li>
-          <li><strong>Regulatory Pathfinder:</strong> Led UX/UI for an AI-assisted assurance workspace connecting controls, testing, evidence, review and incident triage.</li>
-          <li><strong>Additional product work:</strong> ChatPwC, Engagement Pulse, and Digital Customer Blueprint.</li>
+          <li><strong>2020 – now · UX/UI &amp; AI Product Design Lead, PwC Australia (AI Centre of Excellence).</strong> Design lead on Tax Advice AI, Regulatory Pathfinder and AgentOS; redesigned the Enterprise AI Design System. Also ChatPwC, M&amp;A Path (UX/UI lead and front-end), Engagement Pulse and Digital Customer Blueprint.</li>
+          <li><strong>2022 · UX/UI Bootcamp Tutor, Monash University</strong> (part-time).</li>
+          <li><strong>2017 – 2020 · Front End Developer &amp; Product Designer, Desert Software.</strong> Product design and React front-end work.</li>
+          <li><strong>2016 – 2017 · Web Developer &amp; UX/UI Designer</strong> at Umbrella Dementia Cafes and Shengxiao Machinery.</li>
+          <li><strong>Education:</strong> Master of Information Technology, Monash University (2015 – 2017).</li>
         </ul>`,
       related: [
-        { label: "What was his role and impact?", prompt: "What was his role and impact on key projects?" },
-        { label: "Which AI products has he worked on?", prompt: "Which projects are AI native?" },
+        { label: "What AI products has he designed?", prompt: "What AI products has Long designed?" },
+        { label: "How hands-on is he with code?", prompt: "How hands-on is Long with prototyping and code?" },
       ],
     },
     {
@@ -118,21 +119,18 @@
       title: "AI capabilities",
       icon: "sparkles",
       html: `
-        <p class="ws-detail__lead">Enterprise AI product design where AI is central to the workflow — not a decorative feature.</p>
+        <p class="ws-detail__lead">Capabilities shown in the case studies, where AI is part of the workflow rather than a feature on the side.</p>
         <ul class="ws-detail__list">
-          <li>Agent UX and multi-panel workspaces</li>
-          <li>Human-in-the-loop review and approval</li>
-          <li>Evidence, sources, and explainability</li>
-          <li>Generative drafting and review flows</li>
-          <li>Trustworthy human–AI interaction patterns</li>
-          <li>AI interaction systems</li>
-          <li>Agent and conversational patterns</li>
-          <li>Trust, evidence and recovery states</li>
-          <li>Reusable AI-native components</li>
+          <li><strong>Agent experience:</strong> Agent workspaces and sidebars, and multi-agent runs that show the outcome first with each agent’s activity on demand.</li>
+          <li><strong>Human in the loop:</strong> Suggestions beside the original value, editable drafts, and explicit accept, confirm or override.</li>
+          <li><strong>Evidence and review:</strong> Citations, sources and review state kept with the output, so it can be checked before it is used.</li>
+          <li><strong>Progressive disclosure:</strong> Dense workflows that stay readable — essentials first, detail when it is needed.</li>
+          <li><strong>AI-native patterns:</strong> Prompt composers, agent states, citations, loading, permission and recovery states as shared components.</li>
+          <li><strong>AI-assisted delivery:</strong> Working prototypes early, tested against real scenarios, then focused changes validated in code for review.</li>
         </ul>`,
       related: [
         { label: "How does he design trustworthy AI?", prompt: "How does he design trustworthy human–AI interactions?" },
-        { label: "How does he approach complex AI problems?", prompt: "How does he approach complex AI problems?" },
+        { label: "What is his AI-first approach?", prompt: "What is Long’s AI-first approach?" },
         { label: "How did he build an AI-native design system?", prompt: "How did Long build an AI-native design system?" },
       ],
     },
@@ -141,14 +139,17 @@
       title: "Skills and tools",
       icon: "wrench",
       html: `
-        <p class="ws-detail__lead">Core strengths sit at the intersection of AI product UX, enterprise workflow design, and implementation-aware collaboration.</p>
+        <p class="ws-detail__lead">Product design with enough engineering to prototype, build and review in code.</p>
         <ul class="ws-detail__list">
-          <li><strong>AI / agent UX:</strong> Human-in-the-loop systems, drafting/review, multi-panel workspaces</li>
-          <li><strong>Systems thinking:</strong> Information architecture, progressive disclosure, reusable patterns</li>
-          <li><strong>Design systems:</strong> Component architecture, interaction patterns, and design-to-development documentation</li>
-          <li><strong>Delivery:</strong> Prototyping, design-engineering handoff, and hands-on front-end collaboration</li>
+          <li><strong>Product and interaction design:</strong> Interaction models, information architecture and complex workflows, in Figma and, earlier, Sketch.</li>
+          <li><strong>Research and validation:</strong> Interviews, journey maps, competitor analysis and usability testing.</li>
+          <li><strong>Design systems:</strong> Component states and patterns, built on and extending enterprise design systems.</li>
+          <li><strong>Front-end:</strong> HTML, CSS, JavaScript and React — building pages and fixing UI issues alongside developers.</li>
+          <li><strong>AI-assisted development:</strong> Cursor to build working prototypes and make focused UI changes in code for review.</li>
+          <li><strong>Data visualisation:</strong> Dashboards and charts for deals, surveys and engagement results.</li>
         </ul>`,
       related: [
+        { label: "How hands-on is he with code?", prompt: "How hands-on is Long with prototyping and code?" },
         { label: "How does he collaborate with teams?", prompt: "How does he collaborate with product and engineering teams?" },
       ],
     },
@@ -157,19 +158,20 @@
       title: "Selected impact",
       icon: "target",
       html: `
-        <p class="ws-detail__lead">Impact shows up as reduced workflow complexity, clearer review and decision-making, and patterns that can be reused across products.</p>
+        <p class="ws-detail__lead">Impact is described by what changed in each workflow, from the case studies.</p>
         <ul class="ws-detail__list">
-          <li>Reduced tool fragmentation through unified interaction models</li>
-          <li>Clearer human–AI responsibility boundaries in advisory workflows</li>
-          <li>Reusable components and behaviours productised from validated patterns</li>
+          <li><strong>Tax Advice AI:</strong> A limited editor redesigned into an agent-enabled drafting and review workspace, delivered in phased milestones.</li>
+          <li><strong>Regulatory Pathfinder:</strong> AI help placed on the control, the test plan and the review, so a suggestion never overwrites the record.</li>
+          <li><strong>AgentOS:</strong> A three-panel workspace for agents, conversation and artefacts, and an outcome-first view of multi-agent runs shown in a prototype demo.</li>
           <li>
-            <strong>Enterprise AI Design System</strong> — Transformed a traditional enterprise SaaS design system into a modern AI-native interaction system, introducing reusable components, states and interaction patterns for multiple AI products.
+            <strong>Enterprise AI Design System:</strong> AI-specific interaction patterns standardised across several AI products, beyond a visual refresh.
             <br /><a href="#/project/ai-design-system" data-ws-nav="#/project/ai-design-system">View project</a>
           </li>
+          <li><strong>M&amp;A Path:</strong> One deals workflow application for data, workplans and collaboration, with pages he coded in React.</li>
         </ul>`,
       related: [
         { label: "Which case study should I review first?", prompt: "Which case study should I review first?" },
-        { label: "Review project impact", prompt: "What was his role and impact on key projects?" },
+        { label: "What AI products has he designed?", prompt: "What AI products has Long designed?" },
       ],
     },
   ];

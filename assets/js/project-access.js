@@ -112,6 +112,35 @@
     return id;
   }
 
+  function projectFor(key) {
+    var knowledge = window.PortfolioKnowledge;
+    if (!knowledge || typeof knowledge.getProjectById !== "function") return null;
+    return knowledge.getProjectById(resolveId(key));
+  }
+
+  /*
+   * Only the reviewed, public-safe `preview` fields of a registry entry reach the dialog
+   * (image, alt text, kind, category, summary). A project without an approved image, or an
+   * image that fails to load, gets the text-only layout.
+   */
+  function previewFor(key) {
+    var project = projectFor(key);
+    var preview = (project && project.preview) || {};
+    var isLab = !!(project && project.group === "labs");
+    var isConcept = preview.kind === "concept";
+    return {
+      name: (project && project.name) || displayName(key),
+      category: preview.category || "",
+      summary: preview.summary || "",
+      image: preview.image || "",
+      alt: preview.alt || "",
+      caption: isConcept ? "Concept illustration" : "",
+      note: isConcept ? "Concept overview available on request." : "Full case study available on request.",
+      cta: isConcept ? "Request concept overview" : "Request full case study",
+      group: isLab ? "Independent Lab" : project ? "Professional work" : "",
+    };
+  }
+
   function contactEmail() {
     var knowledge = window.PortfolioKnowledge;
     if (knowledge && knowledge.profile && knowledge.profile.email) return knowledge.profile.email;
@@ -183,23 +212,31 @@
     dialog.setAttribute("role", "dialog");
     dialog.setAttribute("aria-modal", "true");
     dialog.setAttribute("aria-labelledby", "pa-title");
-    dialog.setAttribute("aria-describedby", "pa-body");
+    dialog.setAttribute("aria-describedby", "pa-body pa-note");
     dialog.hidden = true;
     dialog.innerHTML =
       '<button type="button" class="pa-close" data-pa-close aria-label="Close">' +
       '<span aria-hidden="true">&times;</span>' +
       "</button>" +
-      '<p class="pa-eyebrow">Project access</p>' +
-      '<h2 id="pa-title">Case study available on request</h2>' +
+      '<figure class="pa-media" hidden>' +
+      '<img class="pa-media__img" alt="" decoding="async" />' +
+      '<figcaption class="pa-media__caption" hidden></figcaption>' +
+      "</figure>" +
+      '<div class="pa-content">' +
+      '<p class="pa-eyebrow" id="pa-category"></p>' +
+      '<h2 id="pa-title"></h2>' +
       '<p id="pa-body"></p>' +
+      '<p class="pa-note" id="pa-note"></p>' +
       '<div class="pa-actions">' +
-      '<a class="pa-primary" id="pa-contact">Contact me</a>' +
+      '<a class="pa-primary" id="pa-contact"></a>' +
       '<button type="button" class="pa-secondary" data-pa-close>Not now</button>' +
+      "</div>" +
       "</div>";
 
     dialog.addEventListener("click", function (event) {
       if (event.target.closest("[data-pa-close]")) close();
     });
+    dialog.querySelector(".pa-media__img").addEventListener("error", showTextOnly);
 
     document.body.appendChild(backdrop);
     document.body.appendChild(dialog);
@@ -217,17 +254,50 @@
     window.scrollTo(0, scrollY);
   }
 
+  function showTextOnly() {
+    if (!dialog) return;
+    dialog.querySelector(".pa-media").hidden = true;
+    dialog.classList.add("pa-dialog--text");
+  }
+
+  function fillDialog(options) {
+    var key = options.slug || options.id;
+    var p = previewFor(key);
+    var name = options.name || p.name;
+    var media = dialog.querySelector(".pa-media");
+    var img = media.querySelector(".pa-media__img");
+    var caption = media.querySelector(".pa-media__caption");
+    var category = [p.group, p.category].filter(Boolean).join(" \u00b7 ");
+
+    dialog.querySelector("#pa-category").textContent = category || "Project access";
+    dialog.querySelector("#pa-title").textContent = name;
+    dialog.querySelector("#pa-body").textContent =
+      p.summary ||
+      "I share detailed case studies and interactive prototypes upon request. If you'd like to explore " +
+        name +
+        " in more detail, please get in touch.";
+    dialog.querySelector("#pa-note").textContent = p.note;
+    var contact = dialog.querySelector("#pa-contact");
+    contact.textContent = p.cta;
+    contact.href = contactHref(name);
+
+    dialog.classList.remove("pa-dialog--text");
+    if (p.image) {
+      img.alt = p.alt;
+      img.src = portfolioRoot() + p.image;
+      caption.textContent = p.caption;
+      caption.hidden = !p.caption;
+      media.hidden = false;
+    } else {
+      img.removeAttribute("src");
+      showTextOnly();
+    }
+  }
+
   function open(options) {
     options = options || {};
     ensure();
-    var name = options.name || displayName(options.slug || options.id);
-    var body = dialog.querySelector("#pa-body");
-    var contact = dialog.querySelector("#pa-contact");
-    body.textContent =
-      "I share detailed case studies and interactive prototypes upon request. If you'd like to explore " +
-      name +
-      " in more detail, please get in touch.";
-    contact.href = contactHref(name);
+    fillDialog(options);
     lastFocus = options.trigger && options.trigger.focus ? options.trigger : document.activeElement;
     backdrop.hidden = false;
     dialog.hidden = false;

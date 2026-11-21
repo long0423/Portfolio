@@ -393,6 +393,7 @@
   }
 
   function enhanceApproachHtml(html) {
+    if (/href="(?:Me\.html)?#\/approach"/.test(html)) return html;
     return (
       html +
       `<div class="answer-links"><a class="answer-link" href="#/approach">Explore the full design approach <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>`
