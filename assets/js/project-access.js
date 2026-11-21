@@ -120,24 +120,26 @@
 
   /*
    * Only the reviewed, public-safe `preview` fields of a registry entry reach the dialog
-   * (image, alt text, kind, category, summary, caption). A project without an approved image, or an
+   * (image, alt text, category, summary, caption). A project without an approved image, or an
    * image that fails to load, gets the text-only layout.
+   * Independent Labs show image, name, summary and one availability line only: their category,
+   * caption and stage stay in the registry and are not repeated in the dialog.
    */
   function previewFor(key) {
     var project = projectFor(key);
     var preview = (project && project.preview) || {};
     var isLab = !!(project && project.group === "labs");
-    var isConcept = preview.kind === "concept";
     return {
       name: (project && project.name) || displayName(key),
-      category: preview.category || "",
+      lab: isLab,
+      category: isLab ? "" : preview.category || "",
       summary: preview.summary || "",
       image: preview.image || "",
       alt: preview.alt || "",
-      caption: preview.caption || (isConcept ? "Concept illustration" : ""),
-      note: isConcept ? "Concept overview available on request." : "Full case study available on request.",
-      cta: isConcept ? "Request concept overview" : "Request full case study",
-      group: isLab ? "Independent Lab" : project ? "Professional work" : "",
+      caption: isLab ? "" : preview.caption || "",
+      note: isLab ? "Project details available on request." : "Full case study available on request.",
+      cta: isLab ? "Request project details" : "Request full case study",
+      group: project && !isLab ? "Professional work" : "",
     };
   }
 
@@ -216,7 +218,8 @@
     dialog.hidden = true;
     dialog.innerHTML =
       '<button type="button" class="pa-close" data-pa-close aria-label="Close">' +
-      '<span aria-hidden="true">&times;</span>' +
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" ' +
+      'stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
       "</button>" +
       '<figure class="pa-media" hidden>' +
       '<img class="pa-media__img" alt="" decoding="async" />' +
@@ -268,8 +271,10 @@
     var img = media.querySelector(".pa-media__img");
     var caption = media.querySelector(".pa-media__caption");
     var category = [p.group, p.category].filter(Boolean).join(" \u00b7 ");
+    var eyebrow = dialog.querySelector("#pa-category");
 
-    dialog.querySelector("#pa-category").textContent = category || "Project access";
+    eyebrow.textContent = p.lab ? "" : category || "Project access";
+    eyebrow.hidden = p.lab;
     dialog.querySelector("#pa-title").textContent = name;
     dialog.querySelector("#pa-body").textContent =
       p.summary ||

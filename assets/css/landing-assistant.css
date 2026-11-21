@@ -525,13 +525,16 @@ body.la-body a {
 }
 
 /* Desktop sidebar, expanded and collapsed. Drawer mode (≤900px) does not use any of this.
-   Collapsed, every control spans the rail's content box and sits on one axis — the centre of
-   the rail — through explicit padding, so the width transition interpolates between fixed
-   values and icons only settle by a few pixels instead of jumping. */
+   Collapsed, every control — avatar included — is a square of --la-sidebar-item-h on one axis,
+   the centre of the rail, and the stack from the avatar to Projects keeps one gap. Insets and
+   paddings are explicit values, so the width transition interpolates between fixed values and
+   icons only settle by a few pixels instead of jumping. */
 @media not all and (max-width: 900px) {
   .la-sidebar {
     --la-rail-w: 68px;
     --la-rail-pad-x: 12px;
+    --la-rail-gap: var(--la-sidebar-item-stack-gap);
+    --la-rail-inset: calc((var(--la-rail-w) - 2 * var(--la-rail-pad-x) - var(--la-sidebar-item-h)) / 2);
     --la-sidebar-dur: 240ms;
     --la-sidebar-ease: ease-out;
     --la-sidebar-label-out: 90ms;
@@ -566,28 +569,36 @@ body.la-body a {
     overflow: hidden;
   }
 
+  /* Some items set width: 100% elsewhere; with auto width in both states only the inset animates */
+  body .la-sidebar .la-nav__link {
+    width: auto;
+  }
+
   body.la-sidebar-collapsed .la-sidebar {
     width: var(--la-rail-w);
   }
 
+  /* The avatar square stays centred on the 48px header row, so the logo does not move vertically */
   body.la-sidebar-collapsed .la-sidebar__top {
-    height: calc(48px + 4px + var(--la-sidebar-item-h));
-    margin-bottom: 4px;
+    height: calc((48px - var(--la-sidebar-item-h)) / 2 + 2 * var(--la-sidebar-item-h) + var(--la-rail-gap));
+    margin-bottom: var(--la-rail-gap);
   }
 
   body.la-sidebar-collapsed .la-sidebar-profile {
-    margin-right: 0;
-    padding-left: calc((var(--la-rail-w) - 2 * var(--la-rail-pad-x) - 32px) / 2);
+    height: var(--la-sidebar-item-h);
+    margin: calc((48px - var(--la-sidebar-item-h)) / 2) var(--la-rail-inset) 0;
+    padding-left: calc((var(--la-sidebar-item-h) - 32px) / 2);
+    border-radius: var(--radius-medium);
   }
 
   body.la-sidebar-collapsed .la-sidebar__collapse {
-    top: calc(48px + 4px);
-    left: 0;
-    width: 100%;
+    top: calc((48px - var(--la-sidebar-item-h)) / 2 + var(--la-sidebar-item-h) + var(--la-rail-gap));
+    left: var(--la-rail-inset);
   }
 
   body.la-sidebar-collapsed .la-sidebar .la-nav__link {
-    padding-inline: calc((var(--la-rail-w) - 2 * var(--la-rail-pad-x) - 18px) / 2);
+    margin-inline: var(--la-rail-inset);
+    padding-inline: calc((var(--la-sidebar-item-h) - 18px) / 2);
   }
 
   body.la-sidebar-collapsed .la-sidebar-profile__content,
@@ -601,8 +612,9 @@ body.la-body a {
     display: none;
   }
 
-  body.la-sidebar-collapsed .la-nav--primary {
-    margin-bottom: 8px;
+  body.la-sidebar-collapsed .la-sidebar > .la-nav--primary {
+    margin-top: 0;
+    margin-bottom: var(--la-rail-gap);
   }
 
   body.la-sidebar-collapsed .la-chat,
@@ -627,32 +639,36 @@ body.la-body a {
      The profile keeps its space beside the toggle whenever the text is visible. */
   body.la-sidebar-motion .la-sidebar-profile {
     transition: background 150ms var(--la-ease),
-      padding-left var(--la-sidebar-dur) var(--la-sidebar-ease);
+      padding-left var(--la-sidebar-dur) var(--la-sidebar-ease),
+      height var(--la-sidebar-dur) var(--la-sidebar-ease),
+      margin-top var(--la-sidebar-dur) var(--la-sidebar-ease),
+      margin-left var(--la-sidebar-dur) var(--la-sidebar-ease);
   }
 
   body.la-sidebar-motion.la-sidebar-collapsed .la-sidebar-profile {
     transition: background 150ms var(--la-ease),
       padding-left var(--la-sidebar-dur) var(--la-sidebar-ease),
+      height var(--la-sidebar-dur) var(--la-sidebar-ease),
+      margin-top var(--la-sidebar-dur) var(--la-sidebar-ease),
+      margin-left var(--la-sidebar-dur) var(--la-sidebar-ease),
       margin-right var(--la-sidebar-move) var(--la-sidebar-ease) var(--la-sidebar-label-out);
   }
 
   body.la-sidebar-motion .la-sidebar__collapse {
     transition: background 150ms var(--la-ease),
       top var(--la-sidebar-move) var(--la-sidebar-ease),
-      left var(--la-sidebar-move) var(--la-sidebar-ease),
-      width var(--la-sidebar-move) var(--la-sidebar-ease);
+      left var(--la-sidebar-move) var(--la-sidebar-ease);
   }
 
   body.la-sidebar-motion.la-sidebar-collapsed .la-sidebar__collapse {
     transition: background 150ms var(--la-ease),
       top var(--la-sidebar-move) var(--la-sidebar-ease) var(--la-sidebar-label-out),
-      left var(--la-sidebar-move) var(--la-sidebar-ease) var(--la-sidebar-label-out),
-      width var(--la-sidebar-move) var(--la-sidebar-ease) var(--la-sidebar-label-out);
+      left var(--la-sidebar-move) var(--la-sidebar-ease) var(--la-sidebar-label-out);
   }
 
   body.la-sidebar-motion .la-sidebar .la-nav__link {
     transition: background 150ms var(--la-ease),
-      padding var(--la-sidebar-dur) var(--la-sidebar-ease);
+      margin var(--la-sidebar-dur) var(--la-sidebar-ease);
   }
 
   body.la-sidebar-motion .la-sidebar-profile__content,
@@ -669,7 +685,8 @@ body.la-body a {
   }
 
   body.la-sidebar-motion .la-sidebar > .la-nav--primary {
-    transition: margin-bottom var(--la-sidebar-dur) var(--la-sidebar-ease);
+    transition: margin-top var(--la-sidebar-dur) var(--la-sidebar-ease),
+      margin-bottom var(--la-sidebar-dur) var(--la-sidebar-ease);
   }
 
   /* The collapsed Projects trigger stays out of the layout until the project list has faded out

@@ -173,6 +173,11 @@ body.pa-lock {
   appearance: none;
 }
 
+.pa-close svg {
+  display: block;
+  flex: none;
+}
+
 .pa-close:hover {
   background: var(--interactive-hover);
   color: var(--text-primary);
