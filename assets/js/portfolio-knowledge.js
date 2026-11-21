@@ -333,7 +333,7 @@ window.PortfolioKnowledge = (function () {
       preview: {
         kind: "concept",
         category: "AI tools \u00b7 Concept",
-        summary: "A concept for portfolio and resume feedback anchored to the exact line it refers to.",
+        summary: "Portfolio and resume feedback anchored to the exact line it refers to.",
         image: "projects/labs/assets/images/ai-design-review.webp",
         alt: "Concept illustration: a sample resume with one line highlighted and a numbered suggestion beside it",
       },
@@ -363,7 +363,7 @@ window.PortfolioKnowledge = (function () {
       preview: {
         kind: "concept",
         category: "Scheduling \u00b7 Concept",
-        summary: "A lightweight booking and client-management concept for independent service providers, starting with coaching and appointment-based businesses.",
+        summary: "Lightweight booking and client management for independent service providers, starting with coaching and appointment-based businesses.",
         image: "projects/labs/assets/images/trainer-workspace.webp",
         alt: "Concept illustration: a weekly check-in with sessions completed, a strength trend and a coach\u2019s note",
       },
