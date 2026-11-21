@@ -69,7 +69,7 @@
   function labsLibraryHtml() {
     if (!LAB_PROJECTS.length || !PK.projectCardHtml) return "";
     return (
-      '<p class="ws-detail__lead">Personal products and experiments outside professional work. Watch Face Layout Studio is built and tested (v0.1.0) in a private repository. Garmin Health Companion is a private exploration, and the other two are concepts. None is publicly released.</p>' +
+      '<p class="ws-detail__lead">Personal products and experiments outside professional work. AI Design Review Assistant and Booking Studio are concepts. Watch Face Layout Studio is built and tested (v0.1.0) in a private repository, and Garmin Health Companion is a private exploration. None is publicly released.</p>' +
       '<div class="la-project-cards">' +
       LAB_PROJECTS.map(PK.projectCardHtml).join("") +
       "</div>"

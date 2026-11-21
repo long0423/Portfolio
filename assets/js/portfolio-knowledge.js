@@ -309,7 +309,71 @@ window.PortfolioKnowledge = (function () {
      * published, so no Lab may be switched to "public" access until its page is.
      * displayTitle is the canonical product name for navigation, cards and Library;
      * name stays the full descriptive title for headings, descriptions and accessible names.
+     * The entries are in presentation order: homepage, navigation, Library and chat all follow it.
+     * Booking Studio keeps the id and slug of its first use case (trainer-workspace), so existing
+     * routes and links still resolve.
      */
+    {
+      id: "ai-design-review",
+      group: "labs",
+      stage: "concept",
+      slug: "ai-design-review",
+      file: "projects/labs/index.html?id=ai-design-review",
+      name: "AI Design Review Assistant",
+      shortName: "Design Review Assistant",
+      displayTitle: "AI Design Review",
+      category: "AI tools \u00b7 Design education",
+      status: "Concept",
+      href: "Me.html#/project/ai-design-review",
+      thumb: "projects/labs/assets/images/ai-design-review.webp",
+      thumbAlt: "Concept illustration of a resume page with numbered annotations and review notes",
+      keywords: ["design review assistant", "ai design review", "portfolio review", "resume review", "portfolio feedback"],
+      blurb: "Clearer, more actionable portfolio and resume feedback.",
+      preview: {
+        kind: "concept",
+        category: "AI tools \u00b7 Concept",
+        summary: "A concept for portfolio and resume feedback anchored to the exact line it refers to.",
+        image: "projects/labs/assets/images/ai-design-review.webp",
+        alt: "Concept illustration: a sample resume with one line highlighted and a numbered suggestion beside it",
+      },
+      ctaLabel: "Open concept overview",
+      featured: false,
+      concept: {
+        statusLabel: "Concept",
+        statusNote: "This is a concept. No working reviewer exists yet.",
+      },
+    },
+    {
+      id: "trainer-workspace",
+      group: "labs",
+      stage: "concept",
+      slug: "trainer-workspace",
+      file: "projects/labs/index.html?id=trainer-workspace",
+      name: "Booking Studio",
+      shortName: "Booking Studio",
+      displayTitle: "Booking Studio",
+      category: "Scheduling \u00b7 Client management",
+      status: "Concept",
+      href: "Me.html#/project/trainer-workspace",
+      thumb: "projects/labs/assets/images/trainer-workspace.webp",
+      thumbAlt: "Concept illustration of a weekly coaching check-in with sessions, a progress trend and notes",
+      keywords: ["booking studio", "appointment booking", "booking and client management", "personal trainer", "trainer workspace", "coaching workspace", "coach and client"],
+      blurb: "Scheduling and client management for independent service businesses.",
+      preview: {
+        kind: "concept",
+        category: "Scheduling \u00b7 Concept",
+        summary: "A lightweight booking and client-management concept for independent service providers, starting with coaching and appointment-based businesses.",
+        image: "projects/labs/assets/images/trainer-workspace.webp",
+        alt: "Concept illustration: a weekly check-in with sessions completed, a strength trend and a coach\u2019s note",
+      },
+      ctaLabel: "Open concept overview",
+      featured: false,
+      concept: {
+        statusLabel: "Concept",
+        statusNote:
+          "This is a product concept, not a launched service: no booking, messaging or payment features are built, and no business uses it.",
+      },
+    },
     {
       id: "layout-studio",
       group: "labs",
@@ -367,66 +431,6 @@ window.PortfolioKnowledge = (function () {
         statusNote:
           "An early private prototype uses synthetic data only. Nothing is released, and no personal health records are shown here.",
         disclaimer: "An independent personal project. It is not made, endorsed or supported by Garmin.",
-      },
-    },
-    {
-      id: "ai-design-review",
-      group: "labs",
-      stage: "concept",
-      slug: "ai-design-review",
-      file: "projects/labs/index.html?id=ai-design-review",
-      name: "AI Design Review Assistant",
-      shortName: "Design Review Assistant",
-      displayTitle: "AI Design Review",
-      category: "AI tools \u00b7 Design education",
-      status: "Concept",
-      href: "Me.html#/project/ai-design-review",
-      thumb: "projects/labs/assets/images/ai-design-review.webp",
-      thumbAlt: "Concept illustration of a resume page with numbered annotations and review notes",
-      keywords: ["design review assistant", "ai design review", "portfolio review", "resume review", "portfolio feedback"],
-      blurb: "Clearer, more actionable portfolio and resume feedback.",
-      preview: {
-        kind: "concept",
-        category: "AI tools \u00b7 Concept",
-        summary: "A concept for portfolio and resume feedback anchored to the exact line it refers to.",
-        image: "projects/labs/assets/images/ai-design-review.webp",
-        alt: "Concept illustration: a sample resume with one line highlighted and a numbered suggestion beside it",
-      },
-      ctaLabel: "Open concept overview",
-      featured: false,
-      concept: {
-        statusLabel: "Concept",
-        statusNote: "This is a concept. No working reviewer exists yet.",
-      },
-    },
-    {
-      id: "trainer-workspace",
-      group: "labs",
-      stage: "concept",
-      slug: "trainer-workspace",
-      file: "projects/labs/index.html?id=trainer-workspace",
-      name: "Personal Trainer Workspace",
-      shortName: "Trainer Workspace",
-      displayTitle: "Trainer Workspace",
-      category: "Fitness \u00b7 Coaching",
-      status: "Concept",
-      href: "Me.html#/project/trainer-workspace",
-      thumb: "projects/labs/assets/images/trainer-workspace.webp",
-      thumbAlt: "Concept illustration of a weekly coaching check-in with sessions, a progress trend and notes",
-      keywords: ["personal trainer", "trainer workspace", "coaching workspace", "coach and client"],
-      blurb: "A shared space for coaches and clients between sessions.",
-      preview: {
-        kind: "concept",
-        category: "Fitness \u00b7 Concept",
-        summary: "A concept for a shared weekly check-in between a coach and a client.",
-        image: "projects/labs/assets/images/trainer-workspace.webp",
-        alt: "Concept illustration: a weekly check-in with sessions completed, a strength trend and a coach\u2019s note",
-      },
-      ctaLabel: "Open concept overview",
-      featured: false,
-      concept: {
-        statusLabel: "Concept",
-        statusNote: "This is a concept. No working product exists yet.",
       },
     },
   ];
@@ -917,12 +921,13 @@ window.PortfolioKnowledge = (function () {
       html: `
         <p class="answer-lead">Independent Labs collects products, tools and experiments Long works on outside professional work. None of them is publicly released.</p>
         <ul>
+          <li><strong>AI Design Review Assistant:</strong> a concept for portfolio and resume feedback.</li>
+          <li><strong>Booking Studio:</strong> a concept for scheduling and client management in independent service businesses, starting with coaching.</li>
           <li><strong>Watch Face Layout Studio:</strong> built and tested (v0.1.0) in a private repository.</li>
           <li><strong>Garmin Health Companion:</strong> a private exploration that runs on synthetic data.</li>
-          <li><strong>AI Design Review Assistant</strong> and <strong>Personal Trainer Workspace:</strong> concepts.</li>
         </ul>
       `,
-      projectIds: ["layout-studio", "garmin-health-companion", "ai-design-review", "trainer-workspace"],
+      projectIds: ["ai-design-review", "trainer-workspace", "layout-studio", "garmin-health-companion"],
     },
     projects: {
       title: "Selected work",
