@@ -405,6 +405,7 @@
     const el = document.createElement("article");
     el.className = "la-msg la-msg--assistant";
     el.setAttribute("aria-live", "polite");
+    if (response.kind) el.setAttribute("data-pi-kind", response.kind);
 
     let bodyHtml = response.html || "";
     if (options.approachLink) {
@@ -488,7 +489,7 @@
     const thinkingEl = appendThinking();
 
     window.setTimeout(function () {
-      const response = PK.getResponse(question);
+      const finish = function (response) {
       if (thinkingEl && thinkingEl.parentNode) {
         thinkingEl.parentNode.removeChild(thinkingEl);
       }
@@ -512,6 +513,12 @@
       if (latest) {
         latest.setAttribute("tabindex", "-1");
         latest.focus({ preventScroll: true });
+      }
+      };
+      if (window.PortfolioIntelligence && typeof window.PortfolioIntelligence.answer === "function") {
+        window.PortfolioIntelligence.answer(question, finish);
+      } else {
+        finish(PK.getResponse(question));
       }
     }, thinkingDelay());
   }
