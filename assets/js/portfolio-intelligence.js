@@ -17,7 +17,7 @@
   var PUBLIC_MODEL_URL = "https://portfolio-ai.michaelgeng0423.workers.dev/ask";
   var HEALTH_URL = "http://127.0.0.1:8788/health";
   var MODEL_TIMEOUT_MS = 12000;
-  var PRODUCTION_AI_ENABLED = false;
+  var PRODUCTION_AI_ENABLED = true;
   var TURNSTILE_SITE_KEY = "0x4AAAAAAGTISoFr1WIJ4fa5";
   var TURNSTILE_ACTION = "portfolio-ai";
   var TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
