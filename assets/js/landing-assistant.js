@@ -811,7 +811,23 @@
     });
   }
 
+  let threadFollowsEnd = true;
+
+  function threadCanScroll() {
+    return !!(thread && thread.scrollHeight > thread.clientHeight + 1);
+  }
+
+  function threadIsAtEnd() {
+    if (!thread) return true;
+    return thread.scrollHeight - thread.clientHeight - thread.scrollTop < 24;
+  }
+
   function scrollThread() {
+    if (threadCanScroll()) {
+      thread.scrollTop = thread.scrollHeight;
+      threadFollowsEnd = true;
+      return;
+    }
     const chatPanel = document.getElementById("ws-panel-chat");
     if (chatPanel && !chatPanel.hidden) {
       chatPanel.scrollTop = chatPanel.scrollHeight;
@@ -819,6 +835,15 @@
     }
     if (!thread) return;
     thread.scrollTop = thread.scrollHeight;
+  }
+
+  if (thread && typeof ResizeObserver === "function") {
+    thread.addEventListener("scroll", function () {
+      threadFollowsEnd = threadIsAtEnd();
+    });
+    new ResizeObserver(function () {
+      if (threadFollowsEnd && threadCanScroll()) thread.scrollTop = thread.scrollHeight;
+    }).observe(thread);
   }
 
   function bindDynamicPrompts(root) {

@@ -1850,8 +1850,57 @@ body.la-drawer-open .la-backdrop {
 
 /* ========== Responsive ========== */
 @media (max-width: 900px) {
-  .la-shell.is-conversation .la-thread {
-    padding-bottom: 96px;
+  /* The mobile bar sits outside the shell. During a chat, both share the
+     visible height so a shorter viewport cannot leave the page scrolled
+     under the composer. */
+  body:has(.la-shell.is-conversation) {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .la-shell.is-conversation {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .la-shell.is-conversation #la-workspace.workspace {
+    min-height: 0;
+    height: 100%;
+  }
+
+  /* workspace.css makes the chat panel the scroller and keeps the composer
+     sticky. These selectors outrank that file so the thread scrolls inside
+     the space above the composer. */
+  #la-shell.is-conversation #ws-panel-chat {
+    overflow: hidden;
+  }
+
+  #la-shell.is-conversation #ws-panel-chat .la-stage,
+  #la-shell.is-conversation #ws-panel-chat .la-conversation {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  #la-shell.is-conversation #ws-panel-chat .la-thread {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 16px;
+    scroll-padding-bottom: 16px;
+  }
+
+  #la-shell.is-conversation #ws-panel-chat .la-composer-wrap--conversation {
+    position: static;
+    flex: 0 0 auto;
   }
 
   .la-sidebar {
