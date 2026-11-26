@@ -18,6 +18,7 @@
   var HEALTH_URL = "http://127.0.0.1:8788/health";
   var MODEL_TIMEOUT_MS = 12000;
   var PRODUCTION_AI_ENABLED = true;
+  var PRODUCTION_ANALYTICS_ENABLED = false;
   var TURNSTILE_SITE_KEY = "0x4AAAAAAGTISoFr1WIJ4fa5";
   var TURNSTILE_ACTION = "portfolio-ai";
   var TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
@@ -82,6 +83,7 @@
       .replace(/Please don't include confidential details\./gi, " ")
       .replace(/AI responses use public portfolio information\. Avoid sharing confidential details\./gi, " ")
       .replace(/Questions are processed by AI using public portfolio information\. Avoid sharing sensitive or confidential details\. Responses may be imperfect\./gi, " ")
+      .replace(/Aggregate counts of pages and project opens are processed by Cloudflare and are not tied to a person\./gi, " ")
       .replace(/This follow-up uses the curated portfolio response\./gi, " ")
       .replace(/\s+/g, " ")
       .trim();
@@ -304,7 +306,13 @@
   }
 
   function isAnalyticsAsk(text) {
-    return /\b(analytics|insights|traffic|visitors|visitor stats|page ?views)\b/i.test(text);
+    var q = String(text || "");
+    return /\b(analytics|insights|traffic|visitors|visitor stats|page ?views)\b/i.test(q)
+      || /\bhow many (people|visitors|visits)\b/i.test(q)
+      || /\b(opened most|most often|most viewed|most-viewed)\b/i.test(q)
+      || /\b(question topics|topics are visitors|visitors asking)\b/i.test(q)
+      || /\b(curated fallback|used fallback)\b/i.test(q)
+      || /\bengagement\b/i.test(q);
   }
 
   function isOpenAsk(text) {
@@ -493,7 +501,7 @@
       }
       var body = ctx.loopback
         ? "Portfolio analytics are not connected. An authenticated owner session and a backend aggregate are required before any figures can appear. There is no live data on this page."
-        : "Portfolio analytics are available only in an authenticated owner session. This public assistant cannot show them.";
+        : "That figure is not available. This public assistant does not report visitor counts, unique people, or project-open totals.";
       return {
         kind: "analytics-unavailable",
         category: "Other",
@@ -604,18 +612,159 @@
     var modelMode = "pending";
     var probe;
 
+    var COLLECT_TYPES = {
+      portfolio_viewed: 1,
+      project_card_opened: 1,
+      project_preview_opened: 1,
+      project_access_requested: 1,
+      quick_prompt_selected: 1,
+      chat_prompt_submitted: 1,
+    };
+    var COLLECT_SLUGS = {
+      "tax-advice": 1,
+      pathfinder: 1,
+      "agent-os": 1,
+      chatpwc: 1,
+      "ai-design-system": 1,
+      "ma-path": 1,
+      pulse: 1,
+      dcb: 1,
+      "layout-studio": 1,
+      "garmin-health-companion": 1,
+      "ai-design-review": 1,
+      "trainer-workspace": 1,
+    };
+    var ID_TO_SLUG = {
+      write: "tax-advice",
+      pathfinder: "pathfinder",
+      agentos: "agent-os",
+      chatpwc: "chatpwc",
+      "enterprise-ai-design-system": "ai-design-system",
+      map: "ma-path",
+      pulse: "pulse",
+      dcb: "dcb",
+      "layout-studio": "layout-studio",
+      "garmin-health-companion": "garmin-health-companion",
+      "ai-design-review": "ai-design-review",
+      "trainer-workspace": "trainer-workspace",
+    };
+
+    function canonicalSlug(value) {
+      if (COLLECT_SLUGS[value]) return value;
+      return ID_TO_SLUG[value] || "";
+    }
+    var COLLECT_VIEWS = { chat: 1, library: 1, approach: 1, resume: 1, contact: 1, project: 1 };
+    var COLLECT_SECTIONS = { about: 1, experience: 1, "ai-capabilities": 1, skills: 1, impact: 1 };
+    var COLLECT_SOURCES = { load: 1, navigation: 1, card: 1, preview: 1, access: 1, quick_prompt: 1, composer: 1, server: 1 };
+    var COLLECT_CATEGORIES = {
+      "AI Design": 1,
+      "Agent OS": 1,
+      Pathfinder: 1,
+      "Project Access": 1,
+      Experience: 1,
+      Skills: 1,
+      "Independent Labs": 1,
+      Other: 1,
+    };
+    var COLLECT_OUTCOMES = {
+      submitted: 1,
+      generated: 1,
+      curated: 1,
+      generic: 1,
+      unverified: 1,
+      quota: 1,
+      timeout: 1,
+      network: 1,
+      unavailable: 1,
+      boundary: 1,
+    };
+    var COLLECT_QUICK = {
+      roleAndImpact: 1,
+      process: 1,
+      prototyping: 1,
+      aiTrust: 1,
+      labs: 1,
+      recommend: 1,
+      experience: 1,
+      collaboration: 1,
+      designSystem: 1,
+      strengths: 1,
+      pathfinder: 1,
+      "agent-os": 1,
+      "tax-advice": 1,
+    };
+    var lastView = "";
+    var burst = {};
+
     function allowProps(props) {
       var allowed = {};
-      var keys = ["category", "intent", "slug", "view", "section", "ms", "target", "status", "quickPrompt"];
+      var keys = ["category", "intent", "slug", "view", "section", "ms", "target", "status", "quickPrompt", "source", "outcome"];
       keys.forEach(function (key) {
-        if (props && props[key] != null && typeof props[key] !== "object") allowed[key] = props[key];
+        if (!props || props[key] == null || typeof props[key] === "object") return;
+        if (key === "slug" && !canonicalSlug(props[key])) return;
+        if (key === "section" && !COLLECT_SECTIONS[props[key]]) return;
+        if (key === "quickPrompt" && !COLLECT_QUICK[props[key]]) return;
+        allowed[key] = props[key];
       });
       return allowed;
     }
 
+    function cleanCollect(name, props) {
+      var src = props || {};
+      var event = { v: 1, type: name };
+      if (COLLECT_VIEWS[src.view]) event.view = src.view;
+      if (COLLECT_SECTIONS[src.section]) event.section = src.section;
+      var slug = canonicalSlug(src.slug) || (name === "portfolio_viewed" && src.view === "project" ? canonicalSlug(src.section) : "");
+      if (slug) event.slug = slug;
+      if (COLLECT_SOURCES[src.source]) event.source = src.source;
+      if (COLLECT_CATEGORIES[src.category]) event.category = src.category;
+      if (COLLECT_OUTCOMES[src.outcome]) event.outcome = src.outcome;
+      if (COLLECT_QUICK[src.quickPrompt]) event.quickPrompt = src.quickPrompt;
+      if (name === "portfolio_viewed" && !event.source) event.source = lastView ? "navigation" : "load";
+      return event;
+    }
+
+    function duplicate(event) {
+      if (event.type === "portfolio_viewed") {
+        var key = (event.view || "") + "|" + (event.slug || "") + "|" + (event.section || "");
+        if (key === lastView) return true;
+        lastView = key;
+        return false;
+      }
+      var id = [event.type, event.slug || "", event.quickPrompt || "", event.source || ""].join("|");
+      if (burst[id]) return true;
+      burst[id] = true;
+      if (window.setTimeout) window.setTimeout(function () { delete burst[id]; }, 0);
+      return false;
+    }
+
+    function sendCollect(event) {
+      if (!PRODUCTION_ANALYTICS_ENABLED) return;
+      var loc = window.location || {};
+      var backend = backendChoice(loc.hostname, loc.search);
+      var url = backend === "public"
+        ? "https://portfolio-ai.michaelgeng0423.workers.dev/collect"
+        : backend === "local"
+          ? "http://127.0.0.1:8788/collect"
+          : "";
+      if (!url || typeof window.fetch !== "function") return;
+      try {
+        window.fetch(url, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(event),
+          keepalive: true,
+        }).catch(function () {});
+      } catch (err) {
+        /* analytics must not break the conversation */
+      }
+    }
+
     function track(name, props) {
-      if (!/^[a-z_]+$/.test(name)) return;
-      var event = { name: name, t: Date.now(), props: allowProps(props) };
+      if (!COLLECT_TYPES[name] && !/^[a-z_]+$/.test(name)) return;
+      var collectable = COLLECT_TYPES[name] ? cleanCollect(name, props) : null;
+      if (collectable && duplicate(collectable)) return;
+      var event = { name: name, t: Date.now(), props: allowProps(collectable || props) };
       memory.push(event);
       if (memory.length > MAX_EVENTS) memory.shift();
       try {
@@ -623,6 +772,7 @@
       } catch (err) {
         /* storage unavailable; the in-memory buffer still covers this page */
       }
+      if (collectable) sendCollect(collectable);
     }
 
     function context() {
@@ -843,6 +993,19 @@
         return;
       }
       var promptId = quickPromptId(question);
+      if (promptId && !COLLECT_QUICK[promptId]) {
+        var labelled = {
+          "explore regulatory pathfinder": "pathfinder",
+          "tell me about agentos": "agent-os",
+          "tell me about tax advice ai": "tax-advice",
+        };
+        promptId = labelled[normalize(question)] || "";
+      }
+      if (promptId && COLLECT_QUICK[promptId]) {
+        track("quick_prompt_selected", { quickPrompt: promptId, source: "quick_prompt", category: categoryFor(promptId, null) });
+      } else {
+        promptId = "";
+      }
       if (decision.kind === "navigate" && window.WorkspaceApp && typeof window.WorkspaceApp.navigate === "function") {
         window.WorkspaceApp.navigate({ view: "project", project: decision.slug });
       }
@@ -850,6 +1013,8 @@
         track("chat_prompt_submitted", {
           category: decision.category || "Other",
           quickPrompt: promptId,
+          source: promptId ? "quick_prompt" : "composer",
+          outcome: "submitted",
         });
         track("chat_intent_classified", { intent: decision.kind, category: decision.category || "Other" });
         finish(decision.response);
@@ -862,7 +1027,12 @@
           : curated(question);
       var intent = local && local.intent ? local.intent : "unknown";
       var category = categoryFor(intent, null);
-      track("chat_prompt_submitted", { category: category, quickPrompt: promptId });
+      track("chat_prompt_submitted", {
+        category: category,
+        quickPrompt: promptId,
+        source: promptId ? "quick_prompt" : "composer",
+        outcome: "submitted",
+      });
       track("chat_intent_classified", { intent: String(intent), category: category });
       var ctxNow = context();
       var canModel = ctxNow.backend !== "disabled" && !promptId && (decision.kind === "converse" || decision.kind === "curated");
@@ -946,13 +1116,27 @@
         if (doc.visibilityState === "hidden") flushDwell();
         else visibleSince = Date.now();
       });
+      if (window.history && typeof window.history.replaceState === "function" && !window.history.__piViewWrapped) {
+        var replaceRoute = window.history.replaceState;
+        window.history.replaceState = function () {
+          var before = (window.location && window.location.hash) || "";
+          var result = replaceRoute.apply(this, arguments);
+          var after = (window.location && window.location.hash) || "";
+          if (after !== before) {
+            flushDwell();
+            markVisible();
+          }
+          return result;
+        };
+        window.history.__piViewWrapped = true;
+      }
       doc.addEventListener("click", function (event) {
         var node = event.target && event.target.closest ? event.target : null;
         if (!node || !node.closest) return;
         if (node.closest("#la-nav-new-chat, .la-chat__new")) turns = [];
         var projectLink = node.closest("[data-project-id]");
         if (projectLink) {
-          track("project_card_opened", { slug: projectLink.getAttribute("data-project-id") || "" });
+          track("project_card_opened", { slug: projectLink.getAttribute("data-project-id") || "", source: "card" });
         }
         var contact = node.closest("a[href]");
         if (contact) {
@@ -961,14 +1145,14 @@
           else if (href.indexOf("linkedin.com") !== -1) track("contact_clicked", { target: "linkedin" });
         }
         if (node.closest("#pa-contact")) {
-          track("project_access_requested", { target: "preview" });
+          track("project_access_requested", { source: "access" });
         }
       });
       if (window.PortfolioAccess && !window.PortfolioAccess.__piWrapped) {
         var original = window.PortfolioAccess.open;
         window.PortfolioAccess.open = function (options) {
           options = options || {};
-          track("project_preview_opened", { slug: options.slug || options.id || "" });
+          track("project_preview_opened", { slug: options.slug || options.id || "", source: "preview" });
           return original.apply(this, arguments);
         };
         window.PortfolioAccess.__piWrapped = true;
@@ -993,6 +1177,7 @@
     backendChoice: backendChoice,
     mockAnswer: mockAnswer,
     PRODUCTION_AI_ENABLED: PRODUCTION_AI_ENABLED,
+    PRODUCTION_ANALYTICS_ENABLED: PRODUCTION_ANALYTICS_ENABLED,
     TURNSTILE_SITE_KEY: TURNSTILE_SITE_KEY,
     TURNSTILE_ACTION: TURNSTILE_ACTION,
     AI_DISCLOSURE: AI_DISCLOSURE,
