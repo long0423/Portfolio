@@ -23,6 +23,8 @@
   var TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
   var AI_DISCLOSURE = "AI-generated \u00b7 Based on public portfolio information";
   var AI_BEFORE_NOTE = "AI responses use public portfolio information. Avoid sharing confidential details.";
+  var GENERIC_HELP = "I can help you explore Long's work, experience, skills and projects. What would you like to know?";
+  var CURATED_FOLLOW_UP = "This follow-up uses the curated portfolio response.";
   var PRIVACY_NOTE = "This answer is AI-generated from published portfolio information. Please don't include confidential details. Responses can be imperfect.";
   var QUOTA_NOTE = "The model quota is exhausted, so this answer uses the curated portfolio responses.";
   var DAY_NOTE = "Today's assistant capacity is used up, so this answer uses the curated portfolio responses.";
@@ -70,6 +72,44 @@
 
   function endpointFor(backend) {
     return backend === "public" ? PUBLIC_MODEL_URL : MODEL_URL;
+  }
+
+  function stripDisplayNotes(text) {
+    return String(text || "")
+      .replace(/AI-generated\s*·\s*Based on public portfolio information/gi, " ")
+      .replace(/This answer is AI-generated from published portfolio information\. Please don't include confidential details\. Responses can be imperfect\./gi, " ")
+      .replace(/Please don't include confidential details\./gi, " ")
+      .replace(/AI responses use public portfolio information\. Avoid sharing confidential details\./gi, " ")
+      .replace(/This follow-up uses the curated portfolio response\./gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function isGenericNonAnswer(text) {
+    return normalize(stripDisplayNotes(text)) === normalize(GENERIC_HELP);
+  }
+
+  function conversationalText(result) {
+    var source = result && result.contextText != null ? result.contextText : String((result && result.html) || "").replace(/<[^>]*>/g, " ");
+    return stripDisplayNotes(source).slice(0, 400);
+  }
+
+  function pushTurn(turns, question, result, onDomain) {
+    var next = (turns || []).slice();
+    var plain = conversationalText(result);
+    if (!plain || isGenericNonAnswer(plain)) return next;
+    next.push({ q: String(question || "").slice(0, 400), a: plain, onDomain: !!onDomain });
+    if (next.length > 2) next.shift();
+    return next;
+  }
+
+  function priorMessages(turns) {
+    var prior = [];
+    (turns || []).forEach(function (turn) {
+      prior.push({ role: "user", text: turn.q });
+      prior.push({ role: "assistant", text: turn.a });
+    });
+    return prior.slice(-4);
   }
 
   function publicAskBody(question, prior, token) {
@@ -560,13 +600,9 @@
     }
 
     function remember(question, result, onDomain) {
-      var plain = String((result && result.html) || "")
-        .replace(/<[^>]*>/g, " ")
-        .replace(/\s+/g, " ")
-        .trim()
-        .slice(0, 400);
-      turns.push({ q: String(question || "").slice(0, 400), a: plain, onDomain: !!onDomain });
-      if (turns.length > 2) turns.shift();
+      var next = pushTurn(turns, question, result, onDomain);
+      turns.splice(0, turns.length);
+      next.forEach(function (turn) { turns.push(turn); });
     }
 
     function ensureModel() {
@@ -608,14 +644,10 @@
       var timer = window.setTimeout(function () {
         if (controller) controller.abort();
       }, MODEL_TIMEOUT_MS);
-      var prior = [];
-      turns.forEach(function (turn) {
-        prior.push({ role: "user", text: turn.q });
-        prior.push({ role: "assistant", text: turn.a });
-      });
+      var prior = priorMessages(turns);
       var payload = backend === "public"
         ? publicAskBody(question, prior, token)
-        : { question: String(question).slice(0, 800), prior: prior.slice(-4) };
+        : { question: String(question).slice(0, 800), prior: prior };
       window
         .fetch(endpointFor(backend), {
           method: "POST",
@@ -635,7 +667,12 @@
             finish(fallback);
             return;
           }
-          if (data.status === "boundary") {
+          if (data.status === "boundary" || data.status === "generic" || isGenericNonAnswer(data.answer)) {
+            var generic = isGenericNonAnswer(data.answer || GENERIC_HELP);
+            if (generic) {
+              finish(curatedFollowUp(question));
+              return;
+            }
             var boundary = response("boundary", "How I can help", paragraph(data.answer || BOUNDARY));
             remember(question, boundary, false);
             finish(boundary);
@@ -658,7 +695,7 @@
             ? paragraph("Simulated local draft. No model provider was called.")
             : paragraph(AI_DISCLOSURE) + paragraph(PRIVACY_NOTE);
           var projects = window.PortfolioKnowledge && window.PortfolioKnowledge.projects;
-          var spoken = response(kind, "Public portfolio", plainAnswerHtml(data.answer, projects) + note);
+          var spoken = response(kind, "Public portfolio", plainAnswerHtml(data.answer, projects) + note, { contextText: data.answer });
           remember(question, spoken, true);
           finish(spoken);
         })
@@ -667,6 +704,28 @@
           var timedOut = err && err.name === "AbortError";
           finish(unavailable(fallback, timedOut ? TIMEOUT_NOTE : NETWORK_NOTE));
         });
+    }
+
+    function curatedFollowUp(question) {
+      var priorText = turns.map(function (turn) { return turn.q + " " + turn.a; }).join(" ");
+      var card = null;
+      if (/agent\s*os|agentos/i.test(priorText) && window.PortfolioKnowledge && window.PortfolioKnowledge.getResponse) {
+        card = window.PortfolioKnowledge.getResponse("What is Agent OS?");
+      }
+      if (card && card.html && !isGenericNonAnswer(card.html)) {
+        var alreadyShown = /three-panel/i.test(priorText) && /role:\s*design lead/i.test(priorText);
+        var body = alreadyShown
+          ? paragraph(CURATED_FOLLOW_UP) + paragraph("AgentOS is PwC's agent workspace: agents, conversation and artefacts in one three-panel layout, with activity shown on demand.")
+          : paragraph(CURATED_FOLLOW_UP) + card.html;
+        var spoken = response("curated", card.title || "AgentOS", body, {
+          contextText: alreadyShown
+            ? "AgentOS is PwC's agent workspace: agents, conversation and artefacts in one three-panel layout, with activity shown on demand."
+            : conversationalText({ html: card.html }),
+        });
+        remember(question, spoken, true);
+        return spoken;
+      }
+      return response("boundary", "How I can help", paragraph(GENERIC_HELP));
     }
 
     function deliverMock(question, fallback, fault, finish) {
@@ -682,11 +741,7 @@
         finish(unavailable(fallback, faults[fault]));
         return;
       }
-      var prior = [];
-      turns.forEach(function (turn) {
-        prior.push({ role: "user", text: turn.q });
-        prior.push({ role: "assistant", text: turn.a });
-      });
+      var prior = priorMessages(turns);
       var text = fault === "malformed"
         ? "<script>alert(1)</script>At PwC Australia's AI Centre of Excellence, Long has been the design lead on several enterprise AI products."
         : mockAnswer(question, prior);
@@ -699,7 +754,8 @@
       var spoken = response(
         "model-simulated",
         "Public portfolio",
-        plainAnswerHtml(text, projects) + paragraph("Mock local draft. No model provider was called.")
+        plainAnswerHtml(text, projects) + paragraph("Mock local draft. No model provider was called."),
+        { contextText: text }
       );
       remember(question, spoken, true);
       finish(spoken);
@@ -880,6 +936,11 @@
     AI_BEFORE_NOTE: AI_BEFORE_NOTE,
     PRIVACY_NOTE: PRIVACY_NOTE,
     publicAskBody: publicAskBody,
+    conversationalText: conversationalText,
+    isGenericNonAnswer: isGenericNonAnswer,
+    pushTurn: pushTurn,
+    priorMessages: priorMessages,
+    GENERIC_HELP: GENERIC_HELP,
     acquireTurnstileToken: acquireTurnstileToken,
     mountAiNotice: mountAiNotice,
   };
