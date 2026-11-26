@@ -23,6 +23,7 @@
   var TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
   var AI_DISCLOSURE = "AI-generated \u00b7 Based on public portfolio information";
   var AI_BEFORE_NOTE = "AI responses use public portfolio information. Avoid sharing confidential details.";
+  var AI_INFO_NOTE = "Questions are processed by AI using public portfolio information. Avoid sharing sensitive or confidential details. Responses may be imperfect.";
   var GENERIC_HELP = "I can help you explore Long's work, experience, skills and projects. What would you like to know?";
   var CURATED_FOLLOW_UP = "This follow-up uses the curated portfolio response.";
   var PRIVACY_NOTE = "This answer is AI-generated from published portfolio information. Please don't include confidential details. Responses can be imperfect.";
@@ -80,6 +81,7 @@
       .replace(/This answer is AI-generated from published portfolio information\. Please don't include confidential details\. Responses can be imperfect\./gi, " ")
       .replace(/Please don't include confidential details\./gi, " ")
       .replace(/AI responses use public portfolio information\. Avoid sharing confidential details\./gi, " ")
+      .replace(/Questions are processed by AI using public portfolio information\. Avoid sharing sensitive or confidential details\. Responses may be imperfect\./gi, " ")
       .replace(/This follow-up uses the curated portfolio response\./gi, " ")
       .replace(/\s+/g, " ")
       .trim();
@@ -204,18 +206,59 @@
     });
   }
 
+  function closeAiInfo(doc) {
+    if (!doc || !doc.querySelectorAll) return;
+    var buttons = doc.querySelectorAll(".pi-ai-info");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute("aria-expanded", "false");
+      var pop = doc.getElementById && doc.getElementById(buttons[i].getAttribute("aria-controls"));
+      if (pop) pop.hidden = true;
+    }
+  }
+
   function mountAiNotice(doc, hostname, search) {
     if (!doc || backendChoice(hostname, search) !== "public" || typeof doc.querySelectorAll !== "function") return 0;
     var wraps = doc.querySelectorAll(".la-composer-wrap");
     var added = 0;
     for (var i = 0; i < wraps.length; i++) {
-      if (wraps[i].querySelector && wraps[i].querySelector(".pi-ai-notice")) continue;
-      var note = doc.createElement("p");
-      note.className = "pi-ai-notice";
-      note.textContent = AI_BEFORE_NOTE;
-      note.style.cssText = "margin:0 0 8px;font-size:12px;line-height:16px;opacity:0.72;";
-      wraps[i].insertBefore(note, wraps[i].firstChild || null);
+      if (wraps[i].querySelector && wraps[i].querySelector(".pi-ai-info")) continue;
+      var toolbar = wraps[i].querySelector(".la-composer__toolbar");
+      var button = doc.createElement("button");
+      button.type = "button";
+      button.className = "pi-ai-info";
+      button.setAttribute("aria-label", "About AI answers");
+      button.setAttribute("aria-expanded", "false");
+      button.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.25"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><circle cx="8" cy="4.7" r="0.7" fill="currentColor"/></svg>';
+      var pop = doc.createElement("p");
+      pop.className = "pi-ai-popover";
+      pop.id = "pi-ai-popover-" + i;
+      pop.setAttribute("role", "note");
+      pop.hidden = true;
+      pop.textContent = AI_INFO_NOTE;
+      button.setAttribute("aria-controls", pop.id);
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var open = this.getAttribute("aria-expanded") === "true";
+        closeAiInfo(doc);
+        if (!open) {
+          this.setAttribute("aria-expanded", "true");
+          var panel = doc.getElementById(this.getAttribute("aria-controls"));
+          if (panel) panel.hidden = false;
+        }
+      });
+      if (toolbar && toolbar.insertBefore) toolbar.insertBefore(button, toolbar.firstChild || null);
+      else wraps[i].insertBefore(button, wraps[i].firstChild || null);
+      if (toolbar && toolbar.appendChild) toolbar.appendChild(pop);
+      else wraps[i].appendChild(pop);
       added += 1;
+    }
+    if (added && !doc.__piAiInfoBound && doc.addEventListener) {
+      doc.__piAiInfoBound = true;
+      doc.addEventListener("click", function () { closeAiInfo(doc); });
+      doc.addEventListener("keydown", function (event) {
+        if (event && event.key === "Escape") closeAiInfo(doc);
+      });
     }
     return added;
   }
@@ -508,6 +551,12 @@
     return { kind: "curated", category: null };
   }
 
+  function emphasise(escaped) {
+    return String(escaped || "")
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/__([^_]+)__/g, "<strong>$1</strong>");
+  }
+
   function plainAnswerHtml(text, projects) {
     var clean = String(text || "")
       .replace(/<[^>]*>/g, "")
@@ -518,7 +567,21 @@
     var body = clean
       .split(/\n{2,}/)
       .map(function (part) {
-        return paragraph(part);
+        var lines = String(part || "")
+          .split(/\n/)
+          .map(function (line) { return line.trim(); })
+          .filter(Boolean);
+        if (!lines.length) return "";
+        if (lines.length === 1 && /^#{1,3}\s+/.test(lines[0])) {
+          return '<h3 class="answer-heading">' + emphasise(escapeHtml(lines[0].replace(/^#{1,3}\s+/, ""))) + "</h3>";
+        }
+        var listed = lines.every(function (line) { return /^([-*•]|\d+[.)])\s+/.test(line); });
+        if (listed) {
+          return "<ul>" + lines.map(function (line) {
+            return "<li>" + emphasise(escapeHtml(line.replace(/^([-*•]|\d+[.)])\s+/, ""))) + "</li>";
+          }).join("") + "</ul>";
+        }
+        return '<p class="answer-body">' + emphasise(escapeHtml(lines.join(" "))) + "</p>";
       })
       .join("");
     var links = [];
@@ -693,7 +756,7 @@
           var kind = data.status === "simulated" ? "model-simulated" : "model-draft";
           var note = kind === "model-simulated"
             ? paragraph("Simulated local draft. No model provider was called.")
-            : paragraph(AI_DISCLOSURE) + paragraph(PRIVACY_NOTE);
+            : '<p class="answer-meta">' + escapeHtml(AI_DISCLOSURE) + "</p>";
           var projects = window.PortfolioKnowledge && window.PortfolioKnowledge.projects;
           var spoken = response(kind, "Public portfolio", plainAnswerHtml(data.answer, projects) + note, { contextText: data.answer });
           remember(question, spoken, true);
@@ -934,6 +997,7 @@
     TURNSTILE_ACTION: TURNSTILE_ACTION,
     AI_DISCLOSURE: AI_DISCLOSURE,
     AI_BEFORE_NOTE: AI_BEFORE_NOTE,
+    AI_INFO_NOTE: AI_INFO_NOTE,
     PRIVACY_NOTE: PRIVACY_NOTE,
     publicAskBody: publicAskBody,
     conversationalText: conversationalText,

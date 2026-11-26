@@ -927,6 +927,61 @@ body.la-drawer-open .la-backdrop {
   flex-shrink: 0;
   align-self: center;
   height: 32px;
+  position: relative;
+}
+
+.pi-ai-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+}
+
+.pi-ai-info svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.pi-ai-info:hover,
+.pi-ai-info[aria-expanded="true"] {
+  color: var(--text-primary);
+  background: var(--background-tertiary);
+}
+
+.pi-ai-info:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.pi-ai-popover {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  width: min(280px, calc(100vw - 32px));
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  background: var(--background-primary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: left;
+  z-index: 40;
+}
+
+.pi-ai-popover[hidden] {
+  display: none;
 }
 
 .la-composer.is-multiline {
@@ -1364,6 +1419,19 @@ body.la-drawer-open .la-backdrop {
   margin: 0 0 12px;
 }
 
+.la-msg__content .answer-body {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.la-msg__content .answer-body strong,
+.la-msg__content li strong,
+.la-msg__content .answer-heading strong {
+  font-weight: 600;
+}
+
 .la-msg__content p:last-child {
   margin-bottom: 0;
 }
@@ -1381,6 +1449,26 @@ body.la-drawer-open .la-backdrop {
   font-weight: 600;
   line-height: 1.4;
   color: var(--text-primary);
+}
+
+.la-msg__content .answer-heading {
+  margin: 16px 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.la-msg__content .answer-heading:first-child {
+  margin-top: 0;
+}
+
+.la-msg__content .answer-meta {
+  margin: 12px 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-tertiary);
 }
 
 .la-msg__content ul {
@@ -1409,7 +1497,7 @@ body.la-drawer-open .la-backdrop {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 14px;
+  margin: 12px 0;
 }
 
 .answer-link {
