@@ -24,7 +24,7 @@
   var TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
   var AI_DISCLOSURE = "AI-generated \u00b7 Based on public portfolio information";
   var AI_BEFORE_NOTE = "AI responses use public portfolio information. Avoid sharing confidential details.";
-  var AI_INFO_NOTE = "Questions are processed by AI using public portfolio information. Avoid sharing sensitive or confidential details. Responses may be imperfect.";
+  var AI_INFO_NOTE = "Questions are processed by AI using public portfolio information. Aggregate site interactions, such as project opens, are measured without storing your questions or personal identifiers in analytics. Avoid sharing sensitive information.";
   var GENERIC_HELP = "I can help you explore Long's work, experience, skills and projects. What would you like to know?";
   var CURATED_FOLLOW_UP = "This follow-up uses the curated portfolio response.";
   var PRIVACY_NOTE = "This answer is AI-generated from published portfolio information. Please don't include confidential details. Responses can be imperfect.";
@@ -83,6 +83,7 @@
       .replace(/Please don't include confidential details\./gi, " ")
       .replace(/AI responses use public portfolio information\. Avoid sharing confidential details\./gi, " ")
       .replace(/Questions are processed by AI using public portfolio information\. Avoid sharing sensitive or confidential details\. Responses may be imperfect\./gi, " ")
+      .replace(/Questions are processed by AI using public portfolio information\. Aggregate site interactions, such as project opens, are measured without storing your questions or personal identifiers in analytics\. Avoid sharing sensitive information\./gi, " ")
       .replace(/Aggregate counts of pages and project opens are processed by Cloudflare and are not tied to a person\./gi, " ")
       .replace(/This follow-up uses the curated portfolio response\./gi, " ")
       .replace(/\s+/g, " ")
