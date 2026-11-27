@@ -18,7 +18,7 @@
   var HEALTH_URL = "http://127.0.0.1:8788/health";
   var MODEL_TIMEOUT_MS = 12000;
   var PRODUCTION_AI_ENABLED = true;
-  var PRODUCTION_ANALYTICS_ENABLED = false;
+  var PRODUCTION_ANALYTICS_ENABLED = true;
   var TURNSTILE_SITE_KEY = "0x4AAAAAAGTISoFr1WIJ4fa5";
   var TURNSTILE_ACTION = "portfolio-ai";
   var TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
